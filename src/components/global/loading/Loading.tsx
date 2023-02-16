@@ -12,7 +12,7 @@ export const Loading = () => {
   }, []);
 
   return (
-    <section className={styles.overlay}>
+    <section className={styles.overlay} data-test-id='loader'>
       <span className={styles.spinner} />
     </section>
   );

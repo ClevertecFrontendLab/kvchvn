@@ -27,7 +27,7 @@ export const Toast = ({ type, message }: ToastProps) => {
   const handleClick = () => setIsShowToast(false);
 
   return isShowToast ? (
-    <section className={styles.section}>
+    <section className={styles.section} data-test-id='error'>
       <Wrapper>
         <div className={complexStyles.box}>
           <section className={complexStyles.content}>
