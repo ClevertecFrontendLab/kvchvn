@@ -1,0 +1,43 @@
+@use '../../../styles/mixins/common';
+@use '../../../styles/mixins/font';
+@use '../../../styles/vars';
+
+.feedback-box {
+  @include common.flex(row, flex-start, flex-start, 16px);
+  flex-wrap: wrap;
+
+  @include common.media(vars.$mobile-medium) {
+    gap: 8px;
+  }
+
+  & > p {
+    @include font.body(vars.$large);
+  }
+}
+
+.author-box {
+  @include common.flex(row, flex-start, center, 24px);
+
+  @include common.media(vars.$mobile-medium) {
+    @include common.flex(column, center, flex-start);
+    flex-wrap: wrap;
+    column-gap: 16px;
+    height: 50px;
+  }
+
+  & > img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  & > p {
+    @include font.body(vars.$large);
+    color: vars.$darkgray;
+  }
+}
+
+.rating-box {
+  width: 100%;
+  height: 24px;
+}

@@ -1,0 +1,62 @@
+@use '../../../styles/mixins/common';
+@use '../../../styles/mixins/font';
+@use '../../../styles/vars';
+
+$dropdown-menu-height: 150px;
+
+.user-box {
+  @include common.flex(row, flex-end, center, 16px);
+  position: relative;
+  margin-left: auto;
+  height: 58px;
+
+  @include common.media(vars.$tablet-large) {
+    display: none;
+  }
+
+  & > p {
+    @include font.subtitle(vars.$small);
+  }
+
+  & > img {
+    box-shadow: vars.$plate-shadow;
+    border-radius: 50%;
+    width: 60px;
+    object-fit: fill;
+    cursor: pointer;
+  }
+}
+
+.dropdown-menu {
+  @include common.flex(column, flex-start, flex-end, 16px);
+  @include font.font(18px, 28px, 700);
+  padding: 32px 24px;
+  position: absolute;
+  bottom: -($dropdown-menu-height + 5px);
+  left: 0;
+  width: 100%;
+  height: $dropdown-menu-height;
+  border-radius: 10px;
+  background-color: vars.$white;
+  box-shadow: vars.$plate-shadow;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transform-origin: top;
+  z-index: 4;
+  transition: all 0.5s;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50px);
+  }
+
+  & > li {
+    cursor: pointer;
+
+    &:hover {
+      color: vars.$orange;
+    }
+  }
+}

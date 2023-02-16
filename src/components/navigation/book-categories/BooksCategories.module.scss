@@ -1,0 +1,55 @@
+@use '../../../styles/mixins/common';
+@use '../../../styles/mixins/font';
+@use '../../../styles/mixins/animation';
+@use '../../../styles/keyframes';
+@use '../../../styles/vars';
+
+.category-list {
+  &:global {
+    @include animation.setAnimation(appear, 1s);
+  }
+
+  @include common.flex(column, flex-start, flex-start, 16px);
+  margin: 16px 0 0 20px;
+  max-height: 1000px;
+  visibility: visible;
+  opacity: 1;
+
+  &.hidden {
+    &:global {
+      @include animation.setAnimation(fade, 1s);
+    }
+
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.category-item {
+  & > a {
+    @include font.body(vars.$large);
+    gap: 6px;
+    word-wrap: break-word;
+
+    &:hover {
+      color: vars.$orange;
+    }
+
+    &.active {
+      font-size: 18px;
+      font-weight: 700;
+      color: vars.$orange;
+    }
+
+    & > span {
+      margin-left: 6px;
+      color: vars.$gray;
+      font-weight: 400;
+    }
+
+    &.active > span {
+      color: vars.$dark;
+    }
+  }
+}
