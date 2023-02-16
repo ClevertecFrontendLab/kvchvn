@@ -25,3 +25,5 @@ export const TERMS_PAGE_TITLE = {
   terms: 'Правила использования',
   contract: 'Договор оферты',
 };
+
+export const DEFAULT_ERROR_MESSAGE = 'Что-то пошло не так. Обновите страницу через некоторое время.';
