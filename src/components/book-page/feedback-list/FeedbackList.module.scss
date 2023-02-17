@@ -1,29 +1,21 @@
 @use '../../../styles/mixins/common';
 @use '../../../styles/mixins/font';
 @use '../../../styles/mixins/animation';
-@use '../../../styles/keyframes';
 @use '../../../styles/vars';
 
 .comments-box {
-  &:global {
-    @include animation.setAnimation(appear, 1s);
-  }
-
   @include common.flex(column, flex-start, stretch, 42px);
   max-height: 1000px;
   visibility: visible;
   opacity: 1;
   overflow: hidden;
+  transition: all 1s;
 
   @include common.media(vars.$mobile-medium) {
     gap: 32px;
   }
 
   &.hidden {
-    &:global {
-      @include animation.setAnimation(fade, 1s);
-    }
-
     max-height: 0;
     visibility: hidden;
     opacity: 0;

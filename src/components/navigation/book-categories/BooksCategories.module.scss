@@ -1,25 +1,17 @@
 @use '../../../styles/mixins/common';
 @use '../../../styles/mixins/font';
 @use '../../../styles/mixins/animation';
-@use '../../../styles/keyframes';
 @use '../../../styles/vars';
 
 .category-list {
-  &:global {
-    @include animation.setAnimation(appear, 1s);
-  }
-
   @include common.flex(column, flex-start, flex-start, 16px);
   margin: 16px 0 0 20px;
   max-height: 1000px;
   visibility: visible;
   opacity: 1;
+  transition: all 1s;
 
   &.hidden {
-    &:global {
-      @include animation.setAnimation(fade, 1s);
-    }
-
     max-height: 0;
     opacity: 0;
     visibility: hidden;
