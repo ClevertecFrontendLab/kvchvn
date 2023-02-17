@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 
-import { ROUTES, SCREEN_SIZE_OF_MENU_TOGGLE_VISIBILITY } from '../../../constants';
+import { ALL_BOOKS_CATEGORY, ROUTES, SCREEN_SIZE_OF_MENU_TOGGLE_VISIBILITY } from '../../../constants';
 import { toggleBookCategoriesVisibility, useBookCategoriesVisibilitySelector } from '../../../store';
 import { useAppDispatch } from '../../../store/store';
 import { Category } from '../../../types';
@@ -40,7 +40,7 @@ export const BookCategories = ({ categories }: BookCategoriesProps) => {
             }
           >
             {name}
-            <span>{10}</span>
+            <span>{path === ALL_BOOKS_CATEGORY.path ? '' : 10}</span>
           </NavLink>
         </li>
       ))}
