@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
 
-import { BOOKS_LIST_VIEW, BOOKS_TABLE_VIEW } from '../../../constants';
+import { BOOKS_LIST_VIEW, BOOKS_TABLE_VIEW, INITIAL_SORT_BY_RATING } from '../../../constants';
 import { toggleBooksView, toggleSortingByRating, useSortingByRatingSelector } from '../../../store';
 import { useAppDispatch } from '../../../store/store';
 import { BooksView } from '../../../types';
@@ -45,7 +45,12 @@ export const BooksNavigation = ({ booksView }: BooksNavigationProps) => {
       </label>
       <label htmlFor='sort' className={complexStyles.sortBox}>
         По рейтингу
-        <input type='checkbox' id='sort' checked={sortingByRating === 'desc'} onChange={toggleSorting} />
+        <input
+          type='checkbox'
+          id='sort'
+          checked={sortingByRating === INITIAL_SORT_BY_RATING}
+          onChange={toggleSorting}
+        />
       </label>
       <div className={complexStyles.buttonsBox}>
         <label htmlFor='table' data-test-id='button-menu-view-window'>
