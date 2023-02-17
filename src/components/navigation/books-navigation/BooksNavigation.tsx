@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classnames from 'classnames';
 
 import { BOOKS_LIST_VIEW, BOOKS_TABLE_VIEW } from '../../../constants';
-import { toggleBooksView } from '../../../store';
+import { toggleBooksView, toggleSortingByRating, useSortingByRatingSelector } from '../../../store';
 import { useAppDispatch } from '../../../store/store';
 import { BooksView } from '../../../types';
 
@@ -14,6 +14,8 @@ interface BooksNavigationProps {
 
 export const BooksNavigation = ({ booksView }: BooksNavigationProps) => {
   const [isExpandedSearchBox, setIsExpandedSearchBox] = useState(false);
+
+  const sortingByRating = useSortingByRatingSelector();
   const dispatch = useAppDispatch();
 
   const complexStyles = {
@@ -25,7 +27,9 @@ export const BooksNavigation = ({ booksView }: BooksNavigationProps) => {
   const expandSearchBox = () => setIsExpandedSearchBox(true);
   const hideSearchBox = () => setIsExpandedSearchBox(false);
 
-  const handleChange = () => dispatch(toggleBooksView());
+  const toggleView = () => dispatch(toggleBooksView());
+
+  const toggleSorting = () => dispatch(toggleSortingByRating());
 
   return (
     <nav className={styles.nav}>
@@ -41,7 +45,7 @@ export const BooksNavigation = ({ booksView }: BooksNavigationProps) => {
       </label>
       <label htmlFor='sort' className={complexStyles.sortBox}>
         По рейтингу
-        <input type='checkbox' id='sort' />
+        <input type='checkbox' id='sort' checked={sortingByRating === 'desc'} onChange={toggleSorting} />
       </label>
       <div className={complexStyles.buttonsBox}>
         <label htmlFor='table' data-test-id='button-menu-view-window'>
@@ -50,7 +54,7 @@ export const BooksNavigation = ({ booksView }: BooksNavigationProps) => {
             id='table'
             name='books-view'
             checked={booksView === BOOKS_TABLE_VIEW}
-            onChange={handleChange}
+            onChange={toggleView}
           />
         </label>
         <label htmlFor='line' data-test-id='button-menu-view-list'>
@@ -59,7 +63,7 @@ export const BooksNavigation = ({ booksView }: BooksNavigationProps) => {
             id='line'
             name='books-view'
             checked={booksView === BOOKS_LIST_VIEW}
-            onChange={handleChange}
+            onChange={toggleView}
           />
         </label>
       </div>
