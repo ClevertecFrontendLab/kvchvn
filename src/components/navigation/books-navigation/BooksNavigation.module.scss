@@ -172,7 +172,7 @@ $icon-size: 16px;
 
   // icon
   &::before {
-    @include common.background('../../../assets/svg/sort-asc.svg', $isMask: true);
+    @include common.background('../../../assets/svg/sort-desc.svg', $isMask: true);
     position: absolute;
     top: math.div($nav-height - $icon-size, 2);
     left: math.div($nav-height - $icon-size, 2);
@@ -194,7 +194,7 @@ $icon-size: 16px;
   }
 
   &:has(input:checked)::before {
-    @include common.background('../../../assets/svg/sort-desc.svg', $isMask: true);
+    @include common.background('../../../assets/svg/sort-asc.svg', $isMask: true);
   }
 }
 
