@@ -1,6 +1,18 @@
 @use "../../../styles/mixins/font";
 @use "../../../styles/mixins/common";
+@use "../../../styles/mixins/animation";
 @use "../../../styles/vars";
+
+@keyframes appearance {
+  from {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 .section {
   position: fixed;
@@ -13,6 +25,7 @@
 .box {
   @include common.flex(row, flex-start, center);
   @include font.subtitle(vars.$large);
+  @include animation.setAnimation(appearance, 1s);
   padding: 20px 35px;
   min-height: 80px;
   border: 2px solid;
