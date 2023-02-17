@@ -1,1 +1,3 @@
-export { BookPage } from './BookPage';
+import { BookPage } from './BookPage';
+
+export default BookPage;

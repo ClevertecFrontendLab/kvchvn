@@ -1,1 +1,3 @@
-export { TermsPage } from './TermsPage';
+import { TermsPage } from './TermsPage';
+
+export default TermsPage;
