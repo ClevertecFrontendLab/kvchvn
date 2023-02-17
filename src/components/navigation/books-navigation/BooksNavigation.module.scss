@@ -47,10 +47,10 @@ $icon-size: 16px;
     max-width: $icon-size;
     width: 100%;
     height: $icon-size;
-    background: vars.$gray;
+    background-color: vars.$gray;
     visibility: visible;
     opacity: 1;
-    transition: all 0.25s 0.25s;
+    transition: all 0.25s;
     z-index: 2;
 
     @include common.media(vars.$tablet-medium) {
@@ -64,10 +64,10 @@ $icon-size: 16px;
     width: 100%;
     max-width: $nav-height-mobile;
     height: $nav-height-mobile;
+  }
 
-    &:focus-within::before {
-      background: vars.$gray;
-    }
+  &:is(:focus-within, :hover)::before {
+    background-color: vars.$orange;
   }
 
   // cross icon
@@ -172,7 +172,7 @@ $icon-size: 16px;
 
   // icon
   &::before {
-    @include common.background('../../../assets/svg/sort-asc.svg');
+    @include common.background('../../../assets/svg/sort-asc.svg', $isMask: true);
     position: absolute;
     top: math.div($nav-height - $icon-size, 2);
     left: math.div($nav-height - $icon-size, 2);
@@ -180,6 +180,7 @@ $icon-size: 16px;
     display: block;
     width: $icon-size;
     height: $icon-size;
+    background-color: vars.$gray;
     transition: background 0.25s;
 
     @include common.media(vars.$tablet-medium) {
@@ -188,8 +189,12 @@ $icon-size: 16px;
     }
   }
 
+  &:hover::before {
+    background-color: vars.$orange;
+  }
+
   &:has(input:checked)::before {
-    @include common.background('../../../assets/svg/sort-desc.svg');
+    @include common.background('../../../assets/svg/sort-desc.svg', $isMask: true);
   }
 }
 
