@@ -12,7 +12,7 @@ interface FeedbackListProps {
 }
 
 export const FeedbackList = ({ comments }: FeedbackListProps) => {
-  const [isCommentListVisible, setIsCommentListVisible] = useState(false);
+  const [isCommentListVisible, setIsCommentListVisible] = useState(true);
 
   const complexStyles = {
     comments: classnames(styles['comments-box'], { [styles.hidden]: !isCommentListVisible }),
