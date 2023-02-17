@@ -1,0 +1,267 @@
+@use 'sass:math';
+@use '../../../styles/vars';
+@use '../../../styles/mixins/common';
+@use '../../../styles/mixins/animation';
+
+$nav-height: 40px;
+$nav-height-mobile: 32px;
+$icon-size: 16px;
+
+.nav {
+  @include common.flex(row, flex-start, center, 16px);
+  width: 100%;
+  height: $nav-height;
+
+  @include common.media(vars.$tablet-medium) {
+    padding: 1px;
+    overflow: hidden;
+
+    &:has(.hidden) {
+      gap: 0;
+    }
+  }
+
+}
+
+.search-box {
+  position: relative;
+  max-width: 350px;
+  min-width: 270px;
+  width: 40%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #FFFFFF;
+  box-shadow: vars.$plate-shadow;
+  overflow: hidden;
+  transition: all 1s;
+  z-index: 2;
+
+  // loupe icon
+  &::before {
+    @include common.background("../../../assets/svg/loupe.svg", $isMask: true);
+    position: absolute;
+    top: math.div($nav-height - $icon-size, 2);
+    left: math.div($nav-height - $icon-size, 2);
+    content: '';
+    display: block;
+    max-width: $icon-size;
+    width: 100%;
+    height: $icon-size;
+    background-color: vars.$gray;
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.25s;
+    z-index: 2;
+
+    @include common.media(vars.$tablet-medium) {
+      top: math.div($nav-height-mobile - $icon-size, 2);
+      left: math.div($nav-height-mobile - $icon-size, 2);
+    }
+  }
+
+  @include common.media(vars.$tablet-medium) {
+    min-width: auto;
+    width: 100%;
+    max-width: $nav-height-mobile;
+    height: $nav-height-mobile;
+  }
+
+  &:is(:focus-within, :hover)::before {
+    background-color: vars.$orange;
+  }
+
+  // cross icon
+  & > button {
+    @include common.background("../../../assets/svg/close.svg", $isMask: true);
+    position: absolute;
+    top: math.div($nav-height - $icon-size, 2);
+    right: math.div($nav-height - $icon-size, 2);
+    content: '';
+    display: block;
+    width: $icon-size;
+    height: $icon-size;
+    background: vars.$orange-gradient;
+    z-index: 2;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(1);
+    transition: all 0.5s;
+  }
+
+  // input type="search"
+  & > input {
+    padding-left: $nav-height;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    transition: all 0.5s;
+
+    @include common.media(vars.$tablet-medium) {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    &::placeholder {
+      color: vars.$gray;
+    }
+
+    &:focus {
+      caret-color: vars.$orange;
+    }
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+  }
+}
+
+.search-box.expanded {
+  @include common.media(vars.$tablet-medium) {
+    max-width: 100%;
+
+    &::before {
+      transform: scale(0.5);
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    & > button {
+      visibility: visible;
+      opacity: 1;
+      top: math.div($nav-height-mobile - $icon-size, 2);
+      right: math.div($nav-height-mobile - $icon-size, 2);
+    }
+
+    & > input {
+      padding-left: 16px;
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.sort-box {
+  position: relative;
+  padding-left: 40px;
+  padding-right: 16px;
+  display: block;
+  width: 150px;
+  height: $nav-height;
+  line-height: $nav-height;
+  color: vars.$gray;
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: vars.$plate-shadow;
+  cursor: pointer;
+  transition: all 1s;
+
+  @include common.media(vars.$tablet-medium) {
+    padding: 0;
+    width: 100%;
+    max-width: $nav-height-mobile;
+    height: $nav-height-mobile;
+    font-size: 0;
+  }
+
+  & > input {
+    display: none;
+  }
+
+  // icon
+  &::before {
+    @include common.background('../../../assets/svg/sort-asc.svg', $isMask: true);
+    position: absolute;
+    top: math.div($nav-height - $icon-size, 2);
+    left: math.div($nav-height - $icon-size, 2);
+    content: '';
+    display: block;
+    width: $icon-size;
+    height: $icon-size;
+    background-color: vars.$gray;
+    transition: background 0.25s;
+
+    @include common.media(vars.$tablet-medium) {
+      top: math.div($nav-height-mobile - $icon-size, 2);
+      left: math.div($nav-height-mobile - $icon-size, 2);
+    }
+  }
+
+  &:hover::before {
+    background-color: vars.$orange;
+  }
+
+  &:has(input:checked)::before {
+    @include common.background('../../../assets/svg/sort-desc.svg', $isMask: true);
+  }
+}
+
+.view-buttons-box {
+  @include common.flex(row, center, center, 16px);
+  margin-left: auto;
+  max-width: 100px;
+  transition: all 1s;
+
+  & > label {
+    @include common.flex(row, center, center);
+    width: $nav-height;
+    height: $nav-height;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    box-shadow: vars.$plate-shadow;
+    transition: background-color 0.25s;
+
+    @include common.media(vars.$tablet-medium) {
+      width: $nav-height-mobile;
+      height: $nav-height-mobile;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      background-color: vars.$gray;
+      transition: background-color 0.25s;
+    }
+
+    &[for="table"]::before {
+      @include common.background('../../../assets/svg/table.svg', $isMask: true);
+    }
+
+    &[for="line"]::before {
+      @include common.background('../../../assets/svg/burger.svg', $isMask: true);
+    }
+
+    &:hover::before {
+      background: vars.$orange-gradient;
+    }
+
+    &:has(input:checked):hover::before {
+      background: vars.$white;
+    }
+
+    &:has(input:checked) {
+      background: vars.$orange-gradient;
+    }
+
+    &:has(input:checked)::before {
+      background-color: vars.$white;
+    }
+
+    & > input {
+      display: none;
+    }
+  }
+}
+
+// if search box is expanded
+.hidden {
+  @include common.media(vars.$tablet-medium) {
+    transform: translateX(400px);
+    opacity: 0;
+    max-width: 0;
+  }
+}

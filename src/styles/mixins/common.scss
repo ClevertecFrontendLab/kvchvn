@@ -1,0 +1,62 @@
+@use "../vars";
+
+@mixin flex($direction, $justify, $align, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+
+@mixin background($url, $isMask: false) {
+  @if ($isMask) {
+    mask: url($url) no-repeat 50% 50% / contain;
+  } @else {
+    background: url($url) no-repeat 50% 50% / contain;
+  }
+}
+
+@mixin media($device, $property: max-width) {
+  @media screen and ($property: $device) {
+    @content;
+  }
+}
+
+@mixin button($type) {
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+
+  &:active:not(:disabled) {
+    box-shadow: vars.$gold-shadow;
+  }
+
+  // primary button
+  @if ($type == vars.$button-primary) {
+    background: vars.$orange-gradient;
+    color: vars.$white;
+
+    &:active:not(:disabled) {
+      background: vars.$darkorange-gradient;
+    }
+
+    &:disabled {
+      background: vars.$lightgray;
+    }
+    // secondary button
+  } @else if ($type == vars.$button-secondary) {
+    background: vars.$white;
+    border: 1px solid vars.$lightgray;
+    color: vars.$dark;
+
+    &:hover:not(:disabled) {
+      background: vars.$white;
+      border-color: vars.$gray;
+    }
+
+    &:disabled {
+      background: #F9F9FA;
+      color: vars.$gray;
+    }
+  }
+}

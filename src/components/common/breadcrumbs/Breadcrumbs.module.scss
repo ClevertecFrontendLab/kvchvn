@@ -1,0 +1,25 @@
+@use '../../../styles/vars';
+@use '../../../styles/mixins/font';
+@use '../../../styles/mixins/common';
+
+.section {
+  @include font.body(vars.$small);
+  background-color: vars.$lightestgray;
+  color: vars.$gray;
+
+  @include common.media(vars.$mobile) {
+    @include font.info(vars.$large);
+  }
+
+  // styles for wrapper
+  & > div {
+    padding: 20px 0;
+  }
+
+
+  & span {
+    margin: 0 10px;
+    display: inline-block;
+    transform: scale(1.5) rotate(30deg);
+  }
+}

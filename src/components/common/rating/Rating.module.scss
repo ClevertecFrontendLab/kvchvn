@@ -1,0 +1,18 @@
+@use '../../../styles/mixins/common';
+
+.rating-box {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 152px;
+  height: 100%;
+
+  & > li {
+    @include common.background('../../assets/svg/star_unfilled.svg');
+  }
+
+  & > li.filled {
+    @include common.background('../../assets/svg/star_filled.svg');
+  }
+}
