@@ -15,7 +15,7 @@ const initialState: LayoutSliceInitialState = {
   isMainNavVisible: false,
 };
 
-const layout = createSlice({
+const layoutSlice = createSlice({
   name: 'layout',
   initialState,
   reducers: {
@@ -41,11 +41,11 @@ const layout = createSlice({
   },
 });
 
-export default layout.reducer;
+export default layoutSlice.reducer;
 export const {
   toggleBooksView,
   toggleBookCategoriesVisibility,
   hideBookCategories,
   toggleMainNavVisibility,
   hideMainNav,
-} = layout.actions;
+} = layoutSlice.actions;
