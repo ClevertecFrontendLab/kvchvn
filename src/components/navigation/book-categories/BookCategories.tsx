@@ -40,7 +40,7 @@ export const BookCategories = ({ categories }: BookCategoriesProps) => {
             }
           >
             {name}
-            {/* <span>{amount}</span> - will be added later */}
+            <span>{10}</span>
           </NavLink>
         </li>
       ))}
