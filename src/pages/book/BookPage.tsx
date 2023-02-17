@@ -18,18 +18,20 @@ export const BookPage = () => {
   const categoriesStatus = useCategoriesStatusSelector();
   const { isLoading: isBookLoading, isError: isBookError, data: book } = useGetBookByIdQuery(bookId as string);
 
+  const isCategoriesLoading = categoriesStatus === QUERY_STATUS.isLoading;
+  const isCategoriesError = categoriesStatus === QUERY_STATUS.isError;
+  const isCategoriesSuccess = categoriesStatus === QUERY_STATUS.isSuccess;
+
   return (
     <main className={styles.main}>
-      {(isBookLoading || categoriesStatus === QUERY_STATUS.isLoading) && <Loading />}
-      {(isBookError || categoriesStatus === QUERY_STATUS.isError) && (
-        <Toast type='error' message={DEFAULT_ERROR_MESSAGE} />
-      )}
+      {(isBookLoading || isCategoriesLoading) && <Loading />}
+      {(isBookError || isCategoriesError) && <Toast type='error' message={DEFAULT_ERROR_MESSAGE} />}
       {categories && (
         <Breadcrumbs paths={[categories[categories.findIndex((cat) => cat.path === category)].name, book?.title]} />
       )}
       <Wrapper>
         <MainNavigation />
-        {book && (
+        {book && isCategoriesSuccess && (
           <>
             <BookMainContent
               title={book.title}

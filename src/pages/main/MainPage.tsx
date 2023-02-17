@@ -15,10 +15,18 @@ import styles from './MainPage.module.scss';
 
 export const MainPage = () => {
   const params = useParams<keyof typeof PARAMS>();
-  const { data: allBooks, isLoading: isAllBooksLoading, isError: isAllBooksError } = useGetAllBooksQuery();
+  const {
+    isSuccess: isAllBooksSuccess,
+    isLoading: isAllBooksLoading,
+    isError: isAllBooksError,
+  } = useGetAllBooksQuery();
 
   const categoriesStatus = useCategoriesStatusSelector();
   const categories = useCategoriesSelector();
+
+  const isCategoriesLoading = categoriesStatus === QUERY_STATUS.isLoading;
+  const isCategoriesError = categoriesStatus === QUERY_STATUS.isError;
+  const isCategoriesSuccess = categoriesStatus === QUERY_STATUS.isSuccess;
 
   const isUnknownCategory = categories
     ? params.category && !categories.find((category) => category.path === params.category)
@@ -26,16 +34,14 @@ export const MainPage = () => {
 
   return (
     <main className={styles.main}>
-      {(isAllBooksLoading || categoriesStatus === QUERY_STATUS.isLoading) && <Loading />}
-      {(isAllBooksError || categoriesStatus === QUERY_STATUS.isError) && (
-        <Toast type='error' message={DEFAULT_ERROR_MESSAGE} />
-      )}
+      {(isAllBooksLoading || isCategoriesLoading) && <Loading />}
+      {(isAllBooksError || isCategoriesError) && <Toast type='error' message={DEFAULT_ERROR_MESSAGE} />}
       {isUnknownCategory ? (
         <NotFoundView />
       ) : (
         <Wrapper>
           <MainNavigation />
-          {allBooks && categoriesStatus === QUERY_STATUS.isSuccess && <Books />}
+          {isAllBooksSuccess && isCategoriesSuccess && <Books />}
         </Wrapper>
       )}
     </main>
