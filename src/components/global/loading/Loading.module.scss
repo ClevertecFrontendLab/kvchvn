@@ -3,11 +3,23 @@
 @use '../../../styles/vars';
 
 @keyframes rotation {
-  from {
+  0% {
     transform: rotateZ(0deg);
+    filter: contrast(1);
   }
-  to {
+  25% {
     transform: rotateZ(360deg);
+  }
+  50% {
+    transform: rotateZ(720deg);
+    filter: contrast(0.2);
+  }
+  75% {
+    transform: rotateZ(1080deg);
+  }
+  100% {
+    transform: rotateZ(1440deg);
+    filter: contrast(1);
   }
 }
 
@@ -25,7 +37,7 @@
 
 .spinner {
   @include common.background('../../assets/svg/spinner.svg', $isMask: true);
-  @include animation.setAnimation(rotation, 1s, infinite, linear);
+  @include animation.setAnimation(rotation, 4s, infinite, linear);
   position: relative;
   display: block;
   width: 70px;
