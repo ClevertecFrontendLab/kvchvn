@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Wrapper } from '../../global/wrapper';
 
 import styles from './Breadcrumbs.module.scss';
 
 interface BreadcrumbsProps {
-  paths: Array<string | undefined>;
+  paths: Array<{ name?: string; path?: string }>;
 }
 
 export const Breadcrumbs = ({ paths }: BreadcrumbsProps) => (
@@ -13,10 +14,10 @@ export const Breadcrumbs = ({ paths }: BreadcrumbsProps) => (
     <Wrapper>
       <p>
         {paths.map(
-          (path, index) =>
-            path && (
-              <React.Fragment key={path}>
-                {path}
+          ({ name, path }, index) =>
+            name && (
+              <React.Fragment key={name}>
+                {path ? <Link to={path}>{name}</Link> : name}
                 {index !== paths.length - 1 && <span>|</span>}
               </React.Fragment>
             )
