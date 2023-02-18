@@ -7,13 +7,13 @@ import { Loading } from '../../components/global/loading';
 import { Toast } from '../../components/global/toast';
 import { Wrapper } from '../../components/global/wrapper';
 import { MainNavigation } from '../../components/navigation/main-navigation';
-import { DEFAULT_ERROR_MESSAGE, QUERY_STATUS } from '../../constants';
+import { DEFAULT_ERROR_MESSAGE, QUERY_STATUS, ROUTES } from '../../constants';
 import { useCategoriesSelector, useCategoriesStatusSelector, useGetBookByIdQuery } from '../../store';
 
 import styles from './BookPage.module.scss';
 
 export const BookPage = () => {
-  const { category, bookId } = useParams();
+  const { category: currentCategoryPath, bookId } = useParams();
   const categories = useCategoriesSelector();
   const categoriesStatus = useCategoriesStatusSelector();
   const { isLoading: isBookLoading, isError: isBookError, data: book } = useGetBookByIdQuery(bookId as string);
@@ -22,12 +22,22 @@ export const BookPage = () => {
   const isCategoriesError = categoriesStatus === QUERY_STATUS.isError;
   const isCategoriesSuccess = categoriesStatus === QUERY_STATUS.isSuccess;
 
+  const breadcrumbCategory = categories?.find((cat) => cat.path === currentCategoryPath);
+
   return (
     <main className={styles.main}>
       {(isBookLoading || isCategoriesLoading) && <Loading />}
       {(isBookError || isCategoriesError) && <Toast type='error' message={DEFAULT_ERROR_MESSAGE} />}
       {categories && (
-        <Breadcrumbs paths={[categories[categories.findIndex((cat) => cat.path === category)].name, book?.title]} />
+        <Breadcrumbs
+          paths={[
+            {
+              name: breadcrumbCategory?.name,
+              path: breadcrumbCategory ? `${ROUTES.books.base}/${breadcrumbCategory.path}` : undefined,
+            },
+            { name: book?.title },
+          ]}
+        />
       )}
       <Wrapper>
         <MainNavigation />
