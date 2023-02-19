@@ -20,17 +20,24 @@ export const BooksList = () => {
   const books = useAllBooksSelector();
   const booksView = useBooksViewSelector();
   const categories = useCategoriesSelector();
+  const searchValue = useSearchValueSelector();
   const sortingByRating = useSortingByRatingSelector();
 
   const filteredAndSortedBooks = books
     ? books
         .filter((book) => {
+          // checking by categories (more important)
           if (book.categories && categories && currentCategoryPath && currentCategoryPath !== ALL_BOOKS_CATEGORY.path) {
             const currentCategory = categories.find((cat) => cat.path === currentCategoryPath);
 
             if (currentCategory && !book.categories.includes(currentCategory.name)) {
               return false;
             }
+          }
+
+          // checking by search-input (less important)
+          if (searchValue && !book.title.toLowerCase().includes(searchValue.toLowerCase().trim())) {
+            return false;
           }
 
           return true;
@@ -55,7 +62,7 @@ export const BooksList = () => {
       {filteredAndSortedBooks.length ? (
         filteredAndSortedBooks.map((book) => <BookCard key={book.id} view={booksView} book={book} />)
       ) : (
-        <h3>В этой категории книг еще нет</h3>
+        <h3>{searchValue ? 'По запросу ничего не найдено' : 'В этой категории книг еще нет'}</h3>
       )}
     </ul>
   ) : null;
