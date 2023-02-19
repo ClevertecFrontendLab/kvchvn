@@ -28,12 +28,15 @@ export const BooksNavigation = () => {
     buttonsBox: classnames(styles['view-buttons-box'], { [styles.hidden]: isExpandedSearchBox }),
   };
 
-  const expandSearchBox = () => setIsExpandedSearchBox(true);
+  const handleClick = () => setIsExpandedSearchBox(true);
+
   const hideSearchBox = () => setIsExpandedSearchBox(false);
 
-  const toggleView = () => dispatch(toggleBooksView());
+  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => dispatch(setSearchValue(e.target.value));
 
-  const toggleSorting = () => dispatch(toggleSortingByRating());
+  const handleChangeSorting = () => dispatch(toggleSortingByRating());
+
+  const handleChangeView = () => dispatch(toggleBooksView());
 
   return (
     <nav className={styles.nav}>
@@ -42,7 +45,9 @@ export const BooksNavigation = () => {
           type='search'
           id='search'
           placeholder='Поиск книги или автора ...'
-          onClick={expandSearchBox}
+          onClick={handleClick}
+          value={searchValue}
+          onChange={handleChangeSearch}
           data-test-id='input-search'
         />
         <button type='button' onClick={hideSearchBox} data-test-id='button-search-close' />
@@ -53,7 +58,7 @@ export const BooksNavigation = () => {
           type='checkbox'
           id='sort'
           checked={sortingByRating === INITIAL_SORT_BY_RATING}
-          onChange={toggleSorting}
+          onChange={handleChangeSorting}
         />
       </label>
       <div className={complexStyles.buttonsBox}>
@@ -63,7 +68,7 @@ export const BooksNavigation = () => {
             id='table'
             name='books-view'
             checked={booksView === BOOKS_TABLE_VIEW}
-            onChange={toggleView}
+            onChange={handleChangeView}
           />
         </label>
         <label htmlFor='line' data-test-id='button-menu-view-list'>
@@ -72,7 +77,7 @@ export const BooksNavigation = () => {
             id='line'
             name='books-view'
             checked={booksView === BOOKS_LIST_VIEW}
-            onChange={toggleView}
+            onChange={handleChangeView}
           />
         </label>
       </div>
