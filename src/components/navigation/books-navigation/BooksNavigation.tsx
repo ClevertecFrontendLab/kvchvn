@@ -2,19 +2,23 @@ import React, { useState } from 'react';
 import classnames from 'classnames';
 
 import { BOOKS_LIST_VIEW, BOOKS_TABLE_VIEW, INITIAL_SORT_BY_RATING } from '../../../constants';
-import { toggleBooksView, toggleSortingByRating, useSortingByRatingSelector } from '../../../store';
+import {
+  setSearchValue,
+  toggleBooksView,
+  toggleSortingByRating,
+  useBooksViewSelector,
+  useSearchValueSelector,
+  useSortingByRatingSelector,
+} from '../../../store';
 import { useAppDispatch } from '../../../store/store';
-import { BooksView } from '../../../types';
 
 import styles from './BooksNavigation.module.scss';
 
-interface BooksNavigationProps {
-  booksView: BooksView;
-}
-
-export const BooksNavigation = ({ booksView }: BooksNavigationProps) => {
+export const BooksNavigation = () => {
   const [isExpandedSearchBox, setIsExpandedSearchBox] = useState(false);
 
+  const booksView = useBooksViewSelector();
+  const searchValue = useSearchValueSelector();
   const sortingByRating = useSortingByRatingSelector();
   const dispatch = useAppDispatch();
 

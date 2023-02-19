@@ -3,20 +3,22 @@ import { useParams } from 'react-router-dom';
 
 import { ALL_BOOKS_CATEGORY, SORT } from '../../../constants';
 import { PARAMS } from '../../../constants/common';
-import { useAllBooksSelector, useCategoriesSelector, useSortingByRatingSelector } from '../../../store';
-import { BooksView } from '../../../types';
+import {
+  useAllBooksSelector,
+  useBooksViewSelector,
+  useCategoriesSelector,
+  useSearchValueSelector,
+  useSortingByRatingSelector,
+} from '../../../store';
 import { BookCard } from '../book-card';
 
 import styles from './BooksList.module.scss';
 
-interface BooksListProps {
-  booksView: BooksView;
-}
-
-export const BooksList = ({ booksView }: BooksListProps) => {
+export const BooksList = () => {
   const { category: currentCategoryPath } = useParams<keyof typeof PARAMS>();
 
   const books = useAllBooksSelector();
+  const booksView = useBooksViewSelector();
   const categories = useCategoriesSelector();
   const sortingByRating = useSortingByRatingSelector();
 
