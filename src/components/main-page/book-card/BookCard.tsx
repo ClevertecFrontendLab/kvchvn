@@ -1,8 +1,10 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import stringReplace from 'react-string-replace';
 import classnames from 'classnames';
 
 import { setBookAuthorsAndYearText, setButtonReserveText } from '../../../helpers';
+import { useSearchValueSelector } from '../../../store';
 import { BookBase, BooksView } from '../../../types';
 import { ProgressiveImage } from '../../common/progressive-image';
 import { Rating } from '../../common/rating';
@@ -15,6 +17,7 @@ interface BookCardProps {
 }
 
 export const BookCard = ({ book, view }: BookCardProps) => {
+  const searchValue = useSearchValueSelector();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -38,7 +41,11 @@ export const BookCard = ({ book, view }: BookCardProps) => {
       </div>
       <div className={styles.info}>
         <div className={styles.rating}>{book.rating ? <Rating rating={book.rating} /> : 'еще нет оценок'}</div>
-        <p className={styles.title}>{book.title}</p>
+        <p className={styles.title}>
+          {stringReplace(book.title, searchValue.trim(), (match, index) =>
+            index === 1 ? <span key={index}>{match}</span> : undefined
+          )}
+        </p>
         <p className={styles.author}>{authorsAndYearText}</p>
         <button
           type='button'
