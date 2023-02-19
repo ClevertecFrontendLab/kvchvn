@@ -9,7 +9,7 @@
   max-height: 1000px;
   visibility: visible;
   opacity: 1;
-  transition: all 1s;
+  transition: all 0.5s;
 
   &.hidden {
     max-height: 0;
