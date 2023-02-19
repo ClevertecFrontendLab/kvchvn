@@ -3,7 +3,11 @@ import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 
 import { ALL_BOOKS_CATEGORY, ROUTES, SCREEN_SIZE_OF_MENU_TOGGLE_VISIBILITY } from '../../../constants';
-import { toggleBookCategoriesVisibility, useBookCategoriesVisibilitySelector } from '../../../store';
+import {
+  toggleBookCategoriesVisibility,
+  useBookCategoriesVisibilitySelector,
+  useIsSearchEmptySelector,
+} from '../../../store';
 import { useAppDispatch } from '../../../store/store';
 import { Category } from '../../../types';
 
@@ -15,6 +19,7 @@ interface BookCategoriesProps {
 
 export const BookCategories = ({ categories }: BookCategoriesProps) => {
   const isBookCategoriesVisible = useBookCategoriesVisibilitySelector();
+  const isSearchEmpty = useIsSearchEmptySelector();
   const dispatch = useAppDispatch();
 
   const complexStyles = {
@@ -29,7 +34,7 @@ export const BookCategories = ({ categories }: BookCategoriesProps) => {
         <li key={id} className={styles['category-item']}>
           <NavLink
             to={`${ROUTES.books.base}/${path}`}
-            className={({ isActive }) => (isActive ? styles.active : undefined)}
+            className={({ isActive }) => (isActive && isSearchEmpty ? styles.active : undefined)}
             onClick={hideCategories}
             data-test-id={
               index === 0
