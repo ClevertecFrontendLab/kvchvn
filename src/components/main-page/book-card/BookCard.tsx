@@ -42,9 +42,11 @@ export const BookCard = ({ book, view }: BookCardProps) => {
       <div className={styles.info}>
         <div className={styles.rating}>{book.rating ? <Rating rating={book.rating} /> : 'еще нет оценок'}</div>
         <p className={styles.title}>
-          {stringReplace(book.title, searchValue.trim(), (match, index) =>
-            index === 1 ? <span key={index}>{match}</span> : undefined
-          )}
+          {stringReplace(book.title, searchValue.trim(), (match, index) => (
+            <span key={index} data-test-id='highlight-matches'>
+              {match}
+            </span>
+          ))}
         </p>
         <p className={styles.author}>{authorsAndYearText}</p>
         <button
