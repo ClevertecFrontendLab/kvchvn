@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { NotFoundView } from '../../components/common/not-found-view';
@@ -17,8 +17,9 @@ export const MainPage = () => {
   const params = useParams<keyof typeof PARAMS>();
   const {
     isSuccess: isAllBooksSuccess,
-    isLoading: isAllBooksLoading,
     isError: isAllBooksError,
+    isFetching: isAllBooksFetching,
+    refetch,
   } = useGetAllBooksQuery();
 
   const categoriesStatus = useCategoriesStatusSelector();
@@ -32,9 +33,13 @@ export const MainPage = () => {
     ? params.category && !categories.find((category) => category.path === params.category)
     : false;
 
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
   return (
     <main className={styles.main}>
-      {(isAllBooksLoading || isCategoriesLoading) && <Loading />}
+      {(isAllBooksFetching || isCategoriesLoading) && <Loading />}
       {(isAllBooksError || isCategoriesError) && <Toast type='error' message={DEFAULT_ERROR_MESSAGE} />}
       {isUnknownCategory ? (
         <NotFoundView />
