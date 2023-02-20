@@ -21,7 +21,7 @@
 .category-item {
   & > a {
     @include font.body(vars.$large);
-    gap: 6px;
+    display: inline;
     word-wrap: break-word;
 
     &:hover {
@@ -29,19 +29,18 @@
     }
 
     &.active {
-      font-size: 18px;
       font-weight: 700;
       color: vars.$orange;
     }
+  }
 
-    & > span {
-      margin-left: 6px;
-      color: vars.$gray;
-      font-weight: 400;
-    }
+  & > span {
+    margin-left: 6px;
+    color: vars.$gray;
+    font-weight: 400;
+  }
 
-    &.active > span {
-      color: vars.$dark;
-    }
+  &:has(a.active) > span {
+    color: vars.$dark;
   }
 }
