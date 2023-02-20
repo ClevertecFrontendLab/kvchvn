@@ -63,7 +63,7 @@ export const BooksList = () => {
         filteredAndSortedBooks.map((book) => <BookCard key={book.id} view={booksView} book={book} />)
       ) : (
         <h3 data-test-id={searchValue ? 'search-result-not-found' : 'empty-category'}>
-          {searchValue ? 'По запросу ничего не найдено' : 'В этой категории книг еще нет'}
+          {searchValue ? 'По запросу ничего не найдено' : 'В этой категории книг ещё нет'}
         </h3>
       )}
     </ul>
