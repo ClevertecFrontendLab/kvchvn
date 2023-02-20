@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 
 import { ALL_BOOKS_CATEGORY, ROUTES, SCREEN_SIZE_OF_MENU_TOGGLE_VISIBILITY } from '../../../constants';
-import { toggleBookCategoriesVisibility, useBookCategoriesVisibilitySelector } from '../../../store';
-import { useAppDispatch } from '../../../store/store';
+import { calculateBooksByCategories } from '../../../helpers';
+import { useAllBooksSelector, useBookCategoriesVisibilitySelector } from '../../../store';
 import { Category } from '../../../types';
 
 import styles from './BooksCategories.module.scss';
@@ -15,33 +15,38 @@ interface BookCategoriesProps {
 
 export const BookCategories = ({ categories }: BookCategoriesProps) => {
   const isBookCategoriesVisible = useBookCategoriesVisibilitySelector();
-  const dispatch = useAppDispatch();
+  const allBooks = useAllBooksSelector();
 
   const complexStyles = {
     list: classnames(styles['category-list'], { [styles.hidden]: !isBookCategoriesVisible }),
   };
 
-  const hideCategories = () => dispatch(toggleBookCategoriesVisibility());
+  const categoriesWithAmount = calculateBooksByCategories(categories, allBooks);
 
   return (
     <ul className={complexStyles.list}>
-      {categories.map(({ name, path, id }, index) => (
-        <li key={id} className={styles['category-item']}>
+      {categoriesWithAmount.map((category) => (
+        <li key={category.id} className={styles['category-item']}>
           <NavLink
-            to={`${ROUTES.books.base}/${path}`}
+            to={`${ROUTES.books.base}/${category.path}`}
             className={({ isActive }) => (isActive ? styles.active : undefined)}
-            onClick={hideCategories}
             data-test-id={
-              index === 0
-                ? window.innerWidth > SCREEN_SIZE_OF_MENU_TOGGLE_VISIBILITY
-                  ? 'navigation-books'
-                  : 'burger-books'
-                : undefined
+              window.innerWidth > SCREEN_SIZE_OF_MENU_TOGGLE_VISIBILITY
+                ? `navigation-${category.path === ALL_BOOKS_CATEGORY.path ? 'books' : category.path}`
+                : `burger-${category.path === ALL_BOOKS_CATEGORY.path ? 'books' : category.path}`
             }
           >
-            {name}
-            <span>{path === ALL_BOOKS_CATEGORY.path ? '' : 10}</span>
+            {category.name}
           </NavLink>
+          <span
+            data-test-id={
+              window.innerWidth > SCREEN_SIZE_OF_MENU_TOGGLE_VISIBILITY
+                ? `navigation-book-count-for-${category.path === ALL_BOOKS_CATEGORY.path ? 'books' : category.path}`
+                : `burger-book-count-for-${category.path === ALL_BOOKS_CATEGORY.path ? 'books' : category.path}`
+            }
+          >
+            {category.path === ALL_BOOKS_CATEGORY.path || !('amount' in category) ? '' : category.amount}
+          </span>
         </li>
       ))}
     </ul>

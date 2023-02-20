@@ -1,55 +1,71 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { ALL_BOOKS_CATEGORY, MAX_RATING } from '../../../constants';
+import { ALL_BOOKS_CATEGORY, SORT } from '../../../constants';
 import { PARAMS } from '../../../constants/common';
-import { useAllBooksSelector, useCategoriesSelector, useSortingByRatingSelector } from '../../../store';
-import { BooksView } from '../../../types';
+import {
+  useAllBooksSelector,
+  useBooksViewSelector,
+  useCategoriesSelector,
+  useSearchValueSelector,
+  useSortingByRatingSelector,
+} from '../../../store';
 import { BookCard } from '../book-card';
 
 import styles from './BooksList.module.scss';
 
-interface BooksListProps {
-  booksView: BooksView;
-}
-
-export const BooksList = ({ booksView }: BooksListProps) => {
-  const { category: categoryPath } = useParams<keyof typeof PARAMS>();
+export const BooksList = () => {
+  const { category: currentCategoryPath } = useParams<keyof typeof PARAMS>();
 
   const books = useAllBooksSelector();
+  const booksView = useBooksViewSelector();
   const categories = useCategoriesSelector();
+  const searchValue = useSearchValueSelector();
   const sortingByRating = useSortingByRatingSelector();
 
-  return books ? (
-    <ul className={`${styles['books-list']} ${styles[`${booksView}-view`]}`}>
-      {books
+  const filteredAndSortedBooks = books
+    ? books
         .filter((book) => {
-          if (book.categories && categories && categoryPath && categoryPath !== ALL_BOOKS_CATEGORY.path) {
-            const currentCategory = categories.find((cat) => cat.path === categoryPath);
+          // checking by categories (more important)
+          if (book.categories && categories && currentCategoryPath && currentCategoryPath !== ALL_BOOKS_CATEGORY.path) {
+            const currentCategory = categories.find((cat) => cat.path === currentCategoryPath);
 
             if (currentCategory && !book.categories.includes(currentCategory.name)) {
               return false;
             }
           }
 
+          // checking by search-input (less important)
+          if (searchValue && !book.title.toLowerCase().includes(searchValue.toLowerCase().trim())) {
+            return false;
+          }
+
           return true;
         })
         .sort((bookA, bookB) => {
-          const DEFAULT_RATING = sortingByRating === 'desc' ? MAX_RATING + 1 : 0;
+          const DEFAULT_RATING = 0;
           const bookARating = bookA.rating || DEFAULT_RATING;
           const bookBRating = bookB.rating || DEFAULT_RATING;
 
           switch (sortingByRating) {
-            case 'asc':
-              return bookBRating - bookARating;
-            case 'desc':
-            default:
+            case SORT.asc:
               return bookARating - bookBRating;
+            case SORT.desc:
+            default:
+              return bookBRating - bookARating;
           }
         })
-        .map((book) => (
-          <BookCard key={book.id} view={booksView} book={book} />
-        ))}
+    : undefined;
+
+  return filteredAndSortedBooks ? (
+    <ul className={`${styles['books-list']} ${styles[`${booksView}-view`]}`}>
+      {filteredAndSortedBooks.length ? (
+        filteredAndSortedBooks.map((book) => <BookCard key={book.id} view={booksView} book={book} />)
+      ) : (
+        <h3 data-test-id={searchValue ? 'search-result-not-found' : 'empty-category'}>
+          {searchValue ? 'По запросу ничего не найдено' : 'В этой категории книг ещё нет'}
+        </h3>
+      )}
     </ul>
   ) : null;
 };

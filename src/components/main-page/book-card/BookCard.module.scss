@@ -119,6 +119,10 @@
       @include font.subtitle(vars.$small);
     }
   }
+
+  & > span {
+    color: vars.$error-primary;
+  }
 }
 
 .author {

@@ -1,11 +1,3 @@
-export {
-  setToLocalStorage,
-  getFromLocalStorage,
-  removeFromLocalStorage,
-  clearLocalStorage,
-  formatDate,
-  disableScrolling,
-  enableScrolling,
-  setButtonReserveText,
-  setBookAuthorsAndYearText,
-} from './common';
+export { disableScrolling, enableScrolling } from './common';
+
+export { formatDate, setButtonReserveText, setBookAuthorsAndYearText, calculateBooksByCategories } from './books';
