@@ -12,17 +12,23 @@ interface BreadcrumbsProps {
 export const Breadcrumbs = ({ paths }: BreadcrumbsProps) => (
   <section className={styles.section}>
     <Wrapper>
-      <p>
+      <article>
         {paths.map(
           ({ name, path }, index) =>
             name && (
               <React.Fragment key={name}>
-                {path ? <Link to={path}>{name}</Link> : name}
+                {path ? (
+                  <Link to={path} data-test-id='breadcrumbs-link'>
+                    {name}
+                  </Link>
+                ) : (
+                  <p data-test-id='book-name'>{name}</p>
+                )}
                 {index !== paths.length - 1 && <span>|</span>}
               </React.Fragment>
             )
         )}
-      </p>
+      </article>
     </Wrapper>
   </section>
 );
