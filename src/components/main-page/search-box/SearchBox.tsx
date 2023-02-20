@@ -38,7 +38,7 @@ export const SearchBox = ({ isExpanded, setIsExpanded }: SearchBoxProps) => {
       <input
         type='search'
         id='search'
-        placeholder='Поиск книги или автора ...'
+        placeholder='Поиск книги или автора…'
         onClick={handleClickInput}
         value={search}
         onChange={handleChange}

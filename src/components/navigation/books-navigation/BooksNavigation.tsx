@@ -9,7 +9,7 @@ import {
   useSortingByRatingSelector,
 } from '../../../store';
 import { useAppDispatch } from '../../../store/store';
-import { SearchBox } from '../../book-page/search-box';
+import { SearchBox } from '../../main-page/search-box';
 
 import styles from './BooksNavigation.module.scss';
 
@@ -32,14 +32,13 @@ export const BooksNavigation = () => {
   return (
     <nav className={styles.nav}>
       <SearchBox isExpanded={isExpandedSearchBox} setIsExpanded={setIsExpandedSearchBox} />
-      <label htmlFor='sort' className={complexStyles.sortBox}>
+      <label htmlFor='sort' className={complexStyles.sortBox} data-test-id='sort-rating-button'>
         По рейтингу
         <input
           type='checkbox'
           id='sort'
           checked={sortingByRating === INITIAL_SORT_BY_RATING}
           onChange={handleChangeSorting}
-          data-test-id='sort-rating-button'
         />
       </label>
       <div className={complexStyles.buttonsBox}>
