@@ -4,6 +4,7 @@ export type {
   BookComment,
   BookDetails,
   Category,
+  CategoryTransformed,
   BookBase,
   BookDelivery,
   BookBooking,
