@@ -1,4 +1,4 @@
-import { BookBooking, BookDelivery } from '../types';
+import { BookBase, BookBooking, BookDelivery, Category, CategoryTransformed } from '../types';
 
 export const formatDate = (date: string, dateMode: 'short' | 'long') => {
   switch (dateMode) {
@@ -38,4 +38,29 @@ export const setBookAuthorsAndYearText = (authors: string[] | null, issueYear: s
   resultString += issueYear ? issueYear : '';
 
   return resultString;
+};
+
+export const calculateBooksByCategories = (
+  categories: Category[],
+  books?: BookBase[]
+): Category[] | CategoryTransformed[] => {
+  const transformedCategories = [...categories].map((cat) => ({ ...cat, amount: 0 }));
+
+  if (books) {
+    books.forEach((book) => {
+      if (book.categories) {
+        book.categories.forEach((bookCategory) => {
+          const currentCategory = transformedCategories.find((category) => category.name === bookCategory);
+
+          if (currentCategory) {
+            currentCategory.amount += 1;
+          }
+        });
+      }
+    });
+
+    return transformedCategories;
+  }
+
+  return categories;
 };
