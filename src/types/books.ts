@@ -6,6 +6,10 @@ export interface Category {
   path: string;
 }
 
+export interface CategoryTransformed extends Category {
+  amount: number;
+}
+
 export interface BookImage {
   url: string;
 }
