@@ -38,7 +38,7 @@ export const BookMainContent = ({
     <section className={styles.section}>
       <PosterSlider posters={posterPaths} />
       <article className={styles['title-box']}>
-        <h3>{title}</h3>
+        <h3 data-test-id='book-title'>{title}</h3>
         <h5>{authorsAndYearText}</h5>
         <button type='button' disabled={delivery ? delivery.handed : false} className={complexStyles.button}>
           {buttonText}

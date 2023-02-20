@@ -39,6 +39,7 @@ export const BooksNavigation = () => {
           id='sort'
           checked={sortingByRating === INITIAL_SORT_BY_RATING}
           onChange={handleChangeSorting}
+          data-test-id='sort-rating-button'
         />
       </label>
       <div className={complexStyles.buttonsBox}>
