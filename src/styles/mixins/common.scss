@@ -58,5 +58,31 @@
       background: #F9F9FA;
       color: vars.$gray;
     }
+    // tertiary button
+  } @else if ($type == vars.$button-tertiary) {
+    @include flex(row, flex-start, center, 10px);
+    border: none;
+
+    &::after {
+      @include background('../../assets/svg/arrow_right.svg', $isMask: true);
+      content: '';
+      display: block;
+      width: 20px;
+      height: 100%;
+      background-color: vars.$gray;
+    }
+
+    &:hover::after {
+      background-color: vars.$dark;
+    }
+
+    &:active:not(:disabled) {
+      color: vars.$orange;
+      box-shadow: none;
+
+      &::after {
+        background-color: vars.$orange;
+      }
+    }
   }
 }

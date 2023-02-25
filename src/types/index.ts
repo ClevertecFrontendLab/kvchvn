@@ -13,3 +13,4 @@ export type {
 } from './books';
 export type { LocalStorageData, BooksView } from './common';
 export type { QueryStatus } from './api';
+export type { SignUpInputContent, SignUpSteps } from './auth';
