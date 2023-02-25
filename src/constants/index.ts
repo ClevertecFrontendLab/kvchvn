@@ -11,3 +11,4 @@ export {
 export { ALL_BOOKS_CATEGORY, BOOK_DETAILED_INFO_LABELS } from './books';
 export { MENU_TOGGLE_ID, SCREEN_SIZE_OF_MENU_TOGGLE_VISIBILITY } from './layout';
 export { BASE_API_URL, API_ENDPOINTS, QUERY_STATUS } from './api';
+export { SIGN_UP_FIRST_STEP, SIGN_UP_LAST_STEP, SIGN_UP_INPUT } from './auth';

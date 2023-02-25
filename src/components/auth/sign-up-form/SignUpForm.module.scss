@@ -1,0 +1,38 @@
+@use '../../../styles/mixins/common';
+@use '../../../styles/mixins/font';
+@use '../../../styles/vars';
+
+.article-heading {
+  @include common.flex(column, flex-start, flex-start, 10px);
+
+  & > p {
+    @include font.subtitle(vars.$small);
+  }
+}
+
+.input-list {
+  @include common.flex(column, flex-start, stretch);
+  height: 100%;
+}
+
+.button-box {
+  @include common.flex(column, flex-start, stretch, 15px);
+
+  & > button {
+    @include common.button(vars.$button-primary);
+    @include font.button(vars.$large);
+    height: 50px;
+  }
+
+  & > p {
+    @include common.flex(row, flex-start, center, 15px);
+    @include font.body(vars.$large);
+    color: vars.$gray;
+
+    & > button {
+      @include common.button(vars.$button-tertiary);
+      @include font.button(vars.$small);
+      height: 25px;
+    }
+  }
+}
