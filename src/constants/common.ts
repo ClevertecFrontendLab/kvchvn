@@ -13,6 +13,7 @@ export const ROUTES = {
   },
   terms: '/terms',
   contract: '/contract',
+  auth: '/auth',
   notFound: '*',
 };
 
