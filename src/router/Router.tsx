@@ -4,6 +4,7 @@ import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from '../components/global/layout';
 import { ScrollToTop } from '../components/global/scroll-to-top';
 import { ROUTES } from '../constants';
+import { AuthPage } from '../pages/auth';
 import { BookPage } from '../pages/book';
 import { MainPage } from '../pages/main';
 import { NotFoundPage } from '../pages/not-found';
@@ -20,8 +21,9 @@ export const Router = () => (
           <Route path={ROUTES.books.specificBook} element={<BookPage />} />
           <Route path={ROUTES.terms} element={<TermsPage view='terms' />} />
           <Route path={ROUTES.contract} element={<TermsPage view='contract' />} />
-          <Route path={ROUTES.notFound} element={<NotFoundPage />} />
         </Route>
+        <Route path={ROUTES.auth} element={<AuthPage />} />
+        <Route path={ROUTES.notFound} element={<NotFoundPage />} />
       </Routes>
     </ScrollToTop>
   </HashRouter>
