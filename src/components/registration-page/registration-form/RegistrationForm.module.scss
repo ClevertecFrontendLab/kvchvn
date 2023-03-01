@@ -1,0 +1,16 @@
+@use '../../../styles/mixins/auth';
+@use '../../../styles/mixins/common';
+@use '../../../styles/mixins/font';
+@use '../../../styles/vars';
+
+.article-heading {
+  @include common.flex(column, flex-start, flex-start, 10px);
+
+  & > p {
+    @include font.subtitle(vars.$small);
+  }
+}
+
+.submit-box {
+  @include auth.submit-box;
+}

@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { SIGN_UP_FIRST_STEP, SIGN_UP_LAST_STEP } from '../../../constants';
-import { SignUpSteps } from '../sign-up-steps';
+import { REGISTRATION_FIRST_STEP, REGISTRATION_LAST_STEP, ROUTES } from '../../../constants';
+import { RegistrationSteps } from '../registration-steps';
 
-import styles from './SignUpForm.module.scss';
+import styles from './RegistrationForm.module.scss';
 
-interface SignUpFormProps {
-  goToSignIn: () => void;
-}
-
-export const SignUpForm = ({ goToSignIn }: SignUpFormProps) => {
-  const [step, setStep] = useState<number>(SIGN_UP_FIRST_STEP);
+export const RegistrationForm = () => {
+  const [step, setStep] = useState<number>(REGISTRATION_FIRST_STEP);
 
   const buttonText = () => {
     switch (step) {
-      case SIGN_UP_LAST_STEP - 1:
+      case REGISTRATION_LAST_STEP - 1:
         return 'Последний шаг';
-      case SIGN_UP_LAST_STEP:
+      case REGISTRATION_LAST_STEP:
         return 'Зарегистрироваться';
       default:
         return 'Следующий шаг';
@@ -24,8 +21,10 @@ export const SignUpForm = ({ goToSignIn }: SignUpFormProps) => {
   };
 
   const handleClick = () => {
-    if (step !== SIGN_UP_LAST_STEP) {
+    if (step !== REGISTRATION_LAST_STEP) {
       setStep((prevState) => prevState + 1);
+    } else {
+      alert('Регистрация');
     }
   };
 
@@ -34,23 +33,19 @@ export const SignUpForm = ({ goToSignIn }: SignUpFormProps) => {
       <article className={styles['article-heading']}>
         <h4>Регистрация</h4>
         <p>
-          {step} шаг из {SIGN_UP_LAST_STEP}
+          {step} шаг из {REGISTRATION_LAST_STEP}
         </p>
       </article>
       <form autoComplete='off' className={styles.form}>
-        <ul className={styles['input-list']}>
-          <SignUpSteps currentStep={step} />
-        </ul>
+        <RegistrationSteps currentStep={step} />
       </form>
-      <div className={styles['button-box']}>
+      <div className={styles['submit-box']}>
         <button type='button' onClick={handleClick}>
           {buttonText()}
         </button>
         <p>
           Есть учетная запись?
-          <button type='button' onClick={goToSignIn}>
-            Войти
-          </button>
+          <Link to={ROUTES.auth}>Войти</Link>
         </p>
       </div>
     </>
