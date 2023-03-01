@@ -1,0 +1,15 @@
+@use '../../../styles/mixins/auth';
+@use '../../../styles/mixins/font';
+@use '../../../styles/vars';
+
+.form {
+  & > button {
+    @include font.info(vars.$large);
+    margin-left: 10px;
+    color: vars.$gray;
+  }
+}
+
+.submit-box {
+  @include auth.submit-box;
+}
