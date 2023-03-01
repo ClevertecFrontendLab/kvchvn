@@ -15,15 +15,10 @@ export const AuthForm = () => {
       <form autoComplete='off' className={styles.form}>
         <ul>
           <li>
-            <InputBox type='text' name={AUTH_INPUT.login.name} label={AUTH_INPUT.login.label} isError={false} />
+            <InputBox type='text' name={AUTH_INPUT.login.name} label={AUTH_INPUT.login.label} />
           </li>
           <li>
-            <InputBox
-              type='password'
-              name={AUTH_INPUT.password.name}
-              label={AUTH_INPUT.password.label}
-              isError={false}
-            />
+            <InputBox type='password' name={AUTH_INPUT.password.name} label={AUTH_INPUT.password.label} />
           </li>
         </ul>
         <button type='button'>Забыли логин или пароль?</button>
