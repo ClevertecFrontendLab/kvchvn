@@ -14,7 +14,6 @@ export const PasswordRecoveryForm = () => {
         type='email'
         name={PASSWORD_RECOVERY_INPUT.email.name}
         label={PASSWORD_RECOVERY_INPUT.email.label}
-        isError={false}
         assistiveText={PASSWORD_RECOVERY_INPUT.email.assistiveText}
       />
     </>

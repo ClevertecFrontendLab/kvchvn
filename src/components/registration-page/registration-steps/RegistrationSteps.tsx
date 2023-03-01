@@ -25,7 +25,6 @@ export const RegistrationSteps = ({ currentStep }: SignUpStepsProps) => {
           name={REGISTRATION_INPUT.login.name}
           label={REGISTRATION_INPUT.login.label}
           assistiveText={REGISTRATION_INPUT.login.assistiveText}
-          isError={false}
         />
       </li>
       <li className={complexStyles.firstStepItem}>
@@ -34,40 +33,19 @@ export const RegistrationSteps = ({ currentStep }: SignUpStepsProps) => {
           name={REGISTRATION_INPUT.password.name}
           label={REGISTRATION_INPUT.password.label}
           assistiveText={REGISTRATION_INPUT.password.assistiveText}
-          isError={false}
         />
       </li>
       <li className={complexStyles.secondStepItem}>
-        <InputBox
-          type='text'
-          name={REGISTRATION_INPUT.firstName.name}
-          label={REGISTRATION_INPUT.firstName.label}
-          isError={false}
-        />
+        <InputBox type='text' name={REGISTRATION_INPUT.firstName.name} label={REGISTRATION_INPUT.firstName.label} />
       </li>
       <li className={complexStyles.secondStepItem}>
-        <InputBox
-          type='text'
-          name={REGISTRATION_INPUT.lastName.name}
-          label={REGISTRATION_INPUT.lastName.label}
-          isError={false}
-        />
+        <InputBox type='text' name={REGISTRATION_INPUT.lastName.name} label={REGISTRATION_INPUT.lastName.label} />
       </li>
       <li className={complexStyles.lastStepItem}>
-        <InputBox
-          type='text'
-          name={REGISTRATION_INPUT.phone.name}
-          label={REGISTRATION_INPUT.phone.label}
-          isError={false}
-        />
+        <InputBox type='text' name={REGISTRATION_INPUT.phone.name} label={REGISTRATION_INPUT.phone.label} />
       </li>
       <li className={complexStyles.lastStepItem}>
-        <InputBox
-          type='email'
-          name={REGISTRATION_INPUT.email.name}
-          label={REGISTRATION_INPUT.email.label}
-          isError={false}
-        />
+        <InputBox type='email' name={REGISTRATION_INPUT.email.name} label={REGISTRATION_INPUT.email.label} />
       </li>
     </ul>
   );
