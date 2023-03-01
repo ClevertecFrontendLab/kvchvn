@@ -46,16 +46,16 @@ export const RegistrationForm = () => {
       </article>
       <form autoComplete='off' className={styles.form}>
         <RegistrationSteps currentStep={state.step} />
+        <div className={styles['submit-box']}>
+          <button type='button' onClick={handleClick}>
+            {state.buttonText}
+          </button>
+          <p>
+            Есть учетная запись?
+            <Link to={ROUTES.auth}>Войти</Link>
+          </p>
+        </div>
       </form>
-      <div className={styles['submit-box']}>
-        <button type='button' onClick={handleClick}>
-          {state.buttonText}
-        </button>
-        <p>
-          Есть учетная запись?
-          <Link to={ROUTES.auth}>Войти</Link>
-        </p>
-      </div>
     </>
   );
 };

@@ -18,7 +18,7 @@ export const RegistrationSteps = ({ currentStep }: SignUpStepsProps) => {
   };
 
   return (
-    <ul>
+    <ul className={styles['inputs-list']}>
       <li className={complexStyles.firstStepItem}>
         <InputBox
           type='text'
