@@ -26,14 +26,9 @@ interface User {
   phone: Nullable<string>;
 }
 
-export interface RegistrationRequestBody {
-  email: string;
-  username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-}
+export type RegistrationRequestBody = {
+  [Property in RegistrationInputName]: string;
+};
 
 export interface AuthResponse {
   jwt: string;

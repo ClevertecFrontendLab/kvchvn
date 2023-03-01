@@ -1,5 +1,8 @@
 import React, { HTMLInputTypeAttribute, useState } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import classnames from 'classnames';
+
+import { RegistrationRequestBody } from '../../../types';
 
 import styles from './InputBox.module.scss';
 
@@ -7,10 +10,11 @@ interface InputBoxProps {
   type: HTMLInputTypeAttribute;
   name: string;
   label: string;
+  register?: UseFormRegisterReturn<keyof RegistrationRequestBody>;
   assistiveText?: string;
 }
 
-export const InputBox = ({ type, name, label, assistiveText }: InputBoxProps) => {
+export const InputBox = ({ type, name, label, assistiveText, register }: InputBoxProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const complexStyles = {
@@ -30,9 +34,9 @@ export const InputBox = ({ type, name, label, assistiveText }: InputBoxProps) =>
       <input
         type={type === 'password' && !isPasswordVisible ? 'password' : 'text'}
         id={name}
-        name={name}
         placeholder={label}
         autoComplete='off'
+        {...register}
         className={styles.input}
       />
       <span onClick={handleClick} className={complexStyles.passwordIcon} />
