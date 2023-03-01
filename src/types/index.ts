@@ -13,4 +13,12 @@ export type {
 } from './books';
 export type { LocalStorageData, BooksView } from './common';
 export type { QueryStatus } from './api';
-export type { InputContent, RegistrationSteps, RegistrationInputName } from './auth';
+export type {
+  InputContent,
+  RegistrationSteps,
+  RegistrationInputName,
+  RegistrationRequestBody,
+  AuthResponse,
+  AuthRequestBody,
+  PasswordResettingRequestBody,
+} from './auth';
