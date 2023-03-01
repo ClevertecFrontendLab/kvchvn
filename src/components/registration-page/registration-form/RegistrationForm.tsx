@@ -6,25 +6,33 @@ import { RegistrationSteps } from '../registration-steps';
 
 import styles from './RegistrationForm.module.scss';
 
-export const RegistrationForm = () => {
-  const [step, setStep] = useState<number>(REGISTRATION_FIRST_STEP);
+interface RegistrationFormState {
+  step: number;
+  buttonText: string;
+}
 
-  const buttonText = () => {
-    switch (step) {
-      case REGISTRATION_LAST_STEP - 1:
-        return 'Последний шаг';
-      case REGISTRATION_LAST_STEP:
-        return 'Зарегистрироваться';
-      default:
-        return 'Следующий шаг';
-    }
-  };
+export const RegistrationForm = () => {
+  const [state, setState] = useState<RegistrationFormState>({
+    step: REGISTRATION_FIRST_STEP,
+    buttonText: 'Следующий шаг',
+  });
 
   const handleClick = () => {
-    if (step !== REGISTRATION_LAST_STEP) {
-      setStep((prevState) => prevState + 1);
-    } else {
+    if (state.step === REGISTRATION_LAST_STEP) {
       alert('Регистрация');
+    } else {
+      setState((prevState) => {
+        const updatedStep = prevState.step + 1;
+
+        if (updatedStep === REGISTRATION_LAST_STEP - 1) {
+          return { ...prevState, step: updatedStep, buttonText: 'Последний шаг' };
+        }
+        if (updatedStep === REGISTRATION_LAST_STEP) {
+          return { ...prevState, step: updatedStep, buttonText: 'Зарегистрироваться' };
+        }
+
+        return { ...prevState, step: prevState.step + 1 };
+      });
     }
   };
 
@@ -33,15 +41,15 @@ export const RegistrationForm = () => {
       <article className={styles['article-heading']}>
         <h4>Регистрация</h4>
         <p>
-          {step} шаг из {REGISTRATION_LAST_STEP}
+          {state.step} шаг из {REGISTRATION_LAST_STEP}
         </p>
       </article>
       <form autoComplete='off' className={styles.form}>
-        <RegistrationSteps currentStep={step} />
+        <RegistrationSteps currentStep={state.step} />
       </form>
       <div className={styles['submit-box']}>
         <button type='button' onClick={handleClick}>
-          {buttonText()}
+          {state.buttonText}
         </button>
         <p>
           Есть учетная запись?
