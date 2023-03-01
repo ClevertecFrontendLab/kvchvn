@@ -1,7 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { ALL_BOOKS_CATEGORY, API_ENDPOINTS, BASE_API_URL } from '../../constants';
-import { Book, BookBase, BookModified, Category } from '../../types';
+import {
+  AuthRequestBody,
+  AuthResponse,
+  Book,
+  BookBase,
+  BookModified,
+  Category,
+  RegistrationRequestBody,
+} from '../../types';
 
 const libraryApi = createApi({
   reducerPath: 'libraryApi',
@@ -40,8 +48,22 @@ const libraryApi = createApi({
         return { ...bookData, details: bookDetails };
       },
     }),
+    registration: builder.mutation<AuthResponse, RegistrationRequestBody>({
+      query: (body) => ({
+        url: `${API_ENDPOINTS.registration}`,
+        method: 'POST',
+        body,
+      }),
+    }),
+    authorization: builder.mutation<AuthResponse, AuthRequestBody>({
+      query: (body) => ({
+        url: `${API_ENDPOINTS.auth}`,
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
 export default libraryApi;
-export const { useGetCategoriesQuery, useGetAllBooksQuery, useGetBookByIdQuery } = libraryApi;
+export const { useGetCategoriesQuery, useGetAllBooksQuery, useGetBookByIdQuery, useRegistrationMutation } = libraryApi;
