@@ -11,6 +11,10 @@
   }
 }
 
+.form {
+  @include common.flex(column, flex-start, stretch, 30px);
+}
+
 .submit-box {
   @include auth.submit-box;
 }

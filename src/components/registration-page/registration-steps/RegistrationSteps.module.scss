@@ -1,5 +1,7 @@
-.item {
+@use '../../../styles/mixins/common';
 
+.inputs-list {
+  @include common.flex(column, flex-start, stretch, 20px);
 }
 
 .hidden {
