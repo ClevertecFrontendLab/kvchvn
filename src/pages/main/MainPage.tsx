@@ -34,6 +34,7 @@ export const MainPage = () => {
     : false;
 
   useEffect(() => {
+    // to refetch on every render
     refetch();
   }, [refetch]);
 
