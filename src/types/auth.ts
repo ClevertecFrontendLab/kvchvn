@@ -1,10 +1,11 @@
-type SignUpInputName = 'login' | 'password' | 'firstName' | 'lastName' | 'phone' | 'email';
+export type RegistrationInputName = 'login' | 'password' | 'firstName' | 'lastName' | 'phone' | 'email';
 
-export type SignUpInputContent = {
-  [Property in SignUpInputName]: {
+export type InputContent<T extends string> = {
+  [Property in T]: {
+    name: Property;
     label: string;
     assistiveText?: string;
   };
 };
 
-export type SignUpSteps = JSX.Element[][];
+export type RegistrationSteps = JSX.Element[][];
