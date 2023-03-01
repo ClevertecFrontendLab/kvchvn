@@ -1,0 +1,40 @@
+@use '../../../styles/mixins/common';
+@use '../../../styles/mixins/font';
+@use '../../../styles/vars';
+
+.wrapper {
+  @include common.flex(column, center, center);
+  padding: 0 15px;
+  height: 100vh;
+  background: vars.$orange-gradient;
+
+  &::before {
+    @include font.font(32px, 40px, 700);
+    position: absolute;
+    top: 70px;
+    left: 0;
+    content: 'Cleverland';
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: vars.$white;
+
+    @include common.media(vars.$tablet-small) {
+      @include font.font(18px, 28px, 700);
+    }
+  }
+}
+
+.main {
+  @include common.flex(column, space-between, stretch, 30px);
+  padding: 50px;
+  position: relative;
+  max-width: 530px;
+  width: 100%;
+  background-color: vars.$white;
+  border-radius: 15px;
+
+  @include common.media(vars.$tablet-small) {
+    padding: 25px 15px;
+  }
+}
