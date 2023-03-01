@@ -3,10 +3,16 @@
 @use '../../../styles/vars';
 
 .form {
-  & > button {
+  & > a {
     @include font.info(vars.$large);
     margin-left: 10px;
+    width: fit-content;
     color: vars.$gray;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      border-color: vars.$gray;
+    }
   }
 }
 
