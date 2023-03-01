@@ -44,4 +44,20 @@
   &::placeholder {
     opacity: 0;
   }
+
+  &[name="password"] ~ .password-icon {
+    @include common.background('../../assets/svg/eye_closed.svg');
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: block;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition: background 0.25s;
+
+    &.visible {
+      @include common.background('../../assets/svg/eye_opened.svg');
+    }
+  }
 }
