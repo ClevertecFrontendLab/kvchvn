@@ -21,7 +21,7 @@ export const AuthForm = () => {
             <InputBox type='password' name={AUTH_INPUT.password.name} label={AUTH_INPUT.password.label} />
           </li>
         </ul>
-        <button type='button'>Забыли логин или пароль?</button>
+        <Link to={ROUTES.passwordRecovery}>Забыли логин или пароль?</Link>
       </form>
       <div className={styles['submit-box']}>
         <button type='button' onClick={handleClick}>
