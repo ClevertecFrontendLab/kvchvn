@@ -3,7 +3,3 @@
 .inputs-list {
   @include common.flex(column, flex-start, stretch, 20px);
 }
-
-.hidden {
-  display: none;
-}
