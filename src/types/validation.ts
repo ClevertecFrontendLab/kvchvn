@@ -1,0 +1,13 @@
+export interface CheckFnReturn {
+  hasLatinLetter: boolean;
+  hasNumber: boolean;
+  hasOnlyLatinLetterOrNumber: boolean;
+  hasCapitalLetter: boolean;
+  hasRequiredLength: boolean;
+}
+
+export interface CheckFnOptions {
+  requiredLength: number;
+}
+
+export type InputBoxValidationsProp = Array<{ type: keyof CheckFnReturn; stringSlice: string }>;

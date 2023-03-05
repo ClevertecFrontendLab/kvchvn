@@ -1,13 +1,22 @@
-export const checking = (value: string) => ({
+import { CHECK_FN_DEFAULT_OPTIONS, PASSWORD_MIN_LENGTH } from '../constants';
+import { CheckFnOptions, CheckFnReturn } from '../types';
+
+export const check = (value: string, options: CheckFnOptions = CHECK_FN_DEFAULT_OPTIONS): CheckFnReturn => ({
   hasLatinLetter: /\p{sc=Latn}/u.test(value),
   hasNumber: /\d/.test(value),
   hasOnlyLatinLetterOrNumber: /^[\p{sc=Latn}\d]*$/u.test(value),
   hasCapitalLetter: /[A-Z]/.test(value),
-  hasLengthMoreThan: (length: number) => value.length >= length,
+  hasRequiredLength: value.length >= options.requiredLength,
 });
 
-export const validateLogin = (value: string) =>
-  checking(value).hasOnlyLatinLetterOrNumber && checking(value).hasLatinLetter && checking(value).hasNumber;
+export const validateLogin = (value: string) => {
+  const checking = check(value);
 
-export const validatePassword = (value: string) =>
-  checking(value).hasCapitalLetter && checking(value).hasLengthMoreThan(8);
+  return checking.hasOnlyLatinLetterOrNumber && checking.hasLatinLetter && checking.hasNumber;
+};
+
+export const validatePassword = (value: string) => {
+  const checking = check(value, { requiredLength: PASSWORD_MIN_LENGTH });
+
+  return checking.hasCapitalLetter && checking.hasRequiredLength && checking.hasNumber;
+};
