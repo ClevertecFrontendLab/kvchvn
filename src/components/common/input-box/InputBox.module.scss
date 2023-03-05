@@ -4,12 +4,23 @@
 
 .box {
   position: relative;
+}
 
-  & > p {
-    @include font.info(vars.$large);
-    margin-left: 10px;
-    height: 20px;
-    color: vars.$gray;
+.box:has(input:placeholder-shown) > .assistive-text.highlight {
+
+  border-color: vars.$error-primary;
+  color: vars.$error-primary;
+}
+
+.assistive-text {
+  @include font.info(vars.$large);
+  padding-left: 10px;
+  height: 20px;
+  color: vars.$gray;
+  border-top: 1px solid vars.$gray;
+
+  & > span {
+    color: vars.$error-primary;
   }
 }
 
@@ -35,7 +46,6 @@
   height: 55px;
   background-color: vars.$lightestgray;
   border: none;
-  border-bottom: 1px solid vars.$gray;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   outline: none;
@@ -44,19 +54,31 @@
     opacity: 0;
   }
 
-  &[name="password"] ~ .password-icon {
-    @include common.background('../../assets/svg/eye_closed.svg');
+  &[name="password"] ~ .password-icons {
+    @include common.flex(row, flex-start, center, 10px);
     position: absolute;
     top: 15px;
     right: 15px;
-    display: block;
-    width: 25px;
     height: 25px;
     cursor: pointer;
     transition: background 0.25s;
 
-    &.visible {
-      @include common.background('../../assets/svg/eye_opened.svg');
+    & > span {
+      display: block;
+      width: 25px;
+      height: 25px;
+
+      &.eye {
+        @include common.background('../../assets/svg/eye_closed.svg');
+
+        &.opened {
+          @include common.background('../../assets/svg/eye_opened.svg');
+        }
+      }
+
+      &.checkmark {
+        @include common.background('../../assets/svg/checkmark.svg');
+      }
     }
   }
 }
