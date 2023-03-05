@@ -1,12 +1,27 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 
-import { REGISTRATION_INPUT } from '../../../constants';
+import { LOGIN_VALIDATION_SUBJECT, PASSWORD_VALIDATION_SUBJECT, REGISTRATION_INPUT } from '../../../constants';
 import { validateLogin, validatePassword } from '../../../helpers';
+import { InputBoxValidationsProp } from '../../../types';
 import { InputBox } from '../../common/input-box';
 
 export const FirstStep = () => {
-  const { register } = useFormContext();
+  const loginValidations: InputBoxValidationsProp = [
+    {
+      type: 'hasLatinLetter',
+      stringSlice: LOGIN_VALIDATION_SUBJECT.latinLetter,
+    },
+    { type: 'hasNumber', stringSlice: LOGIN_VALIDATION_SUBJECT.number },
+  ];
+
+  const passwordValidations: InputBoxValidationsProp = [
+    {
+      type: 'hasRequiredLength',
+      stringSlice: PASSWORD_VALIDATION_SUBJECT.length,
+    },
+    { type: 'hasCapitalLetter', stringSlice: PASSWORD_VALIDATION_SUBJECT.capitalLetter },
+    { type: 'hasNumber', stringSlice: PASSWORD_VALIDATION_SUBJECT.number },
+  ];
 
   return (
     <>
@@ -15,8 +30,9 @@ export const FirstStep = () => {
           type='text'
           name={REGISTRATION_INPUT.login.name}
           label={REGISTRATION_INPUT.login.label}
-          assistiveText={REGISTRATION_INPUT.login.assistiveText}
-          register={register(REGISTRATION_INPUT.login.name, { validate: validateLogin })}
+          initialAssistiveText={REGISTRATION_INPUT.login.assistiveText}
+          registerOptions={{ validate: validateLogin, required: true }}
+          validations={loginValidations}
         />
       </li>
       <li>
@@ -24,8 +40,9 @@ export const FirstStep = () => {
           type='password'
           name={REGISTRATION_INPUT.password.name}
           label={REGISTRATION_INPUT.password.label}
-          assistiveText={REGISTRATION_INPUT.password.assistiveText}
-          register={register(REGISTRATION_INPUT.password.name, { validate: validatePassword })}
+          initialAssistiveText={REGISTRATION_INPUT.password.assistiveText}
+          registerOptions={{ validate: validatePassword, required: true }}
+          validations={passwordValidations}
         />
       </li>
     </>

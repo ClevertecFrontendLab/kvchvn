@@ -1,8 +1,11 @@
 import React, { HTMLInputTypeAttribute, useState } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { RegisterOptions, useFormContext } from 'react-hook-form';
+import stringReplace from 'react-string-replace';
 import classnames from 'classnames';
 
-import { RegistrationRequestBody } from '../../../types';
+import { CHECK_FN_DEFAULT_OPTIONS, PASSWORD_MIN_LENGTH } from '../../../constants';
+import { check, validatePassword } from '../../../helpers';
+import { InputBoxValidationsProp } from '../../../types';
 
 import styles from './InputBox.module.scss';
 
@@ -10,21 +13,90 @@ interface InputBoxProps {
   type: HTMLInputTypeAttribute;
   name: string;
   label: string;
-  register?: UseFormRegisterReturn<keyof RegistrationRequestBody>;
-  assistiveText?: string;
+  registerOptions?: RegisterOptions;
+  initialAssistiveText?: string;
+  validations?: InputBoxValidationsProp;
 }
 
-export const InputBox = ({ type, name, label, assistiveText, register }: InputBoxProps) => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+interface InputPasswordState {
+  visibility: boolean;
+  validity: boolean;
+}
+
+export const InputBox = ({
+  type: inputType,
+  name,
+  label,
+  initialAssistiveText,
+  registerOptions,
+  validations,
+}: InputBoxProps) => {
+  const [inputPasswordState, setInputPasswordState] = useState<InputPasswordState>({
+    visibility: false,
+    validity: false,
+  });
+  const [assistiveText, setAssistiveText] = useState<string | React.ReactNodeArray | undefined>(initialAssistiveText);
+
+  const {
+    register,
+    formState: { errors: formErrors },
+  } = useFormContext();
 
   const complexStyles = {
-    passwordIcon: classnames({
-      [styles['password-icon']]: type === 'password',
-      [styles.visible]: isPasswordVisible,
-    }),
+    passwordIconsBox: classnames({ [styles['password-icons']]: inputType === 'password' }),
+    passwordEye: classnames(styles.eye, { [styles.opened]: inputPasswordState.visibility }),
+    passwordCheckmark: classnames({ [styles.checkmark]: inputPasswordState.validity }),
+    assistiveText: classnames(styles['assistive-text'], { [styles.highlight]: formErrors[name] }),
   };
 
-  const handleClick = () => setIsPasswordVisible((prevState) => !prevState);
+  const handlePasswordIconClick = () =>
+    setInputPasswordState((prevState) => ({
+      ...prevState,
+      visibility: !prevState.visibility,
+    }));
+
+  const handleChange = (e: React.ChangeEvent) => {
+    const { value } = e.target as HTMLInputElement;
+
+    if (validations && assistiveText) {
+      const options = CHECK_FN_DEFAULT_OPTIONS;
+
+      if (inputType === 'password') {
+        options.requiredLength = PASSWORD_MIN_LENGTH;
+      }
+
+      validations.forEach(({ type, stringSlice }) => {
+        if (!check(value, options)[type]) {
+          // highlight error assistiveText
+          setAssistiveText((prevAssistiveText) =>
+            stringReplace(prevAssistiveText, stringSlice, (match, i) => <span key={match + i}>{match}</span>)
+          );
+        } else if (Array.isArray(assistiveText)) {
+          // remove highlighting
+          setAssistiveText((prevAssistiveText) =>
+            (prevAssistiveText as React.ReactNodeArray).map((elem) => {
+              if (typeof elem === 'object' && (elem as React.ReactElement).props.children === stringSlice) {
+                return stringSlice;
+              }
+
+              return elem;
+            })
+          );
+        }
+      });
+
+      if (inputType === 'password') {
+        const isPasswordValid = validatePassword(value);
+
+        if (isPasswordValid && !inputPasswordState.validity) {
+          setInputPasswordState((prevState) => ({ ...prevState, validity: true }));
+        }
+        if (!isPasswordValid && inputPasswordState.validity) {
+          setInputPasswordState((prevState) => ({ ...prevState, validity: false }));
+        }
+      }
+    }
+  };
 
   return (
     <div className={styles.box}>
@@ -32,15 +104,18 @@ export const InputBox = ({ type, name, label, assistiveText, register }: InputBo
         {label}
       </label>
       <input
-        type={type === 'password' && !isPasswordVisible ? 'password' : 'text'}
+        type={inputType === 'password' && !inputPasswordState.visibility ? 'password' : 'text'}
         id={name}
         placeholder={label}
         autoComplete='off'
-        {...register}
+        {...register(name, { ...registerOptions, onChange: handleChange })}
         className={styles.input}
       />
-      <span onClick={handleClick} className={complexStyles.passwordIcon} />
-      <p>{assistiveText}</p>
+      <div className={complexStyles.passwordIconsBox}>
+        <span className={complexStyles.passwordCheckmark} />
+        <span onClick={handlePasswordIconClick} className={complexStyles.passwordEye} />
+      </div>
+      <p className={complexStyles.assistiveText}>{assistiveText}</p>
     </div>
   );
 };
