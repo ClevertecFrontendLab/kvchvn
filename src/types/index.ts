@@ -22,3 +22,4 @@ export type {
   AuthRequestBody,
   PasswordResettingRequestBody,
 } from './auth';
+export type { CheckFnReturn, CheckFnOptions, InputBoxValidationsProp } from './validation';
