@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import { REGISTRATION_FIRST_STEP, REGISTRATION_LAST_STEP, ROUTES } from '../../../constants';
+import { RegistrationRequestBody } from '../../../types';
 import { RegistrationSteps } from '../registration-steps';
 
 import styles from './RegistrationForm.module.scss';
@@ -16,10 +18,11 @@ export const RegistrationForm = () => {
     step: REGISTRATION_FIRST_STEP,
     buttonText: 'Следующий шаг',
   });
-
-  const handleClick = () => {
+  const methods = useForm<RegistrationRequestBody>({ mode: 'onBlur' });
+  const handleSubmit = methods.handleSubmit((data) => {
     if (state.step === REGISTRATION_LAST_STEP) {
-      alert('Регистрация');
+      console.log(data);
+      methods.reset();
     } else {
       setState((prevState) => {
         const updatedStep = prevState.step + 1;
@@ -34,7 +37,7 @@ export const RegistrationForm = () => {
         return { ...prevState, step: prevState.step + 1 };
       });
     }
-  };
+  });
 
   return (
     <>
@@ -44,18 +47,18 @@ export const RegistrationForm = () => {
           {state.step} шаг из {REGISTRATION_LAST_STEP}
         </p>
       </article>
-      <form autoComplete='off' className={styles.form}>
-        <RegistrationSteps currentStep={state.step} />
-        <div className={styles['submit-box']}>
-          <button type='button' onClick={handleClick}>
-            {state.buttonText}
-          </button>
-          <p>
-            Есть учетная запись?
-            <Link to={ROUTES.auth}>Войти</Link>
-          </p>
-        </div>
-      </form>
+      <FormProvider {...methods}>
+        <form autoComplete='off' onSubmit={handleSubmit} className={styles.form}>
+          <RegistrationSteps currentStep={state.step} />
+          <div className={styles['submit-box']}>
+            <button type='submit'>{state.buttonText}</button>
+            <p>
+              Есть учетная запись?
+              <Link to={ROUTES.auth}>Войти</Link>
+            </p>
+          </div>
+        </form>
+      </FormProvider>
     </>
   );
 };
