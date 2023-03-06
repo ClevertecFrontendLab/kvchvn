@@ -18,7 +18,7 @@ export const PasswordRecoveryForm = () => {
           type='email'
           name={PASSWORD_RECOVERY_INPUT.email.name}
           label={PASSWORD_RECOVERY_INPUT.email.label}
-          assistiveText={PASSWORD_RECOVERY_INPUT.email.assistiveText}
+          initialAssistiveText={PASSWORD_RECOVERY_INPUT.email.assistiveText}
         />
       </form>
       <div className={styles['submit-box']}>
