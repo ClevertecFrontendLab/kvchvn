@@ -56,7 +56,9 @@ export const RegistrationForm = () => {
         <form autoComplete='off' onSubmit={handleSubmit} className={styles.form}>
           <RegistrationSteps currentStep={state.step} />
           <div className={styles['submit-box']}>
-            <button type='submit'>{state.buttonText}</button>
+            <button type='submit' disabled={!methods.formState.isValid}>
+              {state.buttonText}
+            </button>
             <p>
               Есть учетная запись?
               <Link to={ROUTES.auth}>Войти</Link>
