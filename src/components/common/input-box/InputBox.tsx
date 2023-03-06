@@ -3,7 +3,7 @@ import { RegisterOptions, useFormContext } from 'react-hook-form';
 import stringReplace from 'react-string-replace';
 import classnames from 'classnames';
 
-import { CHECK_FN_DEFAULT_OPTIONS, PASSWORD_MIN_LENGTH } from '../../../constants';
+import { CHECK_FN_DEFAULT_OPTIONS, PASSWORD_MIN_LENGTH, REQUIRED_FIELD_ERROR } from '../../../constants';
 import { check, validatePassword } from '../../../helpers';
 import { InputBoxValidationsProp } from '../../../types';
 
@@ -46,7 +46,7 @@ export const InputBox = ({
     passwordIconsBox: classnames({ [styles['password-icons']]: inputType === 'password' }),
     passwordEye: classnames(styles.eye, { [styles.opened]: inputPasswordState.visibility }),
     passwordCheckmark: classnames({ [styles.checkmark]: inputPasswordState.validity }),
-    assistiveText: classnames(styles['assistive-text'], { [styles.highlight]: formErrors[name] }),
+    text: classnames(styles.text, { [styles.highlight]: formErrors[name] }),
   };
 
   const handlePasswordIconClick = () =>
@@ -58,7 +58,12 @@ export const InputBox = ({
   const handleChange = (e: React.ChangeEvent) => {
     const { value } = e.target as HTMLInputElement;
 
+    if (registerOptions?.required && assistiveText === REQUIRED_FIELD_ERROR) {
+      setAssistiveText(initialAssistiveText);
+    }
+
     if (validations && assistiveText) {
+      // logic of step-by-step validation and representing it onto assistive text
       const options = CHECK_FN_DEFAULT_OPTIONS;
 
       if (inputType === 'password') {
@@ -98,6 +103,14 @@ export const InputBox = ({
     }
   };
 
+  const handleBlur = (e: React.MouseEvent) => {
+    const { value } = e.target as HTMLInputElement;
+
+    if (registerOptions?.required && !value) {
+      setAssistiveText(REQUIRED_FIELD_ERROR);
+    }
+  };
+
   return (
     <div className={styles.box}>
       <label htmlFor={name} className={styles.label}>
@@ -107,15 +120,14 @@ export const InputBox = ({
         type={inputType === 'password' && !inputPasswordState.visibility ? 'password' : 'text'}
         id={name}
         placeholder={label}
-        autoComplete='off'
-        {...register(name, { ...registerOptions, onChange: handleChange })}
+        {...register(name, { ...registerOptions, onChange: handleChange, onBlur: handleBlur })}
         className={styles.input}
       />
       <div className={complexStyles.passwordIconsBox}>
         <span className={complexStyles.passwordCheckmark} />
         <span onClick={handlePasswordIconClick} className={complexStyles.passwordEye} />
       </div>
-      <p className={complexStyles.assistiveText}>{assistiveText}</p>
+      <p className={complexStyles.text}>{assistiveText}</p>
     </div>
   );
 };

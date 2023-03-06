@@ -6,21 +6,29 @@
   position: relative;
 }
 
-.box:has(input:placeholder-shown) > .assistive-text.highlight {
-
+.box:not(:focus-within) > .text.highlight {
+  visibility: visible;
   border-color: vars.$error-primary;
   color: vars.$error-primary;
 }
 
-.assistive-text {
+.box:has(input:not(:placeholder-shown)) > .text > span {
+  color: vars.$error-primary;
+}
+
+.text {
   @include font.info(vars.$large);
   padding-left: 10px;
   height: 20px;
   color: vars.$gray;
   border-top: 1px solid vars.$gray;
 
+  &.error {
+    visibility: hidden;
+  }
+
   & > span {
-    color: vars.$error-primary;
+    //    color: vars.$error-primary;
   }
 }
 
