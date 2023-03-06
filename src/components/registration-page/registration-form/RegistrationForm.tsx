@@ -18,7 +18,12 @@ export const RegistrationForm = () => {
     step: REGISTRATION_FIRST_STEP,
     buttonText: 'Следующий шаг',
   });
-  const methods = useForm<RegistrationRequestBody>({ mode: 'onBlur' });
+  const methods = useForm<RegistrationRequestBody>({
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+    shouldFocusError: false,
+    criteriaMode: 'all',
+  });
   const handleSubmit = methods.handleSubmit((data) => {
     if (state.step === REGISTRATION_LAST_STEP) {
       console.log(data);
