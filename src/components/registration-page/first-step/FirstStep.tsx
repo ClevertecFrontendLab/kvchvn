@@ -5,7 +5,7 @@ import {
   LOGIN_VALIDATION_SUBJECT,
   PASSWORD_VALIDATION_SUBJECT,
   REGISTRATION_INPUT,
-  REQUIRED_FIELD_ERROR,
+  VALIDATION_ERROR,
 } from '../../../constants';
 import { validateLogin, validatePassword } from '../../../helpers';
 import { InputBoxValidationsProp } from '../../../types';
@@ -42,8 +42,8 @@ export const FirstStep = ({ control }: FirstStepProps) => {
           label={REGISTRATION_INPUT.login.label}
           initialHintText={REGISTRATION_INPUT.login.hint}
           validationRules={{
-            validate: (val) => validateLogin(val) || REGISTRATION_INPUT.login.assistiveText,
-            required: REQUIRED_FIELD_ERROR,
+            validate: (val) => validateLogin(val) || REGISTRATION_INPUT.login.hint,
+            required: VALIDATION_ERROR.requiredField,
           }}
           stepByStepValidationRules={loginValidations}
           control={control}
@@ -56,8 +56,8 @@ export const FirstStep = ({ control }: FirstStepProps) => {
           label={REGISTRATION_INPUT.password.label}
           initialHintText={REGISTRATION_INPUT.password.hint}
           validationRules={{
-            validate: (val) => validatePassword(val) || REGISTRATION_INPUT.password.assistiveText,
-            required: REQUIRED_FIELD_ERROR,
+            validate: (val) => validatePassword(val) || REGISTRATION_INPUT.password.hint,
+            required: VALIDATION_ERROR.requiredField,
           }}
           stepByStepValidationRules={passwordValidations}
           control={control}

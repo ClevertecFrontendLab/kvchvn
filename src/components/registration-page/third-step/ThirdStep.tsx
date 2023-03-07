@@ -1,7 +1,7 @@
 import React from 'react';
 import { Control } from 'react-hook-form';
 
-import { INVALID_EMAIL_ERROR, INVALID_PHONE_ERROR, REGISTRATION_INPUT, REQUIRED_FIELD_ERROR } from '../../../constants';
+import { REGISTRATION_INPUT, VALIDATION_ERROR } from '../../../constants';
 import { validateEmail, validatePhone } from '../../../helpers';
 import { InputBox } from '../../common/input-box';
 
@@ -18,8 +18,8 @@ export const ThirdStep = ({ control }: ThirdStepProps) => (
         label={REGISTRATION_INPUT.phone.label}
         control={control}
         validationRules={{
-          validate: (val) => validatePhone(val) || INVALID_PHONE_ERROR,
-          required: REQUIRED_FIELD_ERROR,
+          validate: (val) => validatePhone(val) || VALIDATION_ERROR.invalidPhone,
+          required: VALIDATION_ERROR.requiredField,
         }}
       />
     </li>
@@ -30,8 +30,8 @@ export const ThirdStep = ({ control }: ThirdStepProps) => (
         label={REGISTRATION_INPUT.email.label}
         control={control}
         validationRules={{
-          validate: (val) => validateEmail(val) || INVALID_EMAIL_ERROR,
-          required: REQUIRED_FIELD_ERROR,
+          validate: (val) => validateEmail(val) || VALIDATION_ERROR.invalidEmail,
+          required: VALIDATION_ERROR.requiredField,
         }}
       />
     </li>
