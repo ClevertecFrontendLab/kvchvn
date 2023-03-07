@@ -7,7 +7,6 @@
 }
 
 .box:not(:focus-within) > .text.highlight {
-  visibility: visible;
   border-color: vars.$error-primary;
   color: vars.$error-primary;
 }
@@ -22,14 +21,6 @@
   height: 20px;
   color: vars.$gray;
   border-top: 1px solid vars.$gray;
-
-  &.error {
-    visibility: hidden;
-  }
-
-  & > span {
-    //    color: vars.$error-primary;
-  }
 }
 
 .label {

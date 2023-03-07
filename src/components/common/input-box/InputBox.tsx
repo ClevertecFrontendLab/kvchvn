@@ -1,9 +1,10 @@
 import React, { HTMLInputTypeAttribute, useState } from 'react';
-import { RegisterOptions, useFormContext } from 'react-hook-form';
+import { Control, RegisterOptions, useController } from 'react-hook-form';
 import stringReplace from 'react-string-replace';
+import InputMask from 'react-text-mask';
 import classnames from 'classnames';
 
-import { CHECK_FN_DEFAULT_OPTIONS, PASSWORD_MIN_LENGTH, REQUIRED_FIELD_ERROR } from '../../../constants';
+import { CHECK_FN_DEFAULT_OPTIONS, PASSWORD_MIN_LENGTH, PHONE_MASK, PHONE_MASK_PLACEHOLDER } from '../../../constants';
 import { check, validatePassword } from '../../../helpers';
 import { InputBoxValidationsProp } from '../../../types';
 
@@ -13,9 +14,11 @@ interface InputBoxProps {
   type: HTMLInputTypeAttribute;
   name: string;
   label: string;
-  registerOptions?: RegisterOptions;
-  initialAssistiveText?: string;
-  validations?: InputBoxValidationsProp;
+  control: Control;
+  validationRules: Omit<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
+  initialHintText?: string;
+  stepByStepValidationRules?: InputBoxValidationsProp;
+  defaultValue?: string;
 }
 
 interface InputPasswordState {
@@ -27,26 +30,31 @@ export const InputBox = ({
   type: inputType,
   name,
   label,
-  initialAssistiveText,
-  registerOptions,
-  validations,
+  control,
+  initialHintText,
+  validationRules,
+  stepByStepValidationRules,
+  defaultValue = '',
 }: InputBoxProps) => {
   const [inputPasswordState, setInputPasswordState] = useState<InputPasswordState>({
     visibility: false,
     validity: false,
   });
-  const [assistiveText, setAssistiveText] = useState<string | React.ReactNodeArray | undefined>(initialAssistiveText);
+  const [hint, setHint] = useState<{ text: string | React.ReactNodeArray | undefined; visibility: boolean }>({
+    text: initialHintText,
+    visibility: true,
+  });
 
   const {
-    register,
-    formState: { errors: formErrors },
-  } = useFormContext();
+    field,
+    fieldState: { error: fieldError, invalid: isInvalidField },
+  } = useController({ name, control, defaultValue, rules: validationRules });
 
   const complexStyles = {
     passwordIconsBox: classnames({ [styles['password-icons']]: inputType === 'password' }),
     passwordEye: classnames(styles.eye, { [styles.opened]: inputPasswordState.visibility }),
     passwordCheckmark: classnames({ [styles.checkmark]: inputPasswordState.validity }),
-    text: classnames(styles.text, { [styles.highlight]: formErrors[name] }),
+    hint: classnames(styles.text, { [styles.highlight]: fieldError }),
   };
 
   const handlePasswordIconClick = () =>
@@ -58,11 +66,9 @@ export const InputBox = ({
   const handleChange = (e: React.ChangeEvent) => {
     const { value } = e.target as HTMLInputElement;
 
-    if (registerOptions?.required && assistiveText === REQUIRED_FIELD_ERROR) {
-      setAssistiveText(initialAssistiveText);
-    }
+    field.onChange(value);
 
-    if (validations && assistiveText) {
+    if (stepByStepValidationRules && hint) {
       // logic of step-by-step validation and representing it onto assistive text
       const options = CHECK_FN_DEFAULT_OPTIONS;
 
@@ -70,23 +76,27 @@ export const InputBox = ({
         options.requiredLength = PASSWORD_MIN_LENGTH;
       }
 
-      validations.forEach(({ type, stringSlice }) => {
+      stepByStepValidationRules.forEach(({ type, stringSlice }) => {
         if (!check(value, options)[type]) {
           // highlight error assistiveText
-          setAssistiveText((prevAssistiveText) =>
-            stringReplace(prevAssistiveText, stringSlice, (match, i) => <span key={match + i}>{match}</span>)
-          );
-        } else if (Array.isArray(assistiveText)) {
+          setHint((prevHint) => ({
+            ...prevHint,
+            visibility: true,
+            text: stringReplace(prevHint.text, stringSlice, (match, i) => <span key={match + i}>{match}</span>),
+          }));
+        } else if (Array.isArray(hint.text)) {
           // remove highlighting
-          setAssistiveText((prevAssistiveText) =>
-            (prevAssistiveText as React.ReactNodeArray).map((elem) => {
+          setHint((prevHint) => ({
+            ...prevHint,
+            visibility: true,
+            text: (prevHint.text as React.ReactNodeArray).map((elem) => {
               if (typeof elem === 'object' && (elem as React.ReactElement).props.children === stringSlice) {
                 return stringSlice;
               }
 
               return elem;
-            })
-          );
+            }),
+          }));
         }
       });
 
@@ -103,12 +113,19 @@ export const InputBox = ({
     }
   };
 
-  const handleBlur = (e: React.MouseEvent) => {
-    const { value } = e.target as HTMLInputElement;
+  const handleBlur = () => {
+    field.onBlur();
+    setHint((prevHint) => ({ ...prevHint, visibility: false }));
+  };
 
-    if (registerOptions?.required && !value) {
-      setAssistiveText(REQUIRED_FIELD_ERROR);
-    }
+  const inputProps = {
+    id: name,
+    placeholder: label,
+    value: field.value,
+    name: field.name,
+    onBlur: handleBlur,
+    onChange: handleChange,
+    className: styles.input,
   };
 
   return (
@@ -116,18 +133,21 @@ export const InputBox = ({
       <label htmlFor={name} className={styles.label}>
         {label}
       </label>
-      <input
-        type={inputType === 'password' && !inputPasswordState.visibility ? 'password' : 'text'}
-        id={name}
-        placeholder={label}
-        {...register(name, { ...registerOptions, onChange: handleChange, onBlur: handleBlur })}
-        className={styles.input}
-      />
+      {name === 'phone' ? (
+        <InputMask mask={PHONE_MASK} placeholderChar={PHONE_MASK_PLACEHOLDER} {...inputProps} />
+      ) : (
+        <input
+          type={inputType === 'password' && !inputPasswordState.visibility ? 'password' : 'text'}
+          {...inputProps}
+        />
+      )}
       <div className={complexStyles.passwordIconsBox}>
         <span className={complexStyles.passwordCheckmark} />
         <span onClick={handlePasswordIconClick} className={complexStyles.passwordEye} />
       </div>
-      <p className={complexStyles.text}>{assistiveText}</p>
+      <p className={complexStyles.hint}>
+        {hint.text && (hint.visibility || !isInvalidField) ? hint.text : fieldError?.message}
+      </p>
     </div>
   );
 };
