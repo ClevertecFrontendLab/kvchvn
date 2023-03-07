@@ -1,11 +1,21 @@
 import React from 'react';
+import { Control } from 'react-hook-form';
 
-import { LOGIN_VALIDATION_SUBJECT, PASSWORD_VALIDATION_SUBJECT, REGISTRATION_INPUT } from '../../../constants';
+import {
+  LOGIN_VALIDATION_SUBJECT,
+  PASSWORD_VALIDATION_SUBJECT,
+  REGISTRATION_INPUT,
+  REQUIRED_FIELD_ERROR,
+} from '../../../constants';
 import { validateLogin, validatePassword } from '../../../helpers';
 import { InputBoxValidationsProp } from '../../../types';
 import { InputBox } from '../../common/input-box';
 
-export const FirstStep = () => {
+interface FirstStepProps {
+  control: Control;
+}
+
+export const FirstStep = ({ control }: FirstStepProps) => {
   const loginValidations: InputBoxValidationsProp = [
     {
       type: 'hasLatinLetter',
@@ -30,9 +40,13 @@ export const FirstStep = () => {
           type='text'
           name={REGISTRATION_INPUT.login.name}
           label={REGISTRATION_INPUT.login.label}
-          initialAssistiveText={REGISTRATION_INPUT.login.assistiveText}
-          registerOptions={{ validate: validateLogin, required: true }}
-          validations={loginValidations}
+          initialHintText={REGISTRATION_INPUT.login.assistiveText}
+          validationRules={{
+            validate: (val) => validateLogin(val) || REGISTRATION_INPUT.login.assistiveText,
+            required: REQUIRED_FIELD_ERROR,
+          }}
+          stepByStepValidationRules={loginValidations}
+          control={control}
         />
       </li>
       <li>
@@ -40,9 +54,13 @@ export const FirstStep = () => {
           type='password'
           name={REGISTRATION_INPUT.password.name}
           label={REGISTRATION_INPUT.password.label}
-          initialAssistiveText={REGISTRATION_INPUT.password.assistiveText}
-          registerOptions={{ validate: validatePassword, required: true }}
-          validations={passwordValidations}
+          initialHintText={REGISTRATION_INPUT.password.assistiveText}
+          validationRules={{
+            validate: (val) => validatePassword(val) || REGISTRATION_INPUT.password.assistiveText,
+            required: REQUIRED_FIELD_ERROR,
+          }}
+          stepByStepValidationRules={passwordValidations}
+          control={control}
         />
       </li>
     </>

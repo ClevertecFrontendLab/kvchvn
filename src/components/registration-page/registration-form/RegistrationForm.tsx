@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import { REGISTRATION_FIRST_STEP, REGISTRATION_LAST_STEP, ROUTES } from '../../../constants';
-import { RegistrationRequestBody } from '../../../types';
 import { RegistrationSteps } from '../registration-steps';
 
 import styles from './RegistrationForm.module.scss';
@@ -18,16 +17,21 @@ export const RegistrationForm = () => {
     step: REGISTRATION_FIRST_STEP,
     buttonText: 'Следующий шаг',
   });
-  const methods = useForm<RegistrationRequestBody>({
+  const {
+    handleSubmit: handleSubmitWrapper,
+    control,
+    reset,
+    formState,
+  } = useForm({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     shouldFocusError: false,
     criteriaMode: 'all',
   });
-  const handleSubmit = methods.handleSubmit((data) => {
+  const handleSubmit = handleSubmitWrapper((data) => {
     if (state.step === REGISTRATION_LAST_STEP) {
       console.log(data);
-      methods.reset();
+      reset();
     } else {
       setState((prevState) => {
         const updatedStep = prevState.step + 1;
@@ -52,20 +56,18 @@ export const RegistrationForm = () => {
           {state.step} шаг из {REGISTRATION_LAST_STEP}
         </p>
       </article>
-      <FormProvider {...methods}>
-        <form autoComplete='off' onSubmit={handleSubmit} className={styles.form}>
-          <RegistrationSteps currentStep={state.step} />
-          <div className={styles['submit-box']}>
-            <button type='submit' disabled={!methods.formState.isValid}>
-              {state.buttonText}
-            </button>
-            <p>
-              Есть учетная запись?
-              <Link to={ROUTES.auth}>Войти</Link>
-            </p>
-          </div>
-        </form>
-      </FormProvider>
+      <form autoComplete='off' onSubmit={handleSubmit} className={styles.form}>
+        <RegistrationSteps currentStep={state.step} control={control} />
+        <div className={styles['submit-box']}>
+          <button type='submit' disabled={!formState.isValid}>
+            {state.buttonText}
+          </button>
+          <p>
+            Есть учетная запись?
+            <Link to={ROUTES.auth}>Войти</Link>
+          </p>
+        </div>
+      </form>
     </>
   );
 };

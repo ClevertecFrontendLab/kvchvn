@@ -1,16 +1,22 @@
 import React from 'react';
+import { Control } from 'react-hook-form';
 
-import { REGISTRATION_INPUT } from '../../../constants';
+import { REGISTRATION_INPUT, REQUIRED_FIELD_ERROR } from '../../../constants';
 import { InputBox } from '../../common/input-box';
 
-export const SecondStep = () => (
+interface SecondStepProps {
+  control: Control;
+}
+
+export const SecondStep = ({ control }: SecondStepProps) => (
   <>
     <li>
       <InputBox
         type='text'
         name={REGISTRATION_INPUT.firstName.name}
         label={REGISTRATION_INPUT.firstName.label}
-        registerOptions={{ required: true }}
+        control={control}
+        validationRules={{ required: REQUIRED_FIELD_ERROR }}
       />
     </li>
     <li>
@@ -18,7 +24,8 @@ export const SecondStep = () => (
         type='text'
         name={REGISTRATION_INPUT.lastName.name}
         label={REGISTRATION_INPUT.lastName.label}
-        registerOptions={{ required: true }}
+        control={control}
+        validationRules={{ required: REQUIRED_FIELD_ERROR }}
       />
     </li>
   </>

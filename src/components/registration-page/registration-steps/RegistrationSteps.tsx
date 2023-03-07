@@ -1,4 +1,5 @@
 import React from 'react';
+import { Control } from 'react-hook-form';
 
 import { REGISTRATION_FIRST_STEP, REGISTRATION_LAST_STEP } from '../../../constants';
 import { FirstStep } from '../first-step';
@@ -9,13 +10,14 @@ import styles from './RegistrationSteps.module.scss';
 
 interface SignUpStepsProps {
   currentStep: number;
+  control: Control;
 }
 
-export const RegistrationSteps = ({ currentStep }: SignUpStepsProps) => {
+export const RegistrationSteps = ({ currentStep, control }: SignUpStepsProps) => {
   const steps = [
-    { step: REGISTRATION_FIRST_STEP, component: <FirstStep /> },
-    { step: REGISTRATION_FIRST_STEP + 1, component: <SecondStep /> },
-    { step: REGISTRATION_LAST_STEP, component: <ThirdStep /> },
+    { step: REGISTRATION_FIRST_STEP, component: <FirstStep control={control} /> },
+    { step: REGISTRATION_FIRST_STEP + 1, component: <SecondStep control={control} /> },
+    { step: REGISTRATION_LAST_STEP, component: <ThirdStep control={control} /> },
   ];
 
   return <ul className={styles['inputs-list']}>{steps.find(({ step }) => step === currentStep)?.component || null}</ul>;
