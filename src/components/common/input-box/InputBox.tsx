@@ -26,6 +26,11 @@ interface InputPasswordState {
   validity: boolean;
 }
 
+interface HintState {
+  text?: string | React.ReactNodeArray;
+  visibility: boolean;
+}
+
 export const InputBox = ({
   type: inputType,
   name,
@@ -40,7 +45,7 @@ export const InputBox = ({
     visibility: false,
     validity: false,
   });
-  const [hint, setHint] = useState<{ text: string | React.ReactNodeArray | undefined; visibility: boolean }>({
+  const [hint, setHint] = useState<HintState>({
     text: initialHintText,
     visibility: true,
   });
