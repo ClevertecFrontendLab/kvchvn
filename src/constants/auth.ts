@@ -1,4 +1,4 @@
-import { InputContent, RegistrationInputName } from '../types';
+import { AuthInputName, InputContent, PasswordRecoveryInputName, RegistrationInputName } from '../types';
 
 import { LOGIN_VALIDATION_SUBJECT, PASSWORD_VALIDATION_SUBJECT } from './validation';
 
@@ -34,9 +34,9 @@ export const REGISTRATION_INPUT: InputContent<RegistrationInputName> = {
   },
 };
 
-export const AUTH_INPUT: InputContent<'login' | 'password'> = {
-  login: {
-    name: 'login',
+export const AUTH_INPUT: InputContent<AuthInputName> = {
+  identifier: {
+    name: 'identifier',
     label: 'Логин',
   },
   password: {
@@ -45,7 +45,7 @@ export const AUTH_INPUT: InputContent<'login' | 'password'> = {
   },
 };
 
-export const PASSWORD_RECOVERY_INPUT: InputContent<'email'> = {
+export const PASSWORD_RECOVERY_INPUT: InputContent<PasswordRecoveryInputName> = {
   email: {
     name: 'email',
     label: 'E-mail',

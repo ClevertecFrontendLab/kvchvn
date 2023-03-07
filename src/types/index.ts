@@ -21,5 +21,7 @@ export type {
   AuthResponse,
   AuthRequestBody,
   PasswordResettingRequestBody,
+  AuthInputName,
+  PasswordRecoveryInputName,
 } from './auth';
 export type { CheckFnReturn, CheckFnOptions, InputBoxValidationsProp } from './validation';

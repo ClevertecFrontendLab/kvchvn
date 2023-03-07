@@ -1,6 +1,8 @@
 import { Nullable } from './common';
 
 export type RegistrationInputName = 'login' | 'password' | 'firstName' | 'lastName' | 'phone' | 'email';
+export type AuthInputName = 'identifier' | 'password';
+export type PasswordRecoveryInputName = 'email';
 
 export type InputContent<T extends string> = {
   [Property in T]: {
