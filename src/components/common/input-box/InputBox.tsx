@@ -63,6 +63,7 @@ export const InputBox = ({
   };
 
   const handlePasswordIconClick = () =>
+    // it's eye icon
     setInputPasswordState((prevState) => ({
       ...prevState,
       visibility: !prevState.visibility,
@@ -81,29 +82,33 @@ export const InputBox = ({
         options.requiredLength = PASSWORD_MIN_LENGTH;
       }
 
-      stepByStepValidationRules.forEach(({ type, stringSlice }) => {
-        if (!check(value, options)[type]) {
-          // highlight error assistiveText
-          setHint((prevHint) => ({
-            ...prevHint,
-            visibility: true,
-            text: stringReplace(prevHint.text, stringSlice, (match, i) => <span key={match + i}>{match}</span>),
-          }));
-        } else if (Array.isArray(hint.text)) {
-          // remove highlighting
-          setHint((prevHint) => ({
-            ...prevHint,
-            visibility: true,
-            text: (prevHint.text as React.ReactNodeArray).map((elem) => {
-              if (typeof elem === 'object' && (elem as React.ReactElement).props.children === stringSlice) {
-                return stringSlice;
-              }
+      try {
+        stepByStepValidationRules.forEach(({ type, stringSlice }) => {
+          if (!check(value, options)[type]) {
+            // highlight error assistiveText
+            setHint((prevHint) => ({
+              ...prevHint,
+              visibility: true,
+              text: stringReplace(prevHint.text, stringSlice, (match, i) => <span key={match + i}>{match}</span>),
+            }));
+          } else if (Array.isArray(hint.text)) {
+            // remove highlighting
+            setHint((prevHint) => ({
+              ...prevHint,
+              visibility: true,
+              text: (prevHint.text as React.ReactNodeArray).map((elem) => {
+                if (typeof elem === 'object' && (elem as React.ReactElement).props.children === stringSlice) {
+                  return stringSlice;
+                }
 
-              return elem;
-            }),
-          }));
-        }
-      });
+                return elem;
+              }),
+            }));
+          }
+        });
+      } catch (err) {
+        console.error(err);
+      }
 
       if (inputType === 'password') {
         const isPasswordValid = validatePassword(value);
