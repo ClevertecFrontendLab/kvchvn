@@ -4,6 +4,7 @@ export interface CheckFnReturn {
   hasOnlyLatinLetterOrNumber: boolean;
   hasCapitalLetter: boolean;
   hasRequiredLength: boolean;
+  hasValidEmail: boolean;
 }
 
 export interface CheckFnOptions {
