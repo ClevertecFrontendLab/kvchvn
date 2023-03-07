@@ -38,11 +38,11 @@ export const FirstStep = ({ control }: FirstStepProps) => {
       <li>
         <InputBox
           type='text'
-          name={REGISTRATION_INPUT.login.name}
-          label={REGISTRATION_INPUT.login.label}
-          initialHintText={REGISTRATION_INPUT.login.hint}
+          name={REGISTRATION_INPUT.username.name}
+          label={REGISTRATION_INPUT.username.label}
+          initialHintText={REGISTRATION_INPUT.username.hint}
           validationRules={{
-            validate: (val) => validateLogin(val) || REGISTRATION_INPUT.login.hint,
+            validate: (val) => validateLogin(val) || REGISTRATION_INPUT.username.hint,
             required: VALIDATION_ERROR.requiredField,
           }}
           stepByStepValidationRules={loginValidations}

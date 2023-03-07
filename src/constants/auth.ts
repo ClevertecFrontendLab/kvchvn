@@ -6,8 +6,8 @@ export const REGISTRATION_FIRST_STEP = 1;
 export const REGISTRATION_LAST_STEP = 3;
 
 export const REGISTRATION_INPUT: InputContent<RegistrationInputName> = {
-  login: {
-    name: 'login',
+  username: {
+    name: 'username',
     label: 'Придумайте логин для входа',
     hint: `Используйте для логина ${LOGIN_VALIDATION_SUBJECT.latinLetter} и ${LOGIN_VALIDATION_SUBJECT.number}`,
   },
