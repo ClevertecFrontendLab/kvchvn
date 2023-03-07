@@ -9,12 +9,12 @@ export const REGISTRATION_INPUT: InputContent<RegistrationInputName> = {
   login: {
     name: 'login',
     label: 'Придумайте логин для входа',
-    assistiveText: `Используйте для логина ${LOGIN_VALIDATION_SUBJECT.latinLetter} и ${LOGIN_VALIDATION_SUBJECT.number}`,
+    hint: `Используйте для логина ${LOGIN_VALIDATION_SUBJECT.latinLetter} и ${LOGIN_VALIDATION_SUBJECT.number}`,
   },
   password: {
     name: 'password',
     label: 'Пароль',
-    assistiveText: `Пароль ${PASSWORD_VALIDATION_SUBJECT.length}, с ${PASSWORD_VALIDATION_SUBJECT.capitalLetter} и ${PASSWORD_VALIDATION_SUBJECT.number}`,
+    hint: `Пароль ${PASSWORD_VALIDATION_SUBJECT.length}, с ${PASSWORD_VALIDATION_SUBJECT.capitalLetter} и ${PASSWORD_VALIDATION_SUBJECT.number}`,
   },
   firstName: {
     name: 'firstName',
@@ -49,6 +49,6 @@ export const PASSWORD_RECOVERY_INPUT: InputContent<'email'> = {
   email: {
     name: 'email',
     label: 'E-mail',
-    assistiveText: 'На это email будет отправлено письмо с инструкциями по восстановлению пароля',
+    hint: 'На это email будет отправлено письмо с инструкциями по восстановлению пароля',
   },
 };

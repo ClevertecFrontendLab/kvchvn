@@ -6,7 +6,7 @@ export type InputContent<T extends string> = {
   [Property in T]: {
     name: Property;
     label: string;
-    assistiveText?: string;
+    hint?: string;
   };
 };
 

@@ -40,7 +40,7 @@ export const FirstStep = ({ control }: FirstStepProps) => {
           type='text'
           name={REGISTRATION_INPUT.login.name}
           label={REGISTRATION_INPUT.login.label}
-          initialHintText={REGISTRATION_INPUT.login.assistiveText}
+          initialHintText={REGISTRATION_INPUT.login.hint}
           validationRules={{
             validate: (val) => validateLogin(val) || REGISTRATION_INPUT.login.assistiveText,
             required: REQUIRED_FIELD_ERROR,
@@ -54,7 +54,7 @@ export const FirstStep = ({ control }: FirstStepProps) => {
           type='password'
           name={REGISTRATION_INPUT.password.name}
           label={REGISTRATION_INPUT.password.label}
-          initialHintText={REGISTRATION_INPUT.password.assistiveText}
+          initialHintText={REGISTRATION_INPUT.password.hint}
           validationRules={{
             validate: (val) => validatePassword(val) || REGISTRATION_INPUT.password.assistiveText,
             required: REQUIRED_FIELD_ERROR,
