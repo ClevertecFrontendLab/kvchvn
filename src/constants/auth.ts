@@ -52,5 +52,3 @@ export const PASSWORD_RECOVERY_INPUT: InputContent<'email'> = {
     assistiveText: 'На это email будет отправлено письмо с инструкциями по восстановлению пароля',
   },
 };
-
-export const REQUIRED_FIELD_ERROR = 'Поле не может быть пустым';
