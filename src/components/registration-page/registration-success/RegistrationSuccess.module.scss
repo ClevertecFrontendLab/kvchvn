@@ -1,0 +1,34 @@
+@use '../../../styles/mixins/common';
+@use '../../../styles/mixins/font';
+@use '../../../styles/vars';
+
+.section {
+  @include common.flex(column, flex-start, center, 30px);
+  margin: 0 auto;
+  max-width: 400px;
+  text-align: center;
+
+  & > h4 {
+    @include common.media(vars.$mobile) {
+      @include font.font(18px, 28px, 700);
+    }
+  }
+
+  & > p {
+    @include font.body(vars.$large);
+  }
+
+  & > a {
+    @include common.button(vars.$button-primary);
+    @include font.button(vars.$large);
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+
+    @include common.media(vars.$mobile) {
+      @include font.button(vars.$small);
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+}
