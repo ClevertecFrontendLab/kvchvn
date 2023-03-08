@@ -3,7 +3,12 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import { REGISTRATION_FIRST_STEP, REGISTRATION_LAST_STEP, ROUTES } from '../../../constants';
+import { useRegistrationMutation } from '../../../store/slices/api';
+import { RegistrationRequestBody } from '../../../types';
+import { Loading } from '../../global/loading';
+import { RegistrationFailure } from '../registration-failure';
 import { RegistrationSteps } from '../registration-steps';
+import { RegistrationSuccess } from '../registration-success';
 
 import styles from './RegistrationForm.module.scss';
 
@@ -17,10 +22,14 @@ export const RegistrationForm = () => {
     step: REGISTRATION_FIRST_STEP,
     buttonText: 'Следующий шаг',
   });
+
+  const [register, { isLoading, isSuccess, isError, error }] = useRegistrationMutation();
+
   const {
     handleSubmit: handleSubmitWrapper,
     control,
-    reset,
+    getValues,
+    reset: resetForm,
     formState,
   } = useForm<RegistrationRequestBody>({
     mode: 'onBlur',
@@ -28,10 +37,25 @@ export const RegistrationForm = () => {
     shouldFocusError: false,
     criteriaMode: 'all',
   });
-  const handleSubmit = handleSubmitWrapper((data) => {
+
+  const registerUser = () => {
+    const body = getValues();
+
+    register(body);
+  };
+
+  const returnToFirstStep = () => {
+    resetForm();
+
+    setState((prevState) => ({
+      ...prevState,
+      step: REGISTRATION_FIRST_STEP,
+    }));
+  };
+
+  const handleSubmit = handleSubmitWrapper((formValues) => {
     if (state.step === REGISTRATION_LAST_STEP) {
-      console.log(data);
-      reset();
+      register(formValues);
     } else {
       setState((prevState) => {
         const updatedStep = prevState.step + 1;
@@ -48,8 +72,26 @@ export const RegistrationForm = () => {
     }
   });
 
+  if (isSuccess) {
+    return <RegistrationSuccess />;
+  }
+
+  if (isError && error) {
+    console.log(error);
+
+    return (
+      <RegistrationFailure
+        statusCode={String(400)}
+        tryAgain={true}
+        returnFn={returnToFirstStep}
+        actionFn={registerUser}
+      />
+    );
+  }
+
   return (
     <>
+      {isLoading && <Loading />}
       <article className={styles['article-heading']}>
         <h4>Регистрация</h4>
         <p>
