@@ -52,3 +52,8 @@ export const PASSWORD_RECOVERY_INPUT: InputContent<PasswordRecoveryInputName> = 
     hint: 'На это email будет отправлено письмо с инструкциями по восстановлению пароля',
   },
 };
+
+export const REGISTRATION_FAILURE_MESSAGE = {
+  '400': 'Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail.',
+  default: 'Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз',
+};
