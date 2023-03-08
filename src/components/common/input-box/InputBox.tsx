@@ -6,15 +6,15 @@ import classnames from 'classnames';
 
 import { CHECK_FN_DEFAULT_OPTIONS, PASSWORD_MIN_LENGTH, PHONE_MASK, PHONE_MASK_PLACEHOLDER } from '../../../constants';
 import { check, validatePassword } from '../../../helpers';
-import { InputBoxValidationsProp } from '../../../types';
+import { InputBoxValidationsProp, RegistrationInputName, RegistrationRequestBody } from '../../../types';
 
 import styles from './InputBox.module.scss';
 
 interface InputBoxProps {
   type: HTMLInputTypeAttribute;
-  name: string;
+  name: RegistrationInputName;
   label: string;
-  control: Control;
+  control: Control<RegistrationRequestBody>;
   validationRules: Omit<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
   initialHintText?: string;
   stepByStepValidationRules?: InputBoxValidationsProp;
@@ -53,7 +53,12 @@ export const InputBox = ({
   const {
     field,
     fieldState: { error: fieldError, invalid: isInvalidField },
-  } = useController({ name, control, defaultValue, rules: validationRules });
+  } = useController<RegistrationRequestBody, RegistrationInputName>({
+    name,
+    control,
+    defaultValue,
+    rules: validationRules,
+  });
 
   const complexStyles = {
     passwordIconsBox: classnames({ [styles['password-icons']]: inputType === 'password' }),

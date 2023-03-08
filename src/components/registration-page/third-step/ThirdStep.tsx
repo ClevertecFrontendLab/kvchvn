@@ -3,10 +3,11 @@ import { Control } from 'react-hook-form';
 
 import { REGISTRATION_INPUT, VALIDATION_ERROR } from '../../../constants';
 import { validateEmail, validatePhone } from '../../../helpers';
+import { RegistrationRequestBody } from '../../../types';
 import { InputBox } from '../../common/input-box';
 
 interface ThirdStepProps {
-  control: Control;
+  control: Control<RegistrationRequestBody>;
 }
 
 export const ThirdStep = ({ control }: ThirdStepProps) => (

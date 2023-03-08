@@ -2,10 +2,11 @@ import React from 'react';
 import { Control } from 'react-hook-form';
 
 import { REGISTRATION_INPUT, VALIDATION_ERROR } from '../../../constants';
+import { RegistrationRequestBody } from '../../../types';
 import { InputBox } from '../../common/input-box';
 
 interface SecondStepProps {
-  control: Control;
+  control: Control<RegistrationRequestBody>;
 }
 
 export const SecondStep = ({ control }: SecondStepProps) => (

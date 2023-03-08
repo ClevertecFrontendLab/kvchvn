@@ -22,7 +22,7 @@ export const RegistrationForm = () => {
     control,
     reset,
     formState,
-  } = useForm({
+  } = useForm<RegistrationRequestBody>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     shouldFocusError: false,

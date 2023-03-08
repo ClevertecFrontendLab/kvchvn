@@ -2,6 +2,7 @@ import React from 'react';
 import { Control } from 'react-hook-form';
 
 import { REGISTRATION_FIRST_STEP, REGISTRATION_LAST_STEP } from '../../../constants';
+import { RegistrationRequestBody } from '../../../types';
 import { FirstStep } from '../first-step';
 import { SecondStep } from '../second-step';
 import { ThirdStep } from '../third-step';
@@ -10,7 +11,7 @@ import styles from './RegistrationSteps.module.scss';
 
 interface SignUpStepsProps {
   currentStep: number;
-  control: Control;
+  control: Control<RegistrationRequestBody>;
 }
 
 export const RegistrationSteps = ({ currentStep, control }: SignUpStepsProps) => {

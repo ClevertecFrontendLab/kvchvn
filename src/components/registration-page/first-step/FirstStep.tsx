@@ -8,11 +8,11 @@ import {
   VALIDATION_ERROR,
 } from '../../../constants';
 import { validateLogin, validatePassword } from '../../../helpers';
-import { InputBoxValidationsProp } from '../../../types';
+import { InputBoxValidationsProp, RegistrationRequestBody } from '../../../types';
 import { InputBox } from '../../common/input-box';
 
 interface FirstStepProps {
-  control: Control;
+  control: Control<RegistrationRequestBody>;
 }
 
 export const FirstStep = ({ control }: FirstStepProps) => {
