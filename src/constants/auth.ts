@@ -49,7 +49,6 @@ export const PASSWORD_RECOVERY_INPUT: InputContent<PasswordRecoveryInputName> = 
   email: {
     name: 'email',
     label: 'E-mail',
-    hint: 'На это email будет отправлено письмо с инструкциями по восстановлению пароля',
   },
 };
 
