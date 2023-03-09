@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import { REGISTRATION_FIRST_STEP, REGISTRATION_LAST_STEP, ROUTES } from '../../../constants';
-import { useRegistrationMutation } from '../../../store/slices/api';
+import { useRegistrationMutation } from '../../../store';
 import { RegistrationRequestBody } from '../../../types';
 import { Loading } from '../../global/loading';
 import { RegistrationFailure } from '../registration-failure';
@@ -32,10 +32,8 @@ export const RegistrationForm = () => {
     reset: resetForm,
     formState,
   } = useForm<RegistrationRequestBody>({
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
+    mode: 'all',
     shouldFocusError: false,
-    criteriaMode: 'all',
   });
 
   const registerUser = () => {
@@ -80,12 +78,15 @@ export const RegistrationForm = () => {
     console.log(error);
 
     return (
-      <RegistrationFailure
-        statusCode={String(400)}
-        tryAgain={true}
-        returnFn={returnToFirstStep}
-        actionFn={registerUser}
-      />
+      <>
+        {isLoading && <Loading />}
+        <RegistrationFailure
+          statusCode={String(400)}
+          tryAgain={true}
+          returnFn={returnToFirstStep}
+          actionFn={registerUser}
+        />
+      </>
     );
   }
 
