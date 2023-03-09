@@ -54,7 +54,8 @@ export const InputBox = ({
 
   const {
     field,
-    fieldState: { error: fieldError, invalid: isInvalidField },
+    fieldState: { error: fieldError, invalid: isInvalidField, isTouched: isFieldTouched, isDirty: isFieldDirty },
+    formState: { isSubmitted: isFormSubmitted },
   } = useController({
     name,
     control: control as Control,
@@ -75,6 +76,19 @@ export const InputBox = ({
       ...prevState,
       visibility: !prevState.visibility,
     }));
+
+  const setInputAssistiveText = () => {
+    if (hint.text) {
+      if (isFormSubmitted && !isFieldTouched && !isFieldDirty && 'required' in validationRules) {
+        return validationRules.required as string;
+      }
+      if (hint.visibility || !isInvalidField) {
+        return hint.text;
+      }
+    }
+
+    return fieldError?.message || '';
+  };
 
   const handleChange = (e: React.ChangeEvent) => {
     const { value } = e.target as HTMLInputElement;
@@ -159,9 +173,7 @@ export const InputBox = ({
         <span className={complexStyles.passwordCheckmark} />
         <span onClick={handlePasswordIconClick} className={complexStyles.passwordEye} />
       </div>
-      <p className={complexStyles.hint}>
-        {hint.text && (hint.visibility || !isInvalidField) ? hint.text : fieldError?.message}
-      </p>
+      <p className={complexStyles.hint}>{setInputAssistiveText()}</p>
     </div>
   );
 };
