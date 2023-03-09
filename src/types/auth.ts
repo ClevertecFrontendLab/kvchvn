@@ -47,3 +47,7 @@ export interface PasswordResettingRequestBody {
   passwordConfirmation: string;
   code: string;
 }
+
+export interface ForgotPassRequestBody {
+  email: string;
+}
