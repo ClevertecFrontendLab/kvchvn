@@ -55,7 +55,7 @@ const libraryApi = createApi({
         body,
       }),
     }),
-    authorization: builder.mutation<AuthResponse, AuthRequestBody>({
+    authentication: builder.mutation<AuthResponse, AuthRequestBody>({
       query: (body) => ({
         url: `${API_ENDPOINTS.auth}`,
         method: 'POST',
@@ -66,4 +66,10 @@ const libraryApi = createApi({
 });
 
 export default libraryApi;
-export const { useGetCategoriesQuery, useGetAllBooksQuery, useGetBookByIdQuery, useRegistrationMutation } = libraryApi;
+export const {
+  useGetCategoriesQuery,
+  useGetAllBooksQuery,
+  useGetBookByIdQuery,
+  useRegistrationMutation,
+  useAuthenticationMutation,
+} = libraryApi;
