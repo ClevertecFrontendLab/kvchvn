@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query/react';
 import classnames from 'classnames';
 
 import { AUTH_INPUT, ROUTES, VALIDATION_ERROR } from '../../../constants';
-import { getRequestErrorStatusCode } from '../../../helpers';
+import { getRequestErrorStatusCode, setToLocalStorage } from '../../../helpers';
 import { useAuthenticationMutation } from '../../../store';
 import { AuthRequestBody } from '../../../types';
 import { RequestError } from '../../../types/api';
 import { InputBox } from '../../common/input-box';
 import { Loading } from '../../global/loading';
+import { AuthFailure } from '../auth-failure';
 
 import styles from './AuthForm.module.scss';
 
@@ -29,13 +30,17 @@ export const AuthForm = () => {
   const {
     control,
     formState,
+    getValues: getFormValues,
     handleSubmit: handleSubmitWrapper,
   } = useForm<AuthRequestBody>({
     mode: 'all',
     shouldFocusError: false,
   });
-  const [authenticate, { isError, isLoading }] = useAuthenticationMutation();
-  const [isAuthenticationFailed, setIsAuthenticationFailed] = useState(false);
+  const [state, setState] = useState<AuthFormState>(INITIAL_AUTH_FORM_STATE);
+
+  const [authenticate, { isLoading }] = useAuthenticationMutation();
+
+  const navigate = useNavigate();
 
   const complexStyles = {
     infoBox: classnames([styles['info-box']]),
@@ -43,7 +48,10 @@ export const AuthForm = () => {
 
   const handleSubmit = handleSubmitWrapper(async (formValues) => {
     try {
-      await authenticate(formValues).unwrap();
+      const authResponse = await authenticate(formValues).unwrap();
+
+      setToLocalStorage('jwt', authResponse.jwt);
+      navigate(ROUTES.main);
     } catch (err) {
       const statusCode = getRequestErrorStatusCode(
         err as FetchBaseQueryError | SerializedError | RequestError | undefined
@@ -81,7 +89,7 @@ export const AuthForm = () => {
               label={AUTH_INPUT.identifier.label}
               control={control}
               validationRules={{ required: VALIDATION_ERROR.requiredField }}
-              isFormError={isError}
+              isFormError={state.isValidationError}
             />
           </li>
           <li>
@@ -91,14 +99,14 @@ export const AuthForm = () => {
               label={AUTH_INPUT.password.label}
               control={control}
               validationRules={{ required: VALIDATION_ERROR.requiredField }}
-              isFormError={isError}
+              isFormError={state.isValidationError}
             />
           </li>
         </ul>
         <div className={complexStyles.infoBox}>
-          <p>{isAuthenticationFailed && 'Неверный логин или пароль!'}</p>
+          <p>{state.isValidationError && 'Неверный логин или пароль!'}</p>
           <Link to={ROUTES.passwordRecovery}>
-            {isAuthenticationFailed ? 'Восстановить?' : 'Забыли логин или пароль?'}
+            {state.isValidationError ? 'Восстановить?' : 'Забыли логин или пароль?'}
           </Link>
         </div>
         <div className={styles['submit-box']}>
