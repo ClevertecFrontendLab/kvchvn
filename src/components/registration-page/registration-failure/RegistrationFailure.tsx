@@ -5,10 +5,10 @@ import { REGISTRATION_FAILURE_MESSAGE } from '../../../constants';
 import styles from './RegistrationFailure.module.scss';
 
 interface RegistrationFailureProps {
-  statusCode: string;
   tryAgain: boolean;
   returnFn: () => void;
   actionFn: () => void;
+  statusCode?: string;
 }
 
 export const RegistrationFailure = ({ statusCode, tryAgain, returnFn, actionFn }: RegistrationFailureProps) => {
@@ -24,7 +24,7 @@ export const RegistrationFailure = ({ statusCode, tryAgain, returnFn, actionFn }
     <section className={styles.section}>
       <h4>Данные не сохранились</h4>
       <p>
-        {statusCode in REGISTRATION_FAILURE_MESSAGE
+        {statusCode && statusCode in REGISTRATION_FAILURE_MESSAGE
           ? REGISTRATION_FAILURE_MESSAGE[statusCode as keyof typeof REGISTRATION_FAILURE_MESSAGE]
           : REGISTRATION_FAILURE_MESSAGE.default}
       </p>

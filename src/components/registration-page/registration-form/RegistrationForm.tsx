@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import { REGISTRATION_FIRST_STEP, REGISTRATION_LAST_STEP, ROUTES } from '../../../constants';
+import { getRequestErrorStatusCode } from '../../../helpers';
 import { useRegistrationMutation } from '../../../store';
 import { RegistrationRequestBody } from '../../../types';
 import { Loading } from '../../global/loading';
@@ -15,15 +16,19 @@ import styles from './RegistrationForm.module.scss';
 interface RegistrationFormState {
   step: number;
   buttonText: string;
+  isError: boolean;
 }
 
-export const RegistrationForm = () => {
-  const [state, setState] = useState<RegistrationFormState>({
-    step: REGISTRATION_FIRST_STEP,
-    buttonText: 'Следующий шаг',
-  });
+const INITIAL_REGISTRATION_FORM_STATE: RegistrationFormState = {
+  step: REGISTRATION_FIRST_STEP,
+  buttonText: 'Следующий шаг',
+  isError: false,
+};
 
-  const [register, { isLoading, isSuccess, isError, error }] = useRegistrationMutation();
+export const RegistrationForm = () => {
+  const [state, setState] = useState<RegistrationFormState>(INITIAL_REGISTRATION_FORM_STATE);
+
+  const [register, { isLoading, isSuccess, error, reset: resetRegistration }] = useRegistrationMutation();
 
   const {
     handleSubmit: handleSubmitWrapper,
@@ -44,16 +49,18 @@ export const RegistrationForm = () => {
 
   const returnToFirstStep = () => {
     resetForm();
+    resetRegistration();
 
-    setState((prevState) => ({
-      ...prevState,
-      step: REGISTRATION_FIRST_STEP,
-    }));
+    setState(INITIAL_REGISTRATION_FORM_STATE);
   };
 
-  const handleSubmit = handleSubmitWrapper((formValues) => {
+  const handleSubmit = handleSubmitWrapper(async (formValues) => {
     if (state.step === REGISTRATION_LAST_STEP) {
-      register(formValues);
+      try {
+        await register(formValues).unwrap();
+      } catch {
+        setState((prevState) => ({ ...prevState, isError: true }));
+      }
     } else {
       setState((prevState) => {
         const updatedStep = prevState.step + 1;
@@ -74,15 +81,15 @@ export const RegistrationForm = () => {
     return <RegistrationSuccess />;
   }
 
-  if (isError && error) {
-    console.log(error);
+  if (state.isError) {
+    const statusCode = getRequestErrorStatusCode(error);
 
     return (
       <>
         {isLoading && <Loading />}
         <RegistrationFailure
-          statusCode={String(400)}
-          tryAgain={true}
+          statusCode={String(statusCode)}
+          tryAgain={statusCode !== 400}
           returnFn={returnToFirstStep}
           actionFn={registerUser}
         />
