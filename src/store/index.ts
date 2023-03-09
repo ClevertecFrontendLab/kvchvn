@@ -14,7 +14,7 @@ export {
   useGetBookByIdQuery,
   useRegistrationMutation,
   useAuthenticationMutation,
-} from './slices/api';
+} from './slices/api/libraryApi';
 
 export { useSortingByRatingSelector, useIsSearchEmptySelector, useSearchValueSelector } from './selectors/books';
 

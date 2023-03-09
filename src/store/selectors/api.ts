@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import { BookBase, Category, QueryStatus } from '../../types';
-import api from '../slices/api';
+import api from '../slices/api/libraryApi';
 import { RootState } from '../store';
 
 export const useCategoriesSelector = () =>

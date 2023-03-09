@@ -1,6 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { ALL_BOOKS_CATEGORY, API_ENDPOINTS, BASE_API_URL } from '../../constants';
+import { ALL_BOOKS_CATEGORY, API_ENDPOINTS } from '../../../constants';
 import {
   AuthRequestBody,
   AuthResponse,
@@ -9,11 +9,13 @@ import {
   BookModified,
   Category,
   RegistrationRequestBody,
-} from '../../types';
+} from '../../../types';
+
+import { baseQuery } from './baseQuery';
 
 const libraryApi = createApi({
   reducerPath: 'libraryApi',
-  baseQuery: fetchBaseQuery({ baseUrl: `${BASE_API_URL}/api/` }),
+  baseQuery,
   endpoints: (builder) => ({
     getCategories: builder.query<Category[], void>({
       query: () => API_ENDPOINTS.categories,
