@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
@@ -35,7 +35,7 @@ export const RegistrationForm = () => {
     control,
     getValues: getFormValues,
     reset: resetForm,
-    formState,
+    formState: { submitCount, isValid: isValidForm, isSubmitSuccessful },
   } = useForm<RegistrationRequestBody>({
     mode: 'all',
     shouldFocusError: false,
@@ -73,6 +73,12 @@ export const RegistrationForm = () => {
     }
   });
 
+  useEffect(() => {
+    const formValues = getFormValues();
+
+    resetForm({ ...formValues }, { keepSubmitCount: false });
+  }, [isSubmitSuccessful, getFormValues, resetForm]);
+
   if (isSuccess) {
     return <RegistrationSuccess />;
   }
@@ -105,7 +111,7 @@ export const RegistrationForm = () => {
       <form autoComplete='off' onSubmit={handleSubmit} className={styles.form}>
         <RegistrationSteps currentStep={state.step} control={control} />
         <div className={styles['submit-box']}>
-          <button type='submit' disabled={!formState.isValid}>
+          <button type='submit' disabled={!isValidForm && submitCount > 0}>
             {state.buttonText}
           </button>
           <p>
