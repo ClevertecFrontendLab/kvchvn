@@ -41,7 +41,7 @@ export const RegistrationForm = () => {
     shouldFocusError: false,
   });
 
-  const registerAction = () => register(getFormValues());
+  const tryToRegister = () => register(getFormValues());
 
   const returnToFirstStep = () => {
     resetForm();
@@ -87,7 +87,7 @@ export const RegistrationForm = () => {
           statusCode={String(statusCode)}
           tryAgain={statusCode !== 400}
           returnFn={returnToFirstStep}
-          actionFn={registerAction}
+          actionFn={tryToRegister}
         />
       </>
     );
