@@ -15,6 +15,16 @@ import { Loading } from '../../global/loading';
 
 import styles from './AuthForm.module.scss';
 
+interface AuthFormState {
+  isValidationError: boolean;
+  isUnknownError: boolean;
+}
+
+const INITIAL_AUTH_FORM_STATE: AuthFormState = {
+  isValidationError: false,
+  isUnknownError: false,
+};
+
 export const AuthForm = () => {
   const {
     control,
@@ -40,10 +50,23 @@ export const AuthForm = () => {
       );
 
       if (statusCode === 400) {
-        setIsAuthenticationFailed(true);
+        setState((prevState) => ({ ...prevState, isValidationError: true }));
+      } else {
+        setState((prevState) => ({ ...prevState, isUnknownError: true }));
       }
     }
   });
+
+  const tryToAuthenticate = () => authenticate(getFormValues());
+
+  if (state.isUnknownError) {
+    return (
+      <>
+        {isLoading && <Loading />}
+        <AuthFailure actionFn={tryToAuthenticate} />
+      </>
+    );
+  }
 
   return (
     <>
