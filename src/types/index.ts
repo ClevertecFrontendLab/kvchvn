@@ -11,7 +11,7 @@ export type {
   BookModified,
   BookDetailsModified,
 } from './books';
-export type { LocalStorageData, BooksView } from './common';
+export type { LocalStorageKey, BooksView } from './common';
 export type { QueryStatus } from './api';
 export type {
   InputContent,
