@@ -76,6 +76,7 @@ export const RegistrationForm = () => {
   useEffect(() => {
     const formValues = getFormValues();
 
+    // reset submit count
     resetForm({ ...formValues }, { keepSubmitCount: false });
   }, [isSubmitSuccessful, getFormValues, resetForm]);
 
