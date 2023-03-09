@@ -18,6 +18,7 @@ interface InputBoxProps {
   validationRules: Omit<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
   initialHintText?: string;
   stepByStepValidationRules?: InputBoxValidationsProp;
+  isFormError?: boolean;
   defaultValue?: string;
 }
 
@@ -39,6 +40,7 @@ export const InputBox = ({
   initialHintText,
   validationRules,
   stepByStepValidationRules,
+  isFormError,
   defaultValue = '',
 }: InputBoxProps) => {
   const [inputPasswordState, setInputPasswordState] = useState<InputPasswordState>({
@@ -64,7 +66,7 @@ export const InputBox = ({
     passwordIconsBox: classnames({ [styles['password-icons']]: inputType === 'password' }),
     passwordEye: classnames(styles.eye, { [styles.opened]: inputPasswordState.visibility }),
     passwordCheckmark: classnames({ [styles.checkmark]: inputPasswordState.validity }),
-    hint: classnames(styles.text, { [styles.highlight]: fieldError }),
+    hint: classnames(styles.text, { [styles.highlight]: fieldError || isFormError }),
   };
 
   const handlePasswordIconClick = () =>
