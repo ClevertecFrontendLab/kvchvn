@@ -33,7 +33,7 @@ export const RegistrationForm = () => {
   const {
     handleSubmit: handleSubmitWrapper,
     control,
-    getValues,
+    getValues: getFormValues,
     reset: resetForm,
     formState,
   } = useForm<RegistrationRequestBody>({
@@ -41,16 +41,11 @@ export const RegistrationForm = () => {
     shouldFocusError: false,
   });
 
-  const registerUser = () => {
-    const body = getValues();
-
-    register(body);
-  };
+  const registerAction = () => register(getFormValues());
 
   const returnToFirstStep = () => {
     resetForm();
     resetRegistration();
-
     setState(INITIAL_REGISTRATION_FORM_STATE);
   };
 
@@ -58,6 +53,7 @@ export const RegistrationForm = () => {
     if (state.step === REGISTRATION_LAST_STEP) {
       try {
         await register(formValues).unwrap();
+        setState((prevState) => ({ ...prevState, isError: false }));
       } catch {
         setState((prevState) => ({ ...prevState, isError: true }));
       }
@@ -91,7 +87,7 @@ export const RegistrationForm = () => {
           statusCode={String(statusCode)}
           tryAgain={statusCode !== 400}
           returnFn={returnToFirstStep}
-          actionFn={registerUser}
+          actionFn={registerAction}
         />
       </>
     );
