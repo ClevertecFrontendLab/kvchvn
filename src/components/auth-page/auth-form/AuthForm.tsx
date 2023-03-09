@@ -29,7 +29,7 @@ const INITIAL_AUTH_FORM_STATE: AuthFormState = {
 export const AuthForm = () => {
   const {
     control,
-    formState,
+    formState: { isValid: isFormValid, submitCount },
     getValues: getFormValues,
     handleSubmit: handleSubmitWrapper,
   } = useForm<AuthRequestBody>({
@@ -110,7 +110,7 @@ export const AuthForm = () => {
           </Link>
         </div>
         <div className={styles['submit-box']}>
-          <button type='submit' disabled={!formState.isValid}>
+          <button type='submit' disabled={!isFormValid && submitCount > 0}>
             Вход
           </button>
           <p>
