@@ -6,15 +6,15 @@ import classnames from 'classnames';
 
 import { CHECK_FN_DEFAULT_OPTIONS, PASSWORD_MIN_LENGTH, PHONE_MASK, PHONE_MASK_PLACEHOLDER } from '../../../constants';
 import { check, validatePassword } from '../../../helpers';
-import { InputBoxValidationsProp, RegistrationInputName, RegistrationRequestBody } from '../../../types';
+import { InputBoxValidationsProp } from '../../../types';
 
 import styles from './InputBox.module.scss';
 
 interface InputBoxProps {
   type: HTMLInputTypeAttribute;
-  name: RegistrationInputName;
+  name: string;
   label: string;
-  control: Control<RegistrationRequestBody>;
+  control: unknown;
   validationRules: Omit<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
   initialHintText?: string;
   stepByStepValidationRules?: InputBoxValidationsProp;
@@ -53,9 +53,9 @@ export const InputBox = ({
   const {
     field,
     fieldState: { error: fieldError, invalid: isInvalidField },
-  } = useController<RegistrationRequestBody, RegistrationInputName>({
+  } = useController({
     name,
-    control,
+    control: control as Control,
     defaultValue,
     rules: validationRules,
   });
@@ -151,10 +151,7 @@ export const InputBox = ({
       {name === 'phone' ? (
         <InputMask mask={PHONE_MASK} placeholderChar={PHONE_MASK_PLACEHOLDER} {...inputProps} />
       ) : (
-        <input
-          type={inputType === 'password' && !inputPasswordState.visibility ? 'password' : 'text'}
-          {...inputProps}
-        />
+        <input type={inputType === 'password' && !inputPasswordState.visibility ? inputType : 'text'} {...inputProps} />
       )}
       <div className={complexStyles.passwordIconsBox}>
         <span className={complexStyles.passwordCheckmark} />
