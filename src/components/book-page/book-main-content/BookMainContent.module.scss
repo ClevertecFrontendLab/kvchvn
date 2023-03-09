@@ -1,4 +1,5 @@
 @use '../../../styles/mixins/common';
+@use '../../../styles/mixins/button';
 @use '../../../styles/mixins/font';
 @use '../../../styles/vars';
 
@@ -60,17 +61,17 @@
 }
 
 .button {
-  @include common.button(vars.$button-primary);
+  @include button.button-primary;
   @include font.button(vars.$large);
   width: 350px;
   height: 50px;
 
   &:disabled {
-    @include common.button(vars.$button-secondary);
+    @include button.button-secondary;
   }
 
   &.reserved {
-    @include common.button(vars.$button-secondary);
+    @include button.button-secondary;
   }
 
   @include common.media(vars.$laptop-medium) {

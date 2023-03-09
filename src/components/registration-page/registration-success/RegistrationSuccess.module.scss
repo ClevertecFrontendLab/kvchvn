@@ -1,5 +1,6 @@
 @use '../../../styles/mixins/common';
 @use '../../../styles/mixins/font';
+@use '../../../styles/mixins/button';
 @use '../../../styles/vars';
 
 .section {
@@ -19,7 +20,7 @@
   }
 
   & > a {
-    @include common.button(vars.$button-primary);
+    @include button.button-primary;
     @include font.button(vars.$large);
     width: 100%;
     height: 50px;
