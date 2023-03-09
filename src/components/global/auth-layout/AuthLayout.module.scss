@@ -11,7 +11,7 @@
   &::before {
     @include font.font(32px, 40px, 700);
     position: absolute;
-    top: 70px;
+    top: 40px;
     left: 0;
     content: 'Cleverland';
     display: block;
