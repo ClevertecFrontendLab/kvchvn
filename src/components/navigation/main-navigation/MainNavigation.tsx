@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 
 import { QUERY_STATUS, ROUTES, SCREEN_SIZE_OF_MENU_TOGGLE_VISIBILITY } from '../../../constants';
-import { disableScrolling, enableScrolling } from '../../../helpers';
+import { disableScrolling, enableScrolling, removeFromLocalStorage } from '../../../helpers';
 import {
   hideBookCategories,
   hideMainNav,
@@ -26,6 +26,7 @@ export const MainNavigation = () => {
   const isBookCategoriesVisible = useBookCategoriesVisibilitySelector();
   const isMainNavVisible = useMainNavVisibilitySelector();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const navListRef = useRef<HTMLUListElement>(null);
 
@@ -40,6 +41,11 @@ export const MainNavigation = () => {
   };
 
   const hideCategories = () => dispatch(hideBookCategories());
+
+  const handleExitClick = () => {
+    removeFromLocalStorage('jwt');
+    navigate(ROUTES.auth);
+  };
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -112,7 +118,7 @@ export const MainNavigation = () => {
           <a>Профиль</a>
         </li>
         <li className={styles.nav__item}>
-          <a>Выход</a>
+          <a onClick={handleExitClick}>Выход</a>
         </li>
       </ul>
     </nav>
