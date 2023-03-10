@@ -1,4 +1,10 @@
-import { AuthInputName, InputContent, PasswordRecoveryInputName, RegistrationInputName } from '../types';
+import {
+  AuthInputName,
+  ForgotPasswordInputName,
+  InputContent,
+  RegistrationInputName,
+  ResetPasswordInputName,
+} from '../types';
 
 import { LOGIN_VALIDATION_SUBJECT, PASSWORD_VALIDATION_SUBJECT } from './validation';
 
@@ -45,10 +51,22 @@ export const AUTH_INPUT: InputContent<AuthInputName> = {
   },
 };
 
-export const PASSWORD_RECOVERY_INPUT: InputContent<PasswordRecoveryInputName> = {
+export const FORGOT_PASSWORD_INPUT: InputContent<ForgotPasswordInputName> = {
   email: {
     name: 'email',
     label: 'E-mail',
+  },
+};
+
+export const RESET_PASSWORD_INPUT: InputContent<ResetPasswordInputName> = {
+  password: {
+    name: 'password',
+    label: 'Новый пароль',
+    hint: `Пароль ${PASSWORD_VALIDATION_SUBJECT.length}, с ${PASSWORD_VALIDATION_SUBJECT.capitalLetter} и ${PASSWORD_VALIDATION_SUBJECT.number}`,
+  },
+  passwordConfirmation: {
+    name: 'passwordConfirmation',
+    label: 'Повторите пароль',
   },
 };
 
