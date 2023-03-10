@@ -1,11 +1,11 @@
 import React from 'react';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import { AuthLayout } from '../components/global/auth-layout';
-import { Layout } from '../components/global/layout';
-import { PrivateRoutesLayout } from '../components/global/private-routes-layout';
-import { PublicRoutesLayout } from '../components/global/public-routes-layout';
 import { ScrollToTop } from '../components/global/scroll-to-top';
+import { AuthLayout } from '../components/layouts/auth-layout';
+import { MainLayout } from '../components/layouts/main-layout';
+import { PrivateRoutesLayout } from '../components/layouts/private-routes-layout';
+import { PublicRoutesLayout } from '../components/layouts/public-routes-layout';
 import { ROUTES } from '../constants';
 import { AuthPage } from '../pages/auth';
 import { BookPage } from '../pages/book';
@@ -19,7 +19,7 @@ export const Router = () => (
   <HashRouter>
     <ScrollToTop>
       <Routes>
-        <Route path={ROUTES.main} element={<Layout />}>
+        <Route path={ROUTES.main} element={<MainLayout />}>
           <Route path={ROUTES.main} element={<PrivateRoutesLayout />}>
             <Route index={true} element={<Navigate to={ROUTES.books.all} />} />
             <Route path={ROUTES.books.base} element={<Navigate to={ROUTES.books.all} />} />
