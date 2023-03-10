@@ -44,7 +44,7 @@ export const RegistrationForm = () => {
   const tryToRegister = () => register(getFormValues());
 
   const returnToFirstStep = () => {
-    resetForm();
+    resetForm({});
     resetRegistration();
     setState(INITIAL_REGISTRATION_FORM_STATE);
   };
