@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { REGISTRATION_FAILURE_MESSAGE } from '../../../constants';
-
-import styles from './RegistrationFailure.module.scss';
+import { AuthModal } from '../../global/auth-modal';
 
 interface RegistrationFailureProps {
   tryAgain: boolean;
@@ -21,7 +20,7 @@ export const RegistrationFailure = ({ statusCode, tryAgain, returnFn, actionFn }
   };
 
   return (
-    <section className={styles.section}>
+    <AuthModal>
       <h4>Данные не сохранились</h4>
       <p>
         {statusCode && statusCode in REGISTRATION_FAILURE_MESSAGE
@@ -31,6 +30,6 @@ export const RegistrationFailure = ({ statusCode, tryAgain, returnFn, actionFn }
       <button type='button' onClick={handleClick}>
         {tryAgain ? 'Повторить' : 'Назад к регистрации'}
       </button>
-    </section>
+    </AuthModal>
   );
 };
