@@ -5,7 +5,7 @@ export const check = (value: string, options: CheckFnOptions = CHECK_FN_DEFAULT_
   hasLatinLetter: /\p{sc=Latn}/u.test(value),
   hasNumber: /\d/.test(value),
   hasOnlyLatinLetterOrNumber: /^[\p{sc=Latn}\d]*$/u.test(value),
-  hasCapitalLetter: /[A-Z]/.test(value),
+  hasCapitalLetter: /[A-ZА-Я]/.test(value),
   hasRequiredLength: value.length >= options.requiredLength,
   hasValidEmail: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value),
 });
