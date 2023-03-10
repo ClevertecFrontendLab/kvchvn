@@ -1,5 +1,12 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-import { PasswordRecoveryForm } from '../../components/password-recovery-page/password-recovery-form';
+import { ForgotPasswordForm } from '../../components/password-recovery-page/forgot-password-form';
+import { ResetPasswordForm } from '../../components/password-recovery-page/reset-password-form';
 
-export const PasswordRecoveryPage = () => <PasswordRecoveryForm />;
+export const PasswordRecoveryPage = () => {
+  const [searchParams] = useSearchParams();
+  const code = searchParams.get('code');
+
+  return code ? <ResetPasswordForm code={code} /> : <ForgotPasswordForm />;
+};
