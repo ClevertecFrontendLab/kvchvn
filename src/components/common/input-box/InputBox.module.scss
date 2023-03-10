@@ -53,7 +53,7 @@
     opacity: 0;
   }
 
-  &[name="password"] ~ .password-icons {
+  & ~ .password-icons {
     @include common.flex(row, flex-start, center, 10px);
     position: absolute;
     top: 15px;
