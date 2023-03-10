@@ -3,19 +3,13 @@
 @use '../../../styles/vars';
 
 .wrapper {
-  @include common.flex(column, center, center);
+  @include common.flex(column, center, center, 20px);
   padding: 0 15px;
   height: 100vh;
   background: vars.$orange-gradient;
 
-  &::before {
+  & > h4 {
     @include font.font(32px, 40px, 700);
-    position: absolute;
-    top: 40px;
-    left: 0;
-    content: 'Cleverland';
-    display: block;
-    width: 100%;
     text-align: center;
     color: vars.$white;
 
