@@ -22,7 +22,9 @@ export type {
   AuthRequestBody,
   PasswordResettingRequestBody,
   AuthInputName,
-  PasswordRecoveryInputName,
+  ForgotPasswordInputName,
   ForgotPassRequestBody,
+  ResetPasswordRequestBody,
+  ResetPasswordInputName,
 } from './auth';
 export type { CheckFnReturn, CheckFnOptions, InputBoxValidationsProp } from './validation';

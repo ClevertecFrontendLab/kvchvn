@@ -2,7 +2,8 @@ import { Nullable } from './common';
 
 export type RegistrationInputName = 'username' | 'password' | 'firstName' | 'lastName' | 'phone' | 'email';
 export type AuthInputName = 'identifier' | 'password';
-export type PasswordRecoveryInputName = 'email';
+export type ForgotPasswordInputName = 'email';
+export type ResetPasswordInputName = 'password' | 'passwordConfirmation';
 
 export type InputContent<T extends string> = {
   [Property in T]: {
@@ -50,4 +51,10 @@ export interface PasswordResettingRequestBody {
 
 export interface ForgotPassRequestBody {
   email: string;
+}
+
+export interface ResetPasswordRequestBody {
+  password: string;
+  passwordConfirmation: string;
+  code: string;
 }

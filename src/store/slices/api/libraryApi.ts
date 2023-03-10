@@ -8,7 +8,9 @@ import {
   BookBase,
   BookModified,
   Category,
+  ForgotPassRequestBody,
   RegistrationRequestBody,
+  ResetPasswordRequestBody,
 } from '../../../types';
 
 import { baseQuery } from './baseQuery';
@@ -52,14 +54,28 @@ const libraryApi = createApi({
     }),
     registration: builder.mutation<AuthResponse, RegistrationRequestBody>({
       query: (body) => ({
-        url: `${API_ENDPOINTS.registration}`,
+        url: API_ENDPOINTS.registration,
         method: 'POST',
         body,
       }),
     }),
     authentication: builder.mutation<AuthResponse, AuthRequestBody>({
       query: (body) => ({
-        url: `${API_ENDPOINTS.auth}`,
+        url: API_ENDPOINTS.auth,
+        method: 'POST',
+        body,
+      }),
+    }),
+    sendLinkToRecoveryPassword: builder.mutation<{ ok: boolean }, ForgotPassRequestBody>({
+      query: (body) => ({
+        url: API_ENDPOINTS.forgotPassword,
+        method: 'POST',
+        body,
+      }),
+    }),
+    changePassword: builder.mutation<AuthResponse, ResetPasswordRequestBody>({
+      query: (body) => ({
+        url: API_ENDPOINTS.resetPassword,
         method: 'POST',
         body,
       }),
@@ -74,4 +90,6 @@ export const {
   useGetBookByIdQuery,
   useRegistrationMutation,
   useAuthenticationMutation,
+  useSendLinkToRecoveryPasswordMutation,
+  useChangePasswordMutation,
 } = libraryApi;
