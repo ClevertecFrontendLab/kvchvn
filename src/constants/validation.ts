@@ -45,4 +45,5 @@ export const VALIDATION_ERROR = {
   invalidPhone: 'В формате +375 (xx) xxx-xx-xx',
   invalidEmail: 'Введите корректный e-mail',
   requiredField: 'Поле не может быть пустым',
+  differentPasswords: 'Пароли не совпадают',
 };
