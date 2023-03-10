@@ -2,26 +2,35 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
-import { PASSWORD_RECOVERY_INPUT, ROUTES, VALIDATION_ERROR } from '../../../constants';
+import { FORGOT_PASSWORD_INPUT, ROUTES, VALIDATION_ERROR } from '../../../constants';
 import { check } from '../../../helpers';
+import { useSendLinkToRecoveryPasswordMutation } from '../../../store';
 import { ForgotPassRequestBody } from '../../../types';
 import { InputBox } from '../../common/input-box';
+import { Loading } from '../../global/loading';
+import { ForgotPasswordSuccess } from '../forgot-password-success';
 
-import styles from './PasswordRecoveryForm.module.scss';
+import styles from './ForgotPasswordForm.module.scss';
 
-export const PasswordRecoveryForm = () => {
+export const ForgotPasswordForm = () => {
   const {
     handleSubmit: handleSubmitWrapper,
     control,
     formState: { isValid: isFormValid, submitCount },
-  } = useForm<ForgotPassRequestBody>();
+  } = useForm<ForgotPassRequestBody>({ mode: 'all', shouldFocusError: false });
+  const [sendLinkToRecoveryPassword, { isLoading, isSuccess }] = useSendLinkToRecoveryPasswordMutation();
 
   const handleSubmit = handleSubmitWrapper((formValues) => {
-    console.log(formValues);
+    sendLinkToRecoveryPassword(formValues);
   });
+
+  if (isSuccess) {
+    return <ForgotPasswordSuccess />;
+  }
 
   return (
     <>
+      {isLoading && <Loading />}
       <div className={styles['link-box']}>
         <Link to={ROUTES.auth}>Вход в личный кабинет</Link>
       </div>
@@ -30,8 +39,8 @@ export const PasswordRecoveryForm = () => {
         <div>
           <InputBox
             type='email'
-            name={PASSWORD_RECOVERY_INPUT.email.name}
-            label={PASSWORD_RECOVERY_INPUT.email.label}
+            name={FORGOT_PASSWORD_INPUT.email.name}
+            label={FORGOT_PASSWORD_INPUT.email.label}
             control={control}
             validationRules={{
               validate: (val) => check(val).hasValidEmail || VALIDATION_ERROR.invalidEmail,

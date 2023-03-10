@@ -1,1 +1,0 @@
-export { PasswordRecoveryForm } from './PasswordRecoveryForm';
