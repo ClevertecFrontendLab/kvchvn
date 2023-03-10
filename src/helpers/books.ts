@@ -13,7 +13,7 @@ export const formatDate = (date: string, dateMode: 'short' | 'long') => {
         .trim();
     case 'short':
     default:
-      return new Date(date).toLocaleDateString().split('.').slice(0, 2).join('.');
+      return new Date(date).toLocaleDateString('ru-RU').split('.').slice(0, 2).join('.');
   }
 };
 
@@ -23,7 +23,7 @@ export const setButtonReserveText = (booking: BookBooking | null, delivery: Book
   }
 
   if (delivery && delivery.handed) {
-    return delivery.dateHandedTo ? `Занята до ${delivery.dateHandedTo}` : 'Занята';
+    return delivery.dateHandedTo ? `Занята до ${formatDate(delivery.dateHandedTo, 'short')}` : 'Занята';
   }
 
   return 'Забронировать';
