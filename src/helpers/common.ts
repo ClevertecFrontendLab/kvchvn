@@ -42,3 +42,5 @@ export const getRequestErrorStatusCode = (error?: FetchBaseQueryError | Serializ
 
   return statusCode;
 };
+
+export const isUserAuthorized = () => Boolean(getFromLocalStorage('jwt'));

@@ -6,6 +6,7 @@ export {
   clearLocalStorage,
   removeFromLocalStorage,
   getRequestErrorStatusCode,
+  isUserAuthorized,
 } from './common';
 export { formatDate, setButtonReserveText, setBookAuthorsAndYearText, calculateBooksByCategories } from './books';
 export { validateLogin, validatePassword, check, validatePhone, validateEmail } from './validation';
