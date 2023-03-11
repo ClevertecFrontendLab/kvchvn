@@ -33,6 +33,7 @@ export const REGISTRATION_INPUT: InputContent<RegistrationInputName> = {
   phone: {
     name: 'phone',
     label: 'Номер телефона',
+    hint: 'В формате +375 (xx) xxx-xx-xx',
   },
   email: {
     name: 'email',
