@@ -6,4 +6,8 @@ interface AuthModalProps {
   children: React.ReactNode;
 }
 
-export const AuthModal = ({ children }: AuthModalProps) => <section className={styles.section}>{children}</section>;
+export const AuthModal = ({ children }: AuthModalProps) => (
+  <section className={styles.section} data-test-id='status-block'>
+    {children}
+  </section>
+);

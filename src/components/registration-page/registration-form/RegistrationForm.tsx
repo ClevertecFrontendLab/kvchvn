@@ -109,7 +109,7 @@ export const RegistrationForm = () => {
           {state.step} шаг из {REGISTRATION_LAST_STEP}
         </p>
       </article>
-      <form autoComplete='off' onSubmit={handleSubmit} className={styles.form}>
+      <form autoComplete='off' onSubmit={handleSubmit} className={styles.form} data-test-id='register-form'>
         <RegistrationSteps currentStep={state.step} control={control} />
         <div className={styles['submit-box']}>
           <button type='submit' disabled={!isValidForm && submitCount > 0}>

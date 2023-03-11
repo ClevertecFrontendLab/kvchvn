@@ -6,7 +6,7 @@ import styles from './AuthLayout.module.scss';
 export const AuthLayout = () => (
   <div className={styles.wrapper}>
     <h4>Cleverland</h4>
-    <main className={styles.main}>
+    <main className={styles.main} data-test-id='auth'>
       <Outlet />
     </main>
   </div>

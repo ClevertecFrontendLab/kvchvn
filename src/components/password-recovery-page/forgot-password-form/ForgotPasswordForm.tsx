@@ -35,7 +35,7 @@ export const ForgotPasswordForm = () => {
         <Link to={ROUTES.auth}>Вход в личный кабинет</Link>
       </div>
       <h4 className={styles.heading}>Восстановление пароля</h4>
-      <form autoComplete='off' onSubmit={handleSubmit} className={styles.form}>
+      <form autoComplete='off' onSubmit={handleSubmit} className={styles.form} data-test-id='send-email-form'>
         <div>
           <InputBox
             type='email'

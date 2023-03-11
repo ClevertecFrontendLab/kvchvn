@@ -118,7 +118,9 @@ export const MainNavigation = () => {
           <a>Профиль</a>
         </li>
         <li className={styles.nav__item}>
-          <a onClick={handleExitClick}>Выход</a>
+          <a onClick={handleExitClick} data-test-id='exit-button'>
+            Выход
+          </a>
         </li>
       </ul>
     </nav>

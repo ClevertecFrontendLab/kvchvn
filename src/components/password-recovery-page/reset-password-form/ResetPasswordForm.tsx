@@ -65,7 +65,7 @@ export const ResetPasswordForm = ({ code }: ResetPasswordFormProps) => {
     <>
       {isLoading && <Loading />}
       <h4>Восстановление пароля</h4>
-      <form autoComplete='off' onSubmit={handleSubmit} className={styles.form}>
+      <form autoComplete='off' onSubmit={handleSubmit} className={styles.form} data-test-id='reset-password-form'>
         <ul className={styles['inputs-list']}>
           <li>
             <InputBox

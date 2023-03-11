@@ -80,7 +80,7 @@ export const AuthForm = () => {
     <>
       {isLoading && <Loading />}
       <h4>Вход в личный кабинет</h4>
-      <form autoComplete='off' onSubmit={handleSubmit} className={styles.form}>
+      <form autoComplete='off' onSubmit={handleSubmit} className={styles.form} data-test-id='auth-form'>
         <ul className={styles['inputs-list']}>
           <li>
             <InputBox
@@ -104,7 +104,7 @@ export const AuthForm = () => {
           </li>
         </ul>
         <div className={complexStyles.infoBox}>
-          <p>{state.isValidationError && 'Неверный логин или пароль!'}</p>
+          <p data-test-id='hint'>{state.isValidationError && 'Неверный логин или пароль!'}</p>
           <Link to={ROUTES.passwordRecovery}>
             {state.isValidationError ? 'Восстановить?' : 'Забыли логин или пароль?'}
           </Link>
