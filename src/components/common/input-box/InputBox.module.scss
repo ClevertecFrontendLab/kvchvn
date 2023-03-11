@@ -7,12 +7,12 @@
 }
 
 .box:not(:focus-within) > .text.highlight {
-  border-color: vars.$error-primary;
-  color: vars.$error-primary;
+  border-color: vars.$hint-error;
+  color: vars.$hint-error;
 }
 
 .box:has(input:not(:placeholder-shown)) > .text > span {
-  color: vars.$error-primary;
+  color: vars.$hint-error;
 }
 
 .text {
