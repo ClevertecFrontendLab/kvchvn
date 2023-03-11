@@ -1,4 +1,4 @@
-import React, { HTMLInputTypeAttribute, useState } from 'react';
+import React, { HTMLInputTypeAttribute, ReactNodeArray, useState } from 'react';
 import { Control, RegisterOptions, useController } from 'react-hook-form';
 import stringReplace from 'react-string-replace';
 import InputMask from 'react-text-mask';
@@ -47,9 +47,16 @@ export const InputBox = ({
     visibility: false,
     validity: false,
   });
-  const [hint, setHint] = useState<HintState>({
-    text: initialHintText,
-    visibility: true,
+  const [hint, setHint] = useState<HintState>(() => {
+    let hintText: string | ReactNodeArray | undefined = initialHintText;
+
+    if (stepByStepValidationRules && initialHintText) {
+      stepByStepValidationRules.forEach(({ stringSlice }) => {
+        hintText = stringReplace(hintText, stringSlice, (match, i) => <span key={stringSlice + i}>{stringSlice}</span>);
+      });
+    }
+
+    return { text: hintText, visibility: true };
   });
 
   const {
@@ -64,10 +71,10 @@ export const InputBox = ({
   });
 
   const complexStyles = {
-    passwordIconsBox: classnames({ [styles['password-icons']]: inputType === 'password' }),
+    passwordIconsBox: classnames([styles['password-icons']]),
     passwordEye: classnames(styles.eye, { [styles.opened]: inputPasswordState.visibility }),
     passwordCheckmark: classnames({ [styles.checkmark]: inputPasswordState.validity }),
-    hint: classnames(styles.text, { [styles.highlight]: fieldError || isFormError }),
+    hint: classnames(styles.hint, { [styles.highlight]: fieldError || isFormError }),
   };
 
   const handlePasswordIconClick = () =>
@@ -110,7 +117,17 @@ export const InputBox = ({
             setHint((prevHint) => ({
               ...prevHint,
               visibility: true,
-              text: stringReplace(prevHint.text, stringSlice, (match, i) => <span key={match + i}>{match}</span>),
+              text: (prevHint.text as React.ReactNodeArray).map((elem) => {
+                if (typeof elem === 'object' && (elem as React.ReactElement).props.children === stringSlice) {
+                  return (
+                    <span key={stringSlice} className={styles.error}>
+                      {stringSlice}
+                    </span>
+                  );
+                }
+
+                return elem;
+              }),
             }));
           } else if (Array.isArray(hint.text)) {
             // remove highlighting
@@ -119,7 +136,7 @@ export const InputBox = ({
               visibility: true,
               text: (prevHint.text as React.ReactNodeArray).map((elem) => {
                 if (typeof elem === 'object' && (elem as React.ReactElement).props.children === stringSlice) {
-                  return stringSlice;
+                  return <span key={stringSlice}>{stringSlice}</span>;
                 }
 
                 return elem;
@@ -171,17 +188,17 @@ export const InputBox = ({
             {...inputProps}
           />
         )}
+        {inputType === 'password' && isFieldDirty && (
+          <div className={complexStyles.passwordIconsBox}>
+            <span className={complexStyles.passwordCheckmark} data-test-id='checkmark' />
+            <span
+              onClick={handlePasswordIconClick}
+              className={complexStyles.passwordEye}
+              data-test-id={inputPasswordState.visibility ? 'eye-opened' : 'eye-closed'}
+            />
+          </div>
+        )}
       </label>
-      {inputType === 'password' && isFieldDirty && (
-        <div className={complexStyles.passwordIconsBox}>
-          <span className={complexStyles.passwordCheckmark} data-test-id='checkmark' />
-          <span
-            onClick={handlePasswordIconClick}
-            className={complexStyles.passwordEye}
-            data-test-id={inputPasswordState.visibility ? 'eye-opened' : 'eye-closed'}
-          />
-        </div>
-      )}
       <p className={complexStyles.hint} data-test-id='hint'>
         {setInputAssistiveText()}
       </p>

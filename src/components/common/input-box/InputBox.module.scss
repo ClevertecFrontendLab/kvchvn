@@ -6,16 +6,18 @@
   position: relative;
 }
 
-.box:not(:focus-within) > .text.highlight {
+.box:not(:focus-within) > .hint.highlight {
   border-color: vars.$hint-error;
   color: vars.$hint-error;
 }
 
-.box:has(input:not(:placeholder-shown)) > .text > span {
-  color: vars.$hint-error;
+.box:has(input:not(:placeholder-shown)) > .hint > span {
+  &.error {
+    color: vars.$hint-error;
+  }
 }
 
-.text {
+.hint {
   @include font.info(vars.$large);
   padding-left: 10px;
   height: 20px;
@@ -50,11 +52,13 @@
     @include font.body(vars.$small);
     transform: translateY(15px);
     transition: all 0.25s;
+    white-space: nowrap;
   }
 }
 
 .input {
   @include font.body(vars.$small);
+  position: relative;
   width: 100%;
   height: 100%;
   background: transparent;
