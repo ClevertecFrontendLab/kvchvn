@@ -35,7 +35,7 @@ export const RegistrationForm = () => {
     control,
     getValues: getFormValues,
     reset: resetForm,
-    formState: { submitCount, isValid: isValidForm, isSubmitSuccessful },
+    formState: { submitCount, isValid: isValidForm, isSubmitSuccessful, touchedFields },
   } = useForm<RegistrationRequestBody>({
     mode: 'all',
     shouldFocusError: false,
@@ -112,7 +112,10 @@ export const RegistrationForm = () => {
       <form autoComplete='off' onSubmit={handleSubmit} className={styles.form} data-test-id='register-form'>
         <RegistrationSteps currentStep={state.step} control={control} />
         <div className={styles['submit-box']}>
-          <button type='submit' disabled={!isValidForm && submitCount > 0}>
+          <button
+            type='submit'
+            disabled={!isValidForm && (Boolean(Object.keys(touchedFields).length) || submitCount > 0)}
+          >
             {state.buttonText}
           </button>
           <p>

@@ -10,7 +10,7 @@ import { Loading } from '../../global/loading';
 import { ResetPasswordFailure } from '../reset-password-failure';
 import { ResetPasswordSuccess } from '../reset-password-success';
 
-import styles from './ResetPassword.module.scss';
+import styles from './ResetPasswordForm.module.scss';
 
 interface ResetPasswordFormProps {
   code: string;
@@ -21,7 +21,7 @@ export const ResetPasswordForm = ({ code }: ResetPasswordFormProps) => {
   const {
     control,
     handleSubmit: handleSubmitWrapper,
-    formState: { isValid: isFormValid, submitCount },
+    formState: { isValid: isFormValid, submitCount, touchedFields },
     getValues: getFormValues,
   } = useForm<Omit<ResetPasswordRequestBody, 'code'>>({
     mode: 'all',
@@ -95,7 +95,10 @@ export const ResetPasswordForm = ({ code }: ResetPasswordFormProps) => {
             />
           </li>
         </ul>
-        <button type='submit' disabled={!isFormValid && submitCount > 0}>
+        <button
+          type='submit'
+          disabled={!isFormValid && (Boolean(Object.keys(touchedFields).length) || submitCount > 0)}
+        >
           Сохранить изменения
         </button>
         <p>После сохранения войдите в библиотеку, используя новый пароль</p>

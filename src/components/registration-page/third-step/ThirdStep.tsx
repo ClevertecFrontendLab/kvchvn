@@ -18,8 +18,9 @@ export const ThirdStep = ({ control }: ThirdStepProps) => (
         name={REGISTRATION_INPUT.phone.name}
         label={REGISTRATION_INPUT.phone.label}
         control={control}
+        initialHintText={REGISTRATION_INPUT.phone.hint}
         validationRules={{
-          validate: (val) => validatePhone(val) || VALIDATION_ERROR.invalidPhone,
+          validate: (val) => validatePhone(val) || REGISTRATION_INPUT.phone.hint,
           required: VALIDATION_ERROR.requiredField,
         }}
       />

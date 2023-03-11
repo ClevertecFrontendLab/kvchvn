@@ -16,9 +16,9 @@ export const ForgotPasswordForm = () => {
   const {
     handleSubmit: handleSubmitWrapper,
     control,
-    formState: { isValid: isFormValid, submitCount },
+    formState: { isValid: isFormValid, submitCount, touchedFields },
   } = useForm<ForgotPassRequestBody>({ mode: 'all', shouldFocusError: false });
-  const [sendLinkToRecoveryPassword, { isLoading, isSuccess }] = useSendLinkToRecoveryPasswordMutation();
+  const [sendLinkToRecoveryPassword, { isLoading, isSuccess, isError }] = useSendLinkToRecoveryPasswordMutation();
 
   const handleSubmit = handleSubmitWrapper((formValues) => {
     sendLinkToRecoveryPassword(formValues);
@@ -43,16 +43,25 @@ export const ForgotPasswordForm = () => {
             label={FORGOT_PASSWORD_INPUT.email.label}
             control={control}
             validationRules={{
-              validate: (val) => check(val).hasValidEmail || VALIDATION_ERROR.invalidEmail,
+              validate: {
+                isValidEmail: (val) => check(val).hasValidEmail || VALIDATION_ERROR.invalidEmail,
+              },
               required: VALIDATION_ERROR.requiredField,
             }}
+            isFormError={isError}
           />
+          <p className={styles['error-text']} data-test-id='hint'>
+            {isError && 'error'}
+          </p>
           <p className={styles['assistive-text']}>
             На это email будет отправлено письмо с инструкциями по восстановлению пароля
           </p>
         </div>
         <div className={styles['submit-box']}>
-          <button type='submit' disabled={!isFormValid && submitCount > 0}>
+          <button
+            type='submit'
+            disabled={!isFormValid && (Boolean(Object.keys(touchedFields).length) || submitCount > 0)}
+          >
             Восстановить
           </button>
           <p>
