@@ -162,18 +162,29 @@ export const InputBox = ({
   return (
     <div className={styles.box}>
       <label htmlFor={name} className={styles.label}>
-        {label}
+        <span>{label}</span>
+        {name === 'phone' ? (
+          <InputMask mask={PHONE_MASK} placeholderChar={PHONE_MASK_PLACEHOLDER} {...inputProps} />
+        ) : (
+          <input
+            type={inputType === 'password' && !inputPasswordState.visibility ? inputType : 'text'}
+            {...inputProps}
+          />
+        )}
       </label>
-      {name === 'phone' ? (
-        <InputMask mask={PHONE_MASK} placeholderChar={PHONE_MASK_PLACEHOLDER} {...inputProps} />
-      ) : (
-        <input type={inputType === 'password' && !inputPasswordState.visibility ? inputType : 'text'} {...inputProps} />
+      {inputType === 'password' && isFieldDirty && (
+        <div className={complexStyles.passwordIconsBox}>
+          <span className={complexStyles.passwordCheckmark} data-test-id='checkmark' />
+          <span
+            onClick={handlePasswordIconClick}
+            className={complexStyles.passwordEye}
+            data-test-id={inputPasswordState.visibility ? 'eye-opened' : 'eye-closed'}
+          />
+        </div>
       )}
-      <div className={complexStyles.passwordIconsBox}>
-        <span className={complexStyles.passwordCheckmark} />
-        <span onClick={handlePasswordIconClick} className={complexStyles.passwordEye} />
-      </div>
-      <p className={complexStyles.hint}>{setInputAssistiveText()}</p>
+      <p className={complexStyles.hint} data-test-id='hint'>
+        {setInputAssistiveText()}
+      </p>
     </div>
   );
 };
