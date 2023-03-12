@@ -91,8 +91,6 @@ export const RegistrationForm = () => {
 
   const goToAuthPage = () => navigate(ROUTES.auth);
 
-  //
-
   if (isSuccess) {
     return (
       <AuthModal
