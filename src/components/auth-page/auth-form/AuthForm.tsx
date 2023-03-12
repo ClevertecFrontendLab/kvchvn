@@ -5,7 +5,7 @@ import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query/react';
 import classnames from 'classnames';
 
-import { AUTH_INPUT, ROUTES, VALIDATION_ERROR } from '../../../constants';
+import { AUTH_FAILURE_MODAL, AUTHENTICATION_FIELD, ROUTES, VALIDATION_ERROR } from '../../../constants';
 import { getRequestErrorStatusCode, setToLocalStorage } from '../../../helpers';
 import { useAuthenticationMutation } from '../../../store';
 import { AuthRequestBody } from '../../../types';
@@ -85,8 +85,8 @@ export const AuthForm = () => {
           <li>
             <InputBox
               type='text'
-              name={AUTH_INPUT.identifier.name}
-              label={AUTH_INPUT.identifier.label}
+              name={AUTHENTICATION_FIELD.identifier.name}
+              label={AUTHENTICATION_FIELD.identifier.label}
               control={control}
               validationRules={{ required: VALIDATION_ERROR.requiredField }}
               isFormError={state.isValidationError}
@@ -95,8 +95,8 @@ export const AuthForm = () => {
           <li>
             <InputBox
               type='password'
-              name={AUTH_INPUT.password.name}
-              label={AUTH_INPUT.password.label}
+              name={AUTHENTICATION_FIELD.password.name}
+              label={AUTHENTICATION_FIELD.password.label}
               control={control}
               validationRules={{ required: VALIDATION_ERROR.requiredField }}
               isFormError={state.isValidationError}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Control } from 'react-hook-form';
 
-import { REGISTRATION_INPUT, VALIDATION_ERROR } from '../../../constants';
+import { REGISTRATION_FIELD, VALIDATION_ERROR } from '../../../constants';
 import { RegistrationRequestBody } from '../../../types';
 import { InputBox } from '../../common/input-box';
 
@@ -14,8 +14,8 @@ export const SecondStep = ({ control }: SecondStepProps) => (
     <li>
       <InputBox
         type='text'
-        name={REGISTRATION_INPUT.firstName.name}
-        label={REGISTRATION_INPUT.firstName.label}
+        name={REGISTRATION_FIELD.firstName.name}
+        label={REGISTRATION_FIELD.firstName.label}
         control={control}
         validationRules={{ required: VALIDATION_ERROR.requiredField }}
       />
@@ -23,8 +23,8 @@ export const SecondStep = ({ control }: SecondStepProps) => (
     <li>
       <InputBox
         type='text'
-        name={REGISTRATION_INPUT.lastName.name}
-        label={REGISTRATION_INPUT.lastName.label}
+        name={REGISTRATION_FIELD.lastName.name}
+        label={REGISTRATION_FIELD.lastName.label}
         control={control}
         validationRules={{ required: VALIDATION_ERROR.requiredField }}
       />

@@ -1,11 +1,11 @@
 import { Nullable } from './common';
 
-export type RegistrationInputName = 'username' | 'password' | 'firstName' | 'lastName' | 'phone' | 'email';
-export type AuthInputName = 'identifier' | 'password';
-export type ForgotPasswordInputName = 'email';
-export type ResetPasswordInputName = 'password' | 'passwordConfirmation';
+export type RegistrationFieldName = 'username' | 'password' | 'firstName' | 'lastName' | 'phone' | 'email';
+export type AuthenticationFieldName = 'identifier' | 'password';
+export type ForgotPasswordFieldName = 'email';
+export type ResetPasswordFieldName = 'password' | 'passwordConfirmation';
 
-export type InputContent<T extends string> = {
+export type FieldContent<T extends string> = {
   [Property in T]: {
     name: Property;
     label: string;
@@ -30,7 +30,7 @@ interface User {
 }
 
 export type RegistrationRequestBody = {
-  [Property in RegistrationInputName]: string;
+  [Property in RegistrationFieldName]: string;
 };
 
 export interface AuthResponse {
@@ -57,4 +57,10 @@ export interface ResetPasswordRequestBody {
   password: string;
   passwordConfirmation: string;
   code: string;
+}
+
+export interface AuthModal {
+  title: string;
+  description: string;
+  buttonText?: string;
 }

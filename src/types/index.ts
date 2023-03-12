@@ -14,17 +14,18 @@ export type {
 export type { LocalStorageKey, BooksView } from './common';
 export type { QueryStatus } from './api';
 export type {
-  InputContent,
+  FieldContent,
   RegistrationSteps,
-  RegistrationInputName,
+  RegistrationFieldName,
   RegistrationRequestBody,
   AuthResponse,
   AuthRequestBody,
   PasswordResettingRequestBody,
-  AuthInputName,
-  ForgotPasswordInputName,
+  AuthenticationFieldName,
+  ForgotPasswordFieldName,
   ForgotPassRequestBody,
   ResetPasswordRequestBody,
-  ResetPasswordInputName,
+  ResetPasswordFieldName,
+  AuthModal,
 } from './auth';
 export type { CheckFnReturn, CheckFnOptions, InputBoxValidationsProp } from './validation';

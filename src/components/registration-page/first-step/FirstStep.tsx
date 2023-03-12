@@ -4,7 +4,7 @@ import { Control } from 'react-hook-form';
 import {
   LOGIN_VALIDATION_SUBJECT,
   PASSWORD_VALIDATION_SUBJECT,
-  REGISTRATION_INPUT,
+  REGISTRATION_FIELD,
   VALIDATION_ERROR,
 } from '../../../constants';
 import { validateLogin, validatePassword } from '../../../helpers';
@@ -38,11 +38,11 @@ export const FirstStep = ({ control }: FirstStepProps) => {
       <li>
         <InputBox
           type='text'
-          name={REGISTRATION_INPUT.username.name}
-          label={REGISTRATION_INPUT.username.label}
-          initialHintText={REGISTRATION_INPUT.username.hint}
+          name={REGISTRATION_FIELD.username.name}
+          label={REGISTRATION_FIELD.username.label}
+          initialHintText={REGISTRATION_FIELD.username.hint}
           validationRules={{
-            validate: (val) => validateLogin(val) || REGISTRATION_INPUT.username.hint,
+            validate: (val) => validateLogin(val) || REGISTRATION_FIELD.username.hint,
             required: VALIDATION_ERROR.requiredField,
           }}
           stepByStepValidationRules={loginValidations}
@@ -52,11 +52,11 @@ export const FirstStep = ({ control }: FirstStepProps) => {
       <li>
         <InputBox
           type='password'
-          name={REGISTRATION_INPUT.password.name}
-          label={REGISTRATION_INPUT.password.label}
-          initialHintText={REGISTRATION_INPUT.password.hint}
+          name={REGISTRATION_FIELD.password.name}
+          label={REGISTRATION_FIELD.password.label}
+          initialHintText={REGISTRATION_FIELD.password.hint}
           validationRules={{
-            validate: (val) => validatePassword(val) || REGISTRATION_INPUT.password.hint,
+            validate: (val) => validatePassword(val) || REGISTRATION_FIELD.password.hint,
             required: VALIDATION_ERROR.requiredField,
           }}
           stepByStepValidationRules={passwordValidations}

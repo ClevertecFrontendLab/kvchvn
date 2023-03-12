@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
-import { FORGOT_PASSWORD_INPUT, ROUTES, VALIDATION_ERROR } from '../../../constants';
+import { FORGOT_PASSWORD_FIELD, FORGOT_PASSWORD_SUCCESS_MODAL, ROUTES, VALIDATION_ERROR } from '../../../constants';
 import { check } from '../../../helpers';
 import { useSendLinkToRecoveryPasswordMutation } from '../../../store';
 import { ForgotPassRequestBody } from '../../../types';
@@ -39,8 +39,8 @@ export const ForgotPasswordForm = () => {
         <div>
           <InputBox
             type='email'
-            name={FORGOT_PASSWORD_INPUT.email.name}
-            label={FORGOT_PASSWORD_INPUT.email.label}
+            name={FORGOT_PASSWORD_FIELD.email.name}
+            label={FORGOT_PASSWORD_FIELD.email.label}
             control={control}
             validationRules={{
               validate: {

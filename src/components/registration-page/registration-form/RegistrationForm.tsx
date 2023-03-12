@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
-import { REGISTRATION_FIRST_STEP, REGISTRATION_LAST_STEP, ROUTES } from '../../../constants';
+import {
+  REGISTRATION_FAILURE_MODAL,
+  REGISTRATION_FIRST_STEP,
+  REGISTRATION_LAST_STEP,
+  REGISTRATION_SUCCESS_MODAL,
+  ROUTES,
+} from '../../../constants';
 import { getRequestErrorStatusCode } from '../../../helpers';
 import { useRegistrationMutation } from '../../../store';
 import { RegistrationRequestBody } from '../../../types';

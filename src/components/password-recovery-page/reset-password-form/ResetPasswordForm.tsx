@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { PASSWORD_VALIDATION_SUBJECT, RESET_PASSWORD_INPUT, VALIDATION_ERROR } from '../../../constants';
+import {
+  PASSWORD_VALIDATION_SUBJECT,
+  RESET_PASSWORD_FAILURE_MODAL,
+  RESET_PASSWORD_FIELD,
+  RESET_PASSWORD_SUCCESS_MODAL,
+  ROUTES,
+  VALIDATION_ERROR,
+} from '../../../constants';
 import { validatePassword } from '../../../helpers';
 import { useChangePasswordMutation } from '../../../store';
 import { InputBoxValidationsProp, ResetPasswordRequestBody } from '../../../types';
@@ -70,22 +77,22 @@ export const ResetPasswordForm = ({ code }: ResetPasswordFormProps) => {
           <li>
             <InputBox
               type='password'
-              name={RESET_PASSWORD_INPUT.password.name}
-              label={RESET_PASSWORD_INPUT.password.label}
+              name={RESET_PASSWORD_FIELD.password.name}
+              label={RESET_PASSWORD_FIELD.password.label}
               control={control}
               validationRules={{
-                validate: (val: string) => validatePassword(val) || RESET_PASSWORD_INPUT.password.hint,
+                validate: (val: string) => validatePassword(val) || RESET_PASSWORD_FIELD.password.hint,
                 required: VALIDATION_ERROR.requiredField,
               }}
-              initialHintText={RESET_PASSWORD_INPUT.password.hint}
+              initialHintText={RESET_PASSWORD_FIELD.password.hint}
               stepByStepValidationRules={passwordValidations}
             />
           </li>
           <li>
             <InputBox
               type='password'
-              name={RESET_PASSWORD_INPUT.passwordConfirmation.name}
-              label={RESET_PASSWORD_INPUT.passwordConfirmation.label}
+              name={RESET_PASSWORD_FIELD.passwordConfirmation.name}
+              label={RESET_PASSWORD_FIELD.passwordConfirmation.label}
               control={control}
               validationRules={{
                 validate: (val: string, formValues) =>

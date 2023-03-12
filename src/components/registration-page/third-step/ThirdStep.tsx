@@ -1,7 +1,7 @@
 import React from 'react';
 import { Control } from 'react-hook-form';
 
-import { REGISTRATION_INPUT, VALIDATION_ERROR } from '../../../constants';
+import { REGISTRATION_FIELD, VALIDATION_ERROR } from '../../../constants';
 import { validateEmail, validatePhone } from '../../../helpers';
 import { RegistrationRequestBody } from '../../../types';
 import { InputBox } from '../../common/input-box';
@@ -15,12 +15,12 @@ export const ThirdStep = ({ control }: ThirdStepProps) => (
     <li>
       <InputBox
         type='text'
-        name={REGISTRATION_INPUT.phone.name}
-        label={REGISTRATION_INPUT.phone.label}
+        name={REGISTRATION_FIELD.phone.name}
+        label={REGISTRATION_FIELD.phone.label}
         control={control}
-        initialHintText={REGISTRATION_INPUT.phone.hint}
+        initialHintText={REGISTRATION_FIELD.phone.hint}
         validationRules={{
-          validate: (val) => validatePhone(val) || REGISTRATION_INPUT.phone.hint,
+          validate: (val) => validatePhone(val) || REGISTRATION_FIELD.phone.hint,
           required: VALIDATION_ERROR.requiredField,
         }}
       />
@@ -28,8 +28,8 @@ export const ThirdStep = ({ control }: ThirdStepProps) => (
     <li>
       <InputBox
         type='email'
-        name={REGISTRATION_INPUT.email.name}
-        label={REGISTRATION_INPUT.email.label}
+        name={REGISTRATION_FIELD.email.name}
+        label={REGISTRATION_FIELD.email.label}
         control={control}
         validationRules={{
           validate: (val) => validateEmail(val) || VALIDATION_ERROR.invalidEmail,
