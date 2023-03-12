@@ -1,4 +1,4 @@
-export interface ErrorResponse {
+export interface RequestError {
   data: null;
   error: {
     status: number;

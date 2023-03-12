@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import libraryApi from './slices/api';
+import libraryApi from './slices/api/libraryApi';
 import { rootReducer } from './reducer';
 
 export type RootState = ReturnType<typeof store.getState>;

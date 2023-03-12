@@ -1,4 +1,5 @@
 @use '../../../styles/mixins/common';
+@use '../../../styles/mixins/button';
 @use '../../../styles/mixins/font';
 @use '../../../styles/mixins/animation';
 @use '../../../styles/vars';
@@ -144,14 +145,14 @@
 }
 
 .button {
-  @include common.button(vars.$button-primary);
-  @include common.button(vars.$small);
+  @include button.button-primary;
+  @include font.button(vars.$small);
   height: 40px;
   align-self: center;
 
   &:disabled,
   &.reserved {
-    @include common.button(vars.$button-secondary);
+    @include button.button-secondary;
   }
 
   .table-view & {

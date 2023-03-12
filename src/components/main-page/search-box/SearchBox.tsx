@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import React, { Dispatch, memo, SetStateAction, useCallback, useState } from 'react';
 import classnames from 'classnames';
 
 import { useDebounce } from '../../../hooks';
@@ -14,7 +14,7 @@ interface SearchBoxProps {
 
 const SEARCH_DELAY = 300;
 
-export const SearchBox = ({ isExpanded, setIsExpanded }: SearchBoxProps) => {
+export const SearchBox = memo(({ isExpanded, setIsExpanded }: SearchBoxProps) => {
   const searchValue = useSearchValueSelector();
   const [search, setSearch] = useState(searchValue);
   const dispatch = useAppDispatch();
@@ -47,4 +47,6 @@ export const SearchBox = ({ isExpanded, setIsExpanded }: SearchBoxProps) => {
       <button type='button' onClick={handleClickButton} data-test-id='button-search-close' />
     </label>
   );
-};
+});
+
+SearchBox.displayName = 'SearchBox';

@@ -17,6 +17,7 @@ $error-secondary: #FEEBEA;
 $success-primary: #00CA71;
 $success-secondary: #EBF9F1;
 
+$hint-error: #F42C4F;
 
 // shadows and gradients
 $orange-gradient: linear-gradient(235deg, #F83600 -50%, #F9D423 300%);
@@ -44,8 +45,14 @@ $mobile-small: 350px;
 // button types
 $button-primary: 'primary';
 $button-secondary: 'secondary';
+$button-tertiary: 'tertiary';
+$button-tertiary-reverse: 'tertiary-reverse';
 
 // sizes for font, button
 $small: 'small';
 $large: 'large';
+
+// others
+$direct: 'direct';
+$reverse: 'reverse';
 

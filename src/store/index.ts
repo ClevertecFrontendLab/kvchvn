@@ -8,7 +8,15 @@ export {
   toggleMainNavVisibility,
   hideMainNav,
 } from './slices/layout';
-export { useGetCategoriesQuery, useGetAllBooksQuery, useGetBookByIdQuery } from './slices/api';
+export {
+  useGetCategoriesQuery,
+  useGetAllBooksQuery,
+  useGetBookByIdQuery,
+  useRegistrationMutation,
+  useAuthenticationMutation,
+  useSendLinkToRecoveryPasswordMutation,
+  useChangePasswordMutation,
+} from './slices/api/libraryApi';
 
 export { useSortingByRatingSelector, useIsSearchEmptySelector, useSearchValueSelector } from './selectors/books';
 

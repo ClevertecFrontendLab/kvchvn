@@ -1,0 +1,99 @@
+@use '../../../styles/mixins/font';
+@use '../../../styles/mixins/common';
+@use '../../../styles/vars';
+
+.box {
+  position: relative;
+}
+
+.box:not(:focus-within) > .hint.highlight {
+  border-color: vars.$hint-error;
+  color: vars.$hint-error;
+}
+
+.box:has(input:not(:placeholder-shown)) > .hint > span {
+  &.error {
+    color: vars.$hint-error;
+  }
+}
+
+.hint {
+  @include font.info(vars.$large);
+  padding-left: 10px;
+  height: 20px;
+  color: vars.$gray;
+  border-top: 1px solid vars.$gray;
+}
+
+.label {
+  @include common.flex(row, flex-start, flex-start);
+  @include font.body(vars.$small);
+  padding-left: 10px;
+  padding-top: 5px;
+  width: 100%;
+  height: 55px;
+  background-color: vars.$lightestgray;
+  border: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  &:has(input:focus, input:not(:placeholder-shown)) {
+    flex-direction: column;
+
+    & > span {
+      @include font.info(vars.$large);
+      height: fit-content;
+      transform: none;
+      color: vars.$gray;
+    }
+  }
+
+  & > span {
+    @include font.body(vars.$small);
+    transform: translateY(15px);
+    transition: all 0.25s;
+    white-space: nowrap;
+  }
+}
+
+.input {
+  @include font.body(vars.$small);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    opacity: 0;
+  }
+
+  & ~ .password-icons {
+    @include common.flex(row, flex-start, center, 10px);
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    height: 25px;
+    cursor: pointer;
+    transition: background 0.25s;
+
+    & > span {
+      display: block;
+      width: 25px;
+      height: 25px;
+
+      &.eye {
+        @include common.background('../../assets/svg/eye_closed.svg');
+
+        &.opened {
+          @include common.background('../../assets/svg/eye_opened.svg');
+        }
+      }
+
+      &.checkmark {
+        @include common.background('../../assets/svg/checkmark.svg');
+      }
+    }
+  }
+}

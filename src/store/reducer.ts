@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import libraryApi from './slices/api';
+import libraryApi from './slices/api/libraryApi';
 import booksSlice from './slices/books';
 import layoutSlice from './slices/layout';
 

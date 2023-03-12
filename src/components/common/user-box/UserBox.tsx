@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 
 import avatar from '../../../assets/img/avatar.webp';
+import { ROUTES } from '../../../constants';
+import { removeFromLocalStorage } from '../../../helpers';
 
 import styles from './UserBox.module.scss';
 
 export const UserBox = () => {
   const [isDropdownMenuVisible, setIsDropdownMenuVisible] = useState(false);
   const dropdownRef = useRef<HTMLUListElement>(null);
+  const navigate = useNavigate();
 
   const complexStyles = {
     dropdown: classnames(styles['dropdown-menu'], { [styles.hidden]: !isDropdownMenuVisible }),
@@ -16,6 +20,11 @@ export const UserBox = () => {
   const toggleDropdownMenuVisible = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsDropdownMenuVisible((prevState) => !prevState);
+  };
+
+  const handleExitClick = () => {
+    removeFromLocalStorage('jwt');
+    navigate(ROUTES.auth);
   };
 
   useEffect(() => {
@@ -40,7 +49,7 @@ export const UserBox = () => {
       <img src={avatar} alt='Аватар' onClick={toggleDropdownMenuVisible} />
       <ul ref={dropdownRef} className={complexStyles.dropdown}>
         <li>Профиль</li>
-        <li>Выход</li>
+        <li onClick={handleExitClick}>Выход</li>
       </ul>
     </div>
   );

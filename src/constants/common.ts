@@ -13,6 +13,9 @@ export const ROUTES = {
   },
   terms: '/terms',
   contract: '/contract',
+  auth: '/auth',
+  registration: '/registration',
+  passwordRecovery: '/forgot-pass',
   notFound: '*',
 };
 

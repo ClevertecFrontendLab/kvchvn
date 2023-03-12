@@ -1,10 +1,10 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Footer } from '../footer';
-import { Header } from '../header';
+import { Footer } from '../../global/footer';
+import { Header } from '../../global/header';
 
-export const Layout = () => (
+export const MainLayout = () => (
   <>
     <Header />
     <Outlet />

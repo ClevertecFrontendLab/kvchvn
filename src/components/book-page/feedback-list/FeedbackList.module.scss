@@ -1,4 +1,5 @@
 @use '../../../styles/mixins/common';
+@use '../../../styles/mixins/button';
 @use '../../../styles/mixins/font';
 @use '../../../styles/mixins/animation';
 @use '../../../styles/vars';
@@ -23,7 +24,7 @@
 }
 
 .button {
-  @include common.button(vars.$button-primary);
+  @include button.button-primary;
   @include font.button(vars.$large);
   margin-top: 20px;
   width: 350px;
