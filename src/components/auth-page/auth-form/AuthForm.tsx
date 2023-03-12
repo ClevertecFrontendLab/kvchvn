@@ -10,9 +10,9 @@ import { getRequestErrorStatusCode, setToLocalStorage } from '../../../helpers';
 import { useAuthenticationMutation } from '../../../store';
 import { AuthRequestBody } from '../../../types';
 import { RequestError } from '../../../types/api';
+import { AuthModal } from '../../common/auth-modal';
 import { InputBox } from '../../common/input-box';
 import { Loading } from '../../global/loading';
-import { AuthFailure } from '../auth-failure';
 
 import styles from './AuthForm.module.scss';
 
@@ -71,7 +71,12 @@ export const AuthForm = () => {
     return (
       <>
         {isLoading && <Loading />}
-        <AuthFailure actionFn={tryToAuthenticate} />
+        <AuthModal
+          title={AUTH_FAILURE_MODAL.title}
+          description={AUTH_FAILURE_MODAL.description}
+          buttonText={AUTH_FAILURE_MODAL.buttonText}
+          buttonAction={tryToAuthenticate}
+        />
       </>
     );
   }

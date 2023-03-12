@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import {
   PASSWORD_VALIDATION_SUBJECT,
@@ -12,10 +13,9 @@ import {
 import { validatePassword } from '../../../helpers';
 import { useChangePasswordMutation } from '../../../store';
 import { InputBoxValidationsProp, ResetPasswordRequestBody } from '../../../types';
+import { AuthModal } from '../../common/auth-modal';
 import { InputBox } from '../../common/input-box';
 import { Loading } from '../../global/loading';
-import { ResetPasswordFailure } from '../reset-password-failure';
-import { ResetPasswordSuccess } from '../reset-password-success';
 
 import styles from './ResetPasswordForm.module.scss';
 
@@ -25,6 +25,7 @@ interface ResetPasswordFormProps {
 
 export const ResetPasswordForm = ({ code }: ResetPasswordFormProps) => {
   const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
   const {
     control,
     handleSubmit: handleSubmitWrapper,
@@ -46,6 +47,8 @@ export const ResetPasswordForm = ({ code }: ResetPasswordFormProps) => {
 
   const tryToChangePassword = () => changePassword({ ...getFormValues(), code });
 
+  const goToAuthPage = () => navigate(ROUTES.auth);
+
   const passwordValidations: InputBoxValidationsProp = [
     {
       type: 'hasRequiredLength',
@@ -56,14 +59,26 @@ export const ResetPasswordForm = ({ code }: ResetPasswordFormProps) => {
   ];
 
   if (isSuccess) {
-    return <ResetPasswordSuccess />;
+    return (
+      <AuthModal
+        title={RESET_PASSWORD_SUCCESS_MODAL.title}
+        description={RESET_PASSWORD_SUCCESS_MODAL.description}
+        buttonText={RESET_PASSWORD_SUCCESS_MODAL.buttonText}
+        buttonAction={goToAuthPage}
+      />
+    );
   }
 
   if (isError) {
     return (
       <>
         {isLoading && <Loading />}
-        <ResetPasswordFailure actionFn={tryToChangePassword} />
+        <AuthModal
+          title={RESET_PASSWORD_FAILURE_MODAL.title}
+          description={RESET_PASSWORD_FAILURE_MODAL.description}
+          buttonText={RESET_PASSWORD_FAILURE_MODAL.buttonText}
+          buttonAction={tryToChangePassword}
+        />
       </>
     );
   }

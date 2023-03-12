@@ -6,9 +6,9 @@ import { FORGOT_PASSWORD_FIELD, FORGOT_PASSWORD_SUCCESS_MODAL, ROUTES, VALIDATIO
 import { check } from '../../../helpers';
 import { useSendLinkToRecoveryPasswordMutation } from '../../../store';
 import { ForgotPassRequestBody } from '../../../types';
+import { AuthModal } from '../../common/auth-modal';
 import { InputBox } from '../../common/input-box';
 import { Loading } from '../../global/loading';
-import { ForgotPasswordSuccess } from '../forgot-password-success';
 
 import styles from './ForgotPasswordForm.module.scss';
 
@@ -25,7 +25,9 @@ export const ForgotPasswordForm = () => {
   });
 
   if (isSuccess) {
-    return <ForgotPasswordSuccess />;
+    return (
+      <AuthModal title={FORGOT_PASSWORD_SUCCESS_MODAL.title} description={FORGOT_PASSWORD_SUCCESS_MODAL.description} />
+    );
   }
 
   return (

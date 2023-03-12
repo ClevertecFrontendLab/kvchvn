@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {
   REGISTRATION_FAILURE_MODAL,
@@ -12,10 +12,9 @@ import {
 import { getRequestErrorStatusCode } from '../../../helpers';
 import { useRegistrationMutation } from '../../../store';
 import { RegistrationRequestBody } from '../../../types';
+import { AuthModal } from '../../common/auth-modal';
 import { Loading } from '../../global/loading';
-import { RegistrationFailure } from '../registration-failure';
 import { RegistrationSteps } from '../registration-steps';
-import { RegistrationSuccess } from '../registration-success';
 
 import styles from './RegistrationForm.module.scss';
 
@@ -33,7 +32,7 @@ const INITIAL_REGISTRATION_FORM_STATE: RegistrationFormState = {
 
 export const RegistrationForm = () => {
   const [state, setState] = useState<RegistrationFormState>(INITIAL_REGISTRATION_FORM_STATE);
-
+  const navigate = useNavigate();
   const [register, { isLoading, isSuccess, error, reset: resetRegistration }] = useRegistrationMutation();
 
   const {
@@ -46,14 +45,6 @@ export const RegistrationForm = () => {
     mode: 'all',
     shouldFocusError: false,
   });
-
-  const tryToRegister = () => register(getFormValues());
-
-  const returnToFirstStep = () => {
-    resetForm({});
-    resetRegistration();
-    setState(INITIAL_REGISTRATION_FORM_STATE);
-  };
 
   const handleSubmit = handleSubmitWrapper(async (formValues) => {
     if (state.step === REGISTRATION_LAST_STEP) {
@@ -86,22 +77,59 @@ export const RegistrationForm = () => {
     resetForm({ ...formValues }, { keepSubmitCount: false });
   }, [isSubmitSuccessful, getFormValues, resetForm]);
 
+  // handlers for AuthModals
+
+  const tryToRegister = () => {
+    register(getFormValues());
+  };
+
+  const returnToFirstStep = () => {
+    resetForm({});
+    resetRegistration();
+    setState(INITIAL_REGISTRATION_FORM_STATE);
+  };
+
+  const goToAuthPage = () => navigate(ROUTES.auth);
+
+  //
+
   if (isSuccess) {
-    return <RegistrationSuccess />;
+    return (
+      <AuthModal
+        title={REGISTRATION_SUCCESS_MODAL.title}
+        description={REGISTRATION_SUCCESS_MODAL.description}
+        buttonText={REGISTRATION_SUCCESS_MODAL.buttonText}
+        buttonAction={goToAuthPage}
+      />
+    );
   }
 
   if (state.isError) {
-    const statusCode = getRequestErrorStatusCode(error);
+    const statusCode = String(getRequestErrorStatusCode(error));
+
+    const actions: { [key: string]: () => void } = {
+      '400': returnToFirstStep,
+      default: tryToRegister,
+    };
 
     return (
       <>
         {isLoading && <Loading />}
-        <RegistrationFailure
-          statusCode={String(statusCode)}
-          tryAgain={statusCode !== 400}
-          returnFn={returnToFirstStep}
-          actionFn={tryToRegister}
-        />
+        {statusCode && statusCode in REGISTRATION_FAILURE_MODAL ? (
+          <AuthModal
+            title={REGISTRATION_FAILURE_MODAL[statusCode].title}
+            description={REGISTRATION_FAILURE_MODAL[statusCode].description}
+            buttonText={REGISTRATION_FAILURE_MODAL[statusCode].buttonText}
+            buttonAction={statusCode in actions ? actions[statusCode] : actions.default}
+          />
+        ) : (
+          <AuthModal
+            title={REGISTRATION_FAILURE_MODAL.default.title}
+            description={REGISTRATION_FAILURE_MODAL.default.description}
+            buttonText={REGISTRATION_FAILURE_MODAL.default.buttonText}
+            buttonAction={actions.default}
+          />
+        )}
       </>
     );
   }
