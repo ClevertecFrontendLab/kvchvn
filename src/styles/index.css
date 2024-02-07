@@ -1,0 +1,5 @@
+@import './fonts.css';
+
+html {
+    font-family: 'Inter', 'Arial', sans-serif;
+}
