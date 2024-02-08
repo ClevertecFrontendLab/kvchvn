@@ -3,3 +3,11 @@
 html {
     font-family: 'Inter', 'Arial', sans-serif;
 }
+
+html body * {
+    color: $character-light-title-85;
+    line-height: 130%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
