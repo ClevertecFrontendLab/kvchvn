@@ -1,4 +1,5 @@
 @import './fonts.css';
+@import 'antd/dist/antd.min.css';
 
 html {
     font-family: 'Inter', 'Arial', sans-serif;
