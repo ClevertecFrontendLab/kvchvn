@@ -1,0 +1,10 @@
+header.header {
+    padding: 16px 24px;
+    background-color: $primary-light-1;
+    height: auto;
+    line-height: inherit;
+}
+
+h1.title {
+    padding: 6px 0;
+}
