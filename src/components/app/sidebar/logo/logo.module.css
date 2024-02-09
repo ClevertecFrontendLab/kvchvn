@@ -1,0 +1,12 @@
+.logo {
+    margin: 14px 46px 18px 28px;
+    width: 133px;
+    height: 33px;
+    display: block;
+
+    &.collapsed {
+        margin: 18px;
+        width: 28px;
+        height: 26px;
+    }
+}

@@ -29,6 +29,7 @@ export const Sidebar: React.FC = () => {
                 collapsedWidth={64}
                 className={s.sidebar}
             >
+                <Logo />
                 <Navigation />
             </Layout.Sider>
         </SidebarContext.Provider>
