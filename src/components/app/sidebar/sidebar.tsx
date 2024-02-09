@@ -31,6 +31,7 @@ export const Sidebar: React.FC = () => {
             >
                 <Logo />
                 <Navigation />
+                <ExitButton />
             </Layout.Sider>
         </SidebarContext.Provider>
     );

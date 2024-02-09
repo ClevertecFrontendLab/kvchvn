@@ -1,0 +1,19 @@
+div.container {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+    & .divider {
+        margin: 0;
+    }
+
+    & .button {
+        padding-left: 16px;
+        display: flex;
+        align-items: center;
+        height: 40px;
+        font-size: 14px;
+        gap: 10px;
+        width: 100%;
+    }
+}
