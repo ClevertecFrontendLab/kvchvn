@@ -4,12 +4,31 @@
 
 html {
     font-family: 'Inter', 'Arial', sans-serif;
-}
 
-html body * {
-    color: $character-light-title-85;
-    line-height: 130%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    body {
+        min-height: 100vh;
+
+        #root {
+            height: 100%;
+        }
+
+        * {
+            color: $character-light-title-85;
+            line-height: 130%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            display: block;
+            border: none;
+            cursor: pointer;
+        }
+
+        a {
+            display: block;
+            text-decoration: none;
+        }
+    }
 }
