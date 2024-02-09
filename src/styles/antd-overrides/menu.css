@@ -1,0 +1,22 @@
+.ant-menu.ant-menu-root {
+    &.ant-menu-vertical {
+        border: none;
+
+        .ant-menu-item {
+            margin: 0;
+            height: 42px;
+            line-height: 42px;
+
+            &:not(:first-child) {
+                margin-top: 16px;
+            }
+        }
+    }
+
+    &.ant-menu-inline-collapsed {
+        .ant-menu-item {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+    }
+}
