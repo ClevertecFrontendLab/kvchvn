@@ -1,0 +1,7 @@
+ul.navigation {
+    margin-top: 50px;
+
+    svg * {
+        fill: $primary-light-9;
+    }
+}
