@@ -1,0 +1,24 @@
+$container-height: 66px;
+
+.container {
+    position: absolute;
+    right: -20px;
+    top: calc(50% - $container-height / 2);
+    width: 20px;
+    height: $container-height;
+    filter: drop-shadow(10px 2px 8px rgba(0, 0, 0, 0.15));
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $character-light-sidebar-background;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0% 0%, 100% 10%, 100% 90%, 0% 100%);
+
+    & * {
+        fill: $character-light-secondary-45;
+    }
+}

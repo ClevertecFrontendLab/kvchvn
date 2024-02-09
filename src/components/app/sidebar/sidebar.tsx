@@ -32,6 +32,7 @@ export const Sidebar: React.FC = () => {
                 <Logo />
                 <Navigation />
                 <ExitButton />
+                <CollapseButton toggleSidebarCollapsing={toggleCollapsing} />
             </Layout.Sider>
         </SidebarContext.Provider>
     );
