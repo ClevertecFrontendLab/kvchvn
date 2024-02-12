@@ -1,7 +1,13 @@
 ul.navigation {
     margin-top: 50px;
 
-    svg * {
-        fill: $primary-light-9;
+    & li {
+        & svg * {
+            fill: $primary-light-9;
+        }
+
+        &:hover svg * {
+            fill: inherit;
+        }
     }
 }
