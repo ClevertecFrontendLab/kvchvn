@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    gap: 16px;
+
+    & .card {
+        width: 100%;
+        text-align: center;
+
+        & button {
+            color: $primary-light-6;
+
+            &:hover {
+                color: $primary-light-5;
+            }
+
+            & svg * {
+                fill: inherit;
+            }
+        }
+    }
+}
