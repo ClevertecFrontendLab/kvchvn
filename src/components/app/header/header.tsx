@@ -1,5 +1,5 @@
 import { SettingOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Col, Layout, Row, Space } from 'antd';
+import { Breadcrumb, Button, Col, Layout } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import s from './header.module.css';
@@ -7,17 +7,15 @@ import s from './header.module.css';
 export const Header: React.FC = () => {
     return (
         <Layout.Header className={s.header}>
-            <Space direction='vertical'>
+            <div>
                 <Breadcrumb>
                     <Breadcrumb.Item>Главная</Breadcrumb.Item>
                 </Breadcrumb>
-                <Row wrap={false}>
-                    <Col flex='auto'>
-                        <h1 className={s.title}>
-                            Приветствуем тебя в CleverFit — приложении, которое поможет тебе
-                            добиться своей мечты!
-                        </h1>
-                    </Col>
+                <section className={s['columns-container']}>
+                    <h1 className={s.title}>
+                        Приветствуем тебя в CleverFit — приложении, которое поможет тебе добиться
+                        своей мечты!
+                    </h1>
                     <Col flex='none'>
                         <Link to='/settings'>
                             <Button type='text' icon={<SettingOutlined />}>
@@ -25,8 +23,8 @@ export const Header: React.FC = () => {
                             </Button>
                         </Link>
                     </Col>
-                </Row>
-            </Space>
+                </section>
+            </div>
         </Layout.Header>
     );
 };

@@ -1,8 +1,14 @@
 header.header {
+    margin-right: 16px;
     padding: 16px 24px;
     background-color: $primary-light-1;
     height: auto;
     line-height: inherit;
+
+    & .columns-container {
+        padding-top: 8px;
+        display: flex;
+    }
 }
 
 h1.title {
