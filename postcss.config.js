@@ -31,12 +31,25 @@ const VARS = {
     'primary-light-8': '#10239e',
     'primary-light-9': '#061178',
     'primary-light-10': '#030852',
+    'neutral-gray-1': '#ffffff',
+    'neutral-gray-2': '#fafafa',
+    'neutral-gray-3': '#f5f5f5',
+    'neutral-gray-4': '#f0f0f0',
+    'neutral-gray-5': '#d9d9d9',
+    'neutral-gray-6': '#bfbfbf',
+    'neutral-gray-7': '#8c8c8c',
+    'neutral-gray-8': '#595959',
+    'neutral-gray-9': '#434343',
+    'neutral-gray-10': '#262626',
+    'neutral-gray-11': '#1f1f1f',
+    'neutral-gray-12': '#141414',
+    'neutral-gray-13': '#000000',
 };
 
 export default {
     plugins: [
         postcssImport(),
-        vars({ variables: VARS }),
+        vars({ variables: VARS, silent: false }),
         mixins(),
         extend(),
         nested(),
