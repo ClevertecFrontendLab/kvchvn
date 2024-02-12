@@ -18,8 +18,14 @@ div.container {
 
         /* button's text */
         & span:last-child {
+            display: block;
             transition: opacity 0.3s;
             margin-left: 0;
+
+            @mixin media $sm {
+                text-align: center;
+                width: 100%;
+            }
         }
 
         &.collapsed {

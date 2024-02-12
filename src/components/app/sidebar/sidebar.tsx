@@ -1,3 +1,4 @@
+import { useMedia } from '@hooks/media-queries';
 import { Layout } from 'antd';
 import React, { createContext, useState } from 'react';
 import { CollapseButton } from './collapse-button';
@@ -13,7 +14,9 @@ type Context = {
 export const SidebarContext = createContext<Context>({ isCollapsed: false });
 
 export const Sidebar: React.FC = () => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const isSmScreen = useMedia('sm');
+
+    const [isCollapsed, setIsCollapsed] = useState(isSmScreen);
 
     const toggleCollapsing = () => {
         setIsCollapsed((prevState) => !prevState);
@@ -25,8 +28,8 @@ export const Sidebar: React.FC = () => {
                 collapsible={true}
                 collapsed={isCollapsed}
                 trigger={null}
-                width={208}
-                collapsedWidth={64}
+                width={isSmScreen ? 106 : 208}
+                collapsedWidth={isSmScreen ? 0 : 64}
                 className={s.sidebar}
             >
                 <Logo />

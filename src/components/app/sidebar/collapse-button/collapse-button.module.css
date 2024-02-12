@@ -7,6 +7,13 @@ $container-height: 66px;
     width: 20px;
     height: $container-height;
     filter: drop-shadow(10px 2px 8px rgba(0, 0, 0, 0.15));
+
+    @mixin media $sm {
+        height: 48px;
+        width: 32px;
+        top: 24px;
+        right: -32px;
+    }
 }
 
 .button {

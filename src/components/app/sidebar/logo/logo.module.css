@@ -9,4 +9,10 @@
         width: 28px;
         height: 26px;
     }
+
+    @mixin media $sm {
+        margin: 16px 17px;
+        width: 72px;
+        height: 18px;
+    }
 }

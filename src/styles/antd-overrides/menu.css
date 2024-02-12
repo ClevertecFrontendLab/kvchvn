@@ -9,6 +9,14 @@
 
             &:not(:first-child) {
                 margin-top: 16px;
+
+                @mixin media $sm {
+                    margin-top: 8px;
+                }
+            }
+
+            @mixin media $sm {
+                padding: 0 8px;
             }
         }
     }

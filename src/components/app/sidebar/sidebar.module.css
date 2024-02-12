@@ -6,6 +6,12 @@ aside.sidebar {
     flex-direction: column;
     background-color: $character-light-sidebar-background;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+
+    @mixin media $sm {
+        position: fixed;
+        padding-top: 0;
+        z-index: 10;
+    }
 }
 
 div.divider {
