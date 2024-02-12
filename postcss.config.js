@@ -1,17 +1,20 @@
 import autoprefixer from 'autoprefixer';
+import { dirname, join } from 'path';
 import extend from 'postcss-extend';
 import postcssImport from 'postcss-import';
 import mixins from 'postcss-mixins';
 import nested from 'postcss-nested';
 import vars from 'postcss-simple-vars';
+import { fileURLToPath } from 'url';
 
-const VARS = {
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default {
     plugins: [
         postcssImport(),
         vars({ variables: { ...defineVariables() }, silent: false }),
         mixins(),
+        mixins({ mixinsFiles: join(__dirname, 'src/styles/mixins.css') }),
         extend(),
         nested(),
         autoprefixer(),
