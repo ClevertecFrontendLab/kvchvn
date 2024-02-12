@@ -8,6 +8,7 @@ import s from './header.module.css';
 export const Header: React.FC = () => {
     const isXlScreen = useMedia('xl');
     const isLgScreen = useMedia('lg');
+    const isSmdScreen = useMedia('smd');
 
     return (
         <Layout.Header className={s.header}>
@@ -24,11 +25,12 @@ export const Header: React.FC = () => {
                     <Col flex='none'>
                         <Link to='/settings'>
                             <Button
-                                type='text'
-                                icon={isXlScreen ? null : <SettingOutlined />}
+                                type={isSmdScreen ? 'default' : 'text'}
+                                shape={isSmdScreen ? 'circle' : 'default'}
+                                icon={isXlScreen && !isSmdScreen ? null : <SettingOutlined />}
                                 className={s.button}
                             >
-                                Настройки
+                                {isSmdScreen ? null : 'Настройки'}
                             </Button>
                         </Link>
                     </Col>
