@@ -1,0 +1,5 @@
+@define-mixin media $size {
+    @media screen and (max-width: $size) {
+        @mixin-content;
+    }
+}
