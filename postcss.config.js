@@ -13,7 +13,6 @@ export default {
     plugins: [
         postcssImport(),
         vars({ variables: { ...defineVariables() }, silent: false }),
-        mixins(),
         mixins({ mixinsFiles: join(__dirname, 'src/styles/mixins.css') }),
         extend(),
         nested(),
@@ -66,7 +65,10 @@ export function defineVariables() {
     const screens = {
         xl: '1280px',
         lg: '1024px',
-        md: '',
+        md: '835px',
+        smd: '768px',
+        sm: '600px',
+        xs: '480px',
     };
 
     return { ...colors, ...screens };
