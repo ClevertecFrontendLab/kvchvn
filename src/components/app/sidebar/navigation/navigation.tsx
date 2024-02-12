@@ -1,4 +1,4 @@
-import { CalendarTwoTone, HeartFilled, ProfileOutlined, TrophyFilled } from '@ant-design/icons';
+import { CalendarTwoTone, HeartFilled, IdcardOutlined, TrophyFilled } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import React from 'react';
@@ -9,7 +9,7 @@ export const Navigation: React.FC = () => {
         { label: 'Календарь', key: 'calendar', icon: <CalendarTwoTone /> },
         { label: 'Тренировки', key: 'trainings', icon: <HeartFilled /> },
         { label: 'Достижения', key: 'achievements', icon: <TrophyFilled /> },
-        { label: 'Профиль', key: 'profile', icon: <ProfileOutlined /> },
+        { label: 'Профиль', key: 'profile', icon: <IdcardOutlined /> },
     ];
 
     return <Menu items={items} className={s.navigation} />;
