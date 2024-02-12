@@ -7,9 +7,19 @@ header.header {
     & .columns-container {
         padding-top: 8px;
         display: flex;
+        justify-content: space-between;
+
+        .button {
+            margin-left: auto;
+        }
     }
 }
 
 h1.title {
     padding: 6px 0;
+
+    @mixin media $xl {
+        font-size: 24px;
+        font-weight: 500;
+    }
 }

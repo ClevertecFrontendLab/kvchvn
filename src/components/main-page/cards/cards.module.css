@@ -4,7 +4,13 @@
 
     & .card {
         width: 100%;
+        min-width: 182px;
+        width: 240px;
         text-align: center;
+
+        @mixin media $lg {
+            text-align: left;
+        }
 
         & button {
             color: $primary-light-6;
