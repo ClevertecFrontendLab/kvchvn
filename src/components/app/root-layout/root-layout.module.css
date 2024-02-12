@@ -1,0 +1,11 @@
+section.root-layout {
+    height: 100%;
+    background-image: url('/public/webp/app-background-light.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+section.page-layout {
+    overflow-y: auto;
+}
