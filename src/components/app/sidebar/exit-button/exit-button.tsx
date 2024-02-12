@@ -1,4 +1,5 @@
-import { RollbackOutlined } from '@ant-design/icons';
+import AntdCustomIcon from '@ant-design/icons';
+import { Icon } from '@ui/icon';
 import { Button, Divider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
@@ -14,7 +15,7 @@ export const ExitButton: React.FC = () => {
             <Button
                 type='text'
                 size='large'
-                icon={<RollbackOutlined />}
+                icon={<AntdCustomIcon component={() => <Icon file='icons' id='exit' />} />}
                 className={classNames(s.button, { [s.collapsed]: isCollapsed })}
             >
                 {isCollapsed ? null : 'Выход'}
