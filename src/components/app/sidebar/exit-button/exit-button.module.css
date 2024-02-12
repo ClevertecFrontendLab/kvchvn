@@ -13,12 +13,13 @@ div.container {
         align-items: center;
         height: 40px;
         font-size: 14px;
-        gap: 10px;
+        gap: 25px;
         width: 100%;
 
         /* button's text */
         & span:last-child {
             transition: opacity 0.3s;
+            margin-left: 0;
         }
 
         &.collapsed {

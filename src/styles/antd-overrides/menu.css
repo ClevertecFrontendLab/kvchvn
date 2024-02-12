@@ -2,7 +2,7 @@
     &.ant-menu-vertical {
         border: none;
 
-        &.ant-menu-item {
+        & .ant-menu-item {
             margin: 0;
             height: 42px;
             line-height: 42px;
