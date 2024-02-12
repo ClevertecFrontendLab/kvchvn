@@ -5,6 +5,10 @@
     border-radius: 2px;
     font-size: 16px;
     color: $primary-light-9;
+
+    @mixin media $sm {
+        padding: 16px;
+    }
 }
 
 .list {

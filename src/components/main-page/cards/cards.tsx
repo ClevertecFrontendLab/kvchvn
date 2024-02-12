@@ -7,17 +7,17 @@ export const Cards: React.FC = () => {
     return (
         <section className={s.container}>
             <Card title='Расписать тренировки' bordered={false} className={s.card}>
-                <Button type='link' block={true} ghost={true} icon={<HeartFilled />}>
+                <Button type='link' block={true} icon={<HeartFilled />}>
                     Тренировки
                 </Button>
             </Card>
             <Card title='Назначить календарь' bordered={false} className={s.card}>
-                <Button type='link' block={true} ghost={true} icon={<CalendarTwoTone />}>
+                <Button type='link' block={true} icon={<CalendarTwoTone />}>
                     Календарь
                 </Button>
             </Card>
             <Card title='Заполнить профиль' bordered={false} className={s.card}>
-                <Button type='link' block={true} ghost={true} icon={<IdcardOutlined />}>
+                <Button type='link' block={true} icon={<IdcardOutlined />}>
                     Профиль
                 </Button>
             </Card>

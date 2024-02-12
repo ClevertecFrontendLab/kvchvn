@@ -1,12 +1,28 @@
 .card-container {
-    .button-android {
-        padding-left: 11px;
-        padding-right: 11px;
+    @mixin media $smd {
+        padding: 0;
+        width: 100%;
+        text-align: center;
     }
 
-    .button-apple {
+    & .button-android {
+        padding-left: 11px;
+        padding-right: 11px;
+
+        @mixin media $sm {
+            padding-left: 33px;
+            padding-right: 33px;
+        }
+    }
+
+    & .button-apple {
         padding-left: 16.5px;
         padding-right: 16.5px;
+
+        @mixin media $sm {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
     }
 }
 

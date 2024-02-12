@@ -1,17 +1,29 @@
 footer.container {
     padding: 0 24px;
+    padding-top: 156px;
     margin-bottom: 42px;
-    height: 283px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
 
+    @mixin media $smd {
+        padding: 0 16px;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+        gap: 24px;
+    }
+
     & .button {
+        flex-shrink: 0;
         max-width: 120px;
         color: $primary-light-6;
 
         &:hover {
             color: $primary-light-5;
+        }
+
+        @mixin media $smd {
+            max-width: 100%;
         }
     }
 }

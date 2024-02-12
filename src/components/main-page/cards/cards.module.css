@@ -1,15 +1,26 @@
+$gap: 16px;
+$cards-count: 3;
+
 .container {
     display: flex;
     gap: 16px;
 
+    @mixin media $md {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
     & .card {
-        width: 100%;
-        min-width: 182px;
-        width: 240px;
+        width: calc((100% / $cards-count) + (($cards-count - 1) * $gap / 3));
         text-align: center;
 
         @mixin media $lg {
             text-align: left;
+        }
+
+        @mixin media $smd {
+            width: 100%;
+            text-align: center;
         }
 
         & button {

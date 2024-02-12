@@ -3,4 +3,8 @@
     margin-bottom: 16px;
     background: $neutral-gray-1;
     border-radius: 2px;
+
+    @mixin media $sm {
+        padding: 16px;
+    }
 }
