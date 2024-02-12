@@ -1,14 +1,16 @@
+import { ValuesOf } from '@type/utility';
 import React from 'react';
 
-type IconId = {
+type Sprites = {
     logo: 'logo-long' | 'logo-short';
+    icons: 'exit';
 };
 
-type File = keyof IconId;
+type SpritesUnion = {
+    [Property in keyof Sprites]: { file: Property; id: Sprites[Property] };
+};
 
-type Props = {
-    file: File;
-    id: IconId[File];
+type Props = ValuesOf<SpritesUnion> & {
     className?: string;
 };
 
