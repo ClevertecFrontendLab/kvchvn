@@ -1,0 +1,23 @@
+.card-container {
+    .button-android {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+    .button-apple {
+        padding-left: 16.5px;
+        padding-right: 16.5px;
+    }
+}
+
+.title-container {
+    & p:first-child {
+        margin-bottom: 8px;
+        color: $primary-light-6;
+    }
+
+    & p:last-child {
+        color: $character-light-secondary-45;
+        font-size: 14px;
+    }
+}
