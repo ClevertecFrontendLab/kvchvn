@@ -15,6 +15,18 @@ div.container {
         font-size: 14px;
         gap: 10px;
         width: 100%;
+
+        /* button's text */
+        & span:last-child {
+            transition: opacity 0.3s;
+        }
+
+        &.collapsed {
+            & span:last-child {
+                opacity: 0;
+            }
+        }
+
         & svg {
             width: 16px;
             height: 16px;

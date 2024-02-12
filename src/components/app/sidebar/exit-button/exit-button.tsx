@@ -18,7 +18,7 @@ export const ExitButton: React.FC = () => {
                 icon={<AntdCustomIcon component={() => <Icon file='icons' id='exit' />} />}
                 className={classNames(s.button, { [s.collapsed]: isCollapsed })}
             >
-                {isCollapsed ? null : 'Выход'}
+                Выход
             </Button>
         </div>
     );
