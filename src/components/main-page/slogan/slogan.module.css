@@ -1,0 +1,6 @@
+.container {
+    padding: 24px;
+    margin-bottom: 24px;
+    background: $neutral-gray-1;
+    border-radius: 2px;
+}
