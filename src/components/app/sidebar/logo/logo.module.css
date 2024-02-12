@@ -1,11 +1,11 @@
 .logo {
-    margin: 14px 46px 18px 28px;
+    margin: 14px 46px 17px 29px;
     width: 133px;
     height: 33px;
     display: block;
 
     &.collapsed {
-        margin: 18px;
+        margin: 19px 18px;
         width: 28px;
         height: 26px;
     }

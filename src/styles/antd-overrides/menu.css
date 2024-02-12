@@ -14,9 +14,14 @@
     }
 
     &.ant-menu-inline-collapsed {
-        &.ant-menu-item {
+        & .ant-menu-item {
             padding-left: 24px;
             padding-right: 24px;
+
+            & span.ant-menu-item-icon {
+                font-size: 14px;
+                line-height: 14px;
+            }
         }
     }
 }
