@@ -5,7 +5,7 @@
         .ant-card-head-title {
             padding: 12px 0;
             font-weight: 400;
-            white-space: wrap;
+            white-space: normal;
         }
     }
 

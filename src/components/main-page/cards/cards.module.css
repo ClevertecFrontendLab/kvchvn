@@ -11,7 +11,7 @@ $cards-count: 3;
     }
 
     & .card {
-        width: calc((100% / $cards-count) + (($cards-count - 1) * $gap / 3));
+        width: calc((100% / $cards-count) - (($cards-count - 1) * $gap / 3));
         text-align: center;
 
         @mixin media $lg {
