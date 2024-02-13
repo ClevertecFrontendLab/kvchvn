@@ -12,29 +12,29 @@ header.header {
         @mixin media $sm {
             padding-top: 0;
         }
+    }
 
-        & .button {
-            margin-left: auto;
+    & .button {
+        margin-left: auto;
 
-            @mixin media $smd {
-                position: fixed;
-                top: 34px;
-                right: 24px;
-            }
+        @mixin media $smd {
+            position: fixed;
+            top: 34px;
+            right: 24px;
         }
     }
-}
 
-h1.title {
-    padding: 6px 0;
+    & .title {
+        padding: 6px 0;
 
-    @mixin media $xl {
-        font-size: 24px;
-        font-weight: 500;
-    }
+        @mixin media $xl {
+            font-size: 24px;
+            font-weight: 500;
+        }
 
-    @mixin media $smd {
-        padding-right: 32px;
-        font-size: 20px;
+        @mixin media $smd {
+            padding-right: 32px;
+            font-size: 20px;
+        }
     }
 }
