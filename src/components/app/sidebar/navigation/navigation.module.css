@@ -1,0 +1,17 @@
+ul.navigation {
+    padding-top: 50px;
+
+    @mixin media $sm {
+        padding-top: 16px;
+    }
+
+    & li {
+        & svg * {
+            fill: $primary-light-9;
+        }
+
+        &:hover svg * {
+            fill: inherit;
+        }
+    }
+}

@@ -1,0 +1,56 @@
+@font-face {
+    font-family: Inter;
+    src: local('Inter'), url('/inter.ttf');
+}
+
+html body {
+    h1 {
+        font-size: 38px;
+        font-weight: 700;
+    }
+
+    h2 {
+        font-size: 32px;
+        font-weight: 500;
+    }
+
+    h3 {
+        font-size: 24px;
+        font-weight: 500;
+    }
+
+    h4 {
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    h5 {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    h6 {
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    %body-regular {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    %body-medium {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    %body-strong {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    %footnote {
+        font-size: 12px;
+        font-weight: 400;
+    }
+}

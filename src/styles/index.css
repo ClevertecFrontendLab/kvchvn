@@ -1,0 +1,35 @@
+@import './fonts.css';
+@import 'antd/dist/antd.min.css';
+@import './antd-overrides/index.css';
+
+html body {
+    min-height: 100vh;
+    font-family: 'Inter', 'Arial', sans-serif;
+    color: $character-light-title-85;
+
+    & #root {
+        height: 100%;
+    }
+
+    & * {
+        line-height: 130%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    & button {
+        display: block;
+        border: none;
+        cursor: pointer;
+    }
+
+    & a {
+        display: block;
+        text-decoration: none;
+    }
+
+    & ul {
+        list-style-type: none;
+    }
+}

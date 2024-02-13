@@ -1,0 +1,42 @@
+div.container {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+    & .divider {
+        margin: 0;
+    }
+
+    & .button {
+        padding-left: 16px;
+        display: flex;
+        align-items: center;
+        height: 40px;
+        font-size: 14px;
+        gap: 25px;
+        width: 100%;
+
+        &.collapsed {
+            & span:last-child {
+                opacity: 0;
+            }
+        }
+
+        /* button's text */
+        & span:last-child {
+            display: block;
+            transition: opacity 0.3s;
+            margin-left: 0;
+
+            @mixin media $sm {
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        & svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+}

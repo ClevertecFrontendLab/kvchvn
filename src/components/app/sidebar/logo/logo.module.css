@@ -1,0 +1,26 @@
+.logo {
+    margin: 14px 46px 17px 29px;
+    width: 133px;
+    height: 33px;
+    display: block;
+
+    &.collapsed {
+        margin: 19px 18px;
+        width: 28px;
+        height: 26px;
+    }
+
+    @mixin media $sm {
+        margin: 16px 17px;
+        width: 72px;
+        height: 18px;
+        transition: opacity 0.3s;
+
+        &.collapsed {
+            margin: 16px 17px;
+            width: 72px;
+            height: 18px;
+            opacity: 0;
+        }
+    }
+}

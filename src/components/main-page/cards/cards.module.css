@@ -1,0 +1,38 @@
+$gap: 16px;
+$cards-count: 3;
+
+.container {
+    display: flex;
+    gap: 16px;
+
+    @mixin media $smd {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    & .card {
+        width: calc((100% / $cards-count) - (($cards-count - 1) * $gap / 3));
+        text-align: center;
+
+        @mixin media $lg {
+            text-align: left;
+        }
+
+        @mixin media $smd {
+            width: 100%;
+            text-align: center;
+        }
+
+        & button {
+            color: $primary-light-6;
+
+            &:hover {
+                color: $primary-light-5;
+            }
+
+            & svg * {
+                fill: inherit;
+            }
+        }
+    }
+}

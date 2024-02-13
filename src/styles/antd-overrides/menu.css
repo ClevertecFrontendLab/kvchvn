@@ -1,0 +1,35 @@
+.ant-menu.ant-menu-root {
+    &.ant-menu-vertical {
+        border: none;
+
+        & .ant-menu-item {
+            margin: 0;
+            height: 42px;
+            line-height: 42px;
+
+            &:not(:first-child) {
+                margin-top: 16px;
+
+                @mixin media $sm {
+                    margin-top: 8px;
+                }
+            }
+
+            @mixin media $sm {
+                padding: 0 8px;
+            }
+        }
+    }
+
+    &.ant-menu-inline-collapsed {
+        & .ant-menu-item {
+            padding-left: 24px;
+            padding-right: 24px;
+
+            & span.ant-menu-item-icon {
+                font-size: 14px;
+                line-height: 14px;
+            }
+        }
+    }
+}

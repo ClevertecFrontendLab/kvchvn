@@ -1,0 +1,40 @@
+header.header {
+    padding: 16px 24px;
+    background-color: $primary-light-1;
+    height: auto;
+    line-height: inherit;
+
+    & .columns-container {
+        padding-top: 8px;
+        display: flex;
+        justify-content: space-between;
+
+        @mixin media $sm {
+            padding-top: 0;
+        }
+    }
+
+    & .button {
+        margin-left: auto;
+
+        @mixin media $smd {
+            position: fixed;
+            top: 34px;
+            right: 24px;
+        }
+    }
+
+    & .title {
+        padding: 6px 0;
+
+        @mixin media $xl {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        @mixin media $smd {
+            padding-right: 32px;
+            font-size: 20px;
+        }
+    }
+}
