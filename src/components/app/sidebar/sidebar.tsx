@@ -1,3 +1,4 @@
+import { SIDEBAR_STYLES } from '@constants/styles';
 import { useMedia } from '@hooks/media-queries';
 import { Layout } from 'antd';
 import React, { createContext, useState } from 'react';
@@ -28,8 +29,10 @@ export const Sidebar: React.FC = () => {
                 collapsible={true}
                 collapsed={isCollapsed}
                 trigger={null}
-                width={isSmScreen ? 106 : 208}
-                collapsedWidth={isSmScreen ? 0 : 64}
+                width={isSmScreen ? SIDEBAR_STYLES.width.sm : SIDEBAR_STYLES.width.xl}
+                collapsedWidth={
+                    isSmScreen ? SIDEBAR_STYLES.collapsedWidth.sm : SIDEBAR_STYLES.collapsedWidth.xl
+                }
                 className={s.sidebar}
             >
                 <Logo />
