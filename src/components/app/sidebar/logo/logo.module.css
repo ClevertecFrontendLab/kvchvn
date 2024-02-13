@@ -14,5 +14,13 @@
         margin: 16px 17px;
         width: 72px;
         height: 18px;
+        transition: opacity 0.3s;
+
+        &.collapsed {
+            margin: 16px 17px;
+            width: 72px;
+            height: 18px;
+            opacity: 0;
+        }
     }
 }
