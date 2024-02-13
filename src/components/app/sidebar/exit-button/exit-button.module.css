@@ -16,6 +16,12 @@ div.container {
         gap: 25px;
         width: 100%;
 
+        &.collapsed {
+            & span:last-child {
+                opacity: 0;
+            }
+        }
+
         /* button's text */
         & span:last-child {
             display: block;
@@ -25,12 +31,6 @@ div.container {
             @mixin media $sm {
                 text-align: center;
                 width: 100%;
-            }
-        }
-
-        &.collapsed {
-            & span:last-child {
-                opacity: 0;
             }
         }
 
