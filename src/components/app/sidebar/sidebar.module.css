@@ -2,7 +2,7 @@ aside.sidebar {
     position: relative;
     padding-top: 30px;
     display: flex;
-    height: 100vh;
+    height: 100dvh;
     flex-direction: column;
     background-color: $character-light-sidebar-background;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
