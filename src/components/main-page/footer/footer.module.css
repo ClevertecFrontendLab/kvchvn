@@ -16,11 +16,6 @@ footer.container {
     & .button {
         flex-shrink: 0;
         max-width: 120px;
-        color: $primary-light-6;
-
-        &:hover {
-            color: $primary-light-5;
-        }
 
         @mixin media $smd {
             max-width: 100%;
