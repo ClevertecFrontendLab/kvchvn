@@ -23,4 +23,14 @@ export default defineConfig({
             '@utils': path.resolve(__dirname, 'src/utils'),
         },
     },
+    css: {
+        preprocessorOptions: {
+            less: {
+                javascriptEnabled: true,
+                modifyVars: {
+                    'primary-color': '@geekblue-base',
+                },
+            },
+        },
+    },
 });
