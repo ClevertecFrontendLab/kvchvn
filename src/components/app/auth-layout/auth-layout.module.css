@@ -1,0 +1,16 @@
+.auth-layout {
+    height: 100%;
+    background-image: url('/webp/auth-bg-light.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.blur {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    backdrop-filter: blur(4px);
+    background: rgba(121, 156, 212, 0.5);
+}
