@@ -1,5 +1,4 @@
 @import './fonts.css';
-@import 'antd/dist/antd.min.css';
 @import './antd-overrides/index.css';
 
 html body {
