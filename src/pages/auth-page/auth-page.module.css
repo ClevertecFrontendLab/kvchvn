@@ -1,0 +1,37 @@
+.container {
+    margin-inline: auto;
+    padding: 64px 86px 64px;
+    flex-grow: 0;
+    border-radius: 2px;
+    background-color: $character-light-primary-inverse;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+
+    @mixin media $smd {
+        padding: 32px 16px;
+    }
+
+    @mixin media $sm {
+        width: calc(100% - 32px);
+    }
+}
+
+.logo {
+    margin-inline: auto;
+    width: 309px;
+    height: 76px;
+
+    @mixin media $smd {
+        width: 203px;
+        height: 50px;
+    }
+}
+
+.content {
+    margin-top: 48px;
+    width: 368px;
+    max-width: 100%;
+
+    @mixin media $smd {
+        margin-top: 32px;
+    }
+}
