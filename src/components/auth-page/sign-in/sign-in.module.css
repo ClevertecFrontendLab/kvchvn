@@ -1,0 +1,29 @@
+.form {
+    margin-top: 24px;
+    margin-bottom: 110px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    & .item {
+        margin-bottom: 32px;
+    }
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.submit-box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    & button {
+        @mixin media $sm {
+            font-size: 14px;
+        }
+    }
+}
