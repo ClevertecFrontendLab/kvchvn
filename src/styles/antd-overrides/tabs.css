@@ -1,0 +1,30 @@
+div.ant-tabs {
+    & .ant-tabs-nav {
+        margin-bottom: 0;
+    }
+
+    & .ant-tabs-nav-list {
+        width: 100%;
+
+        & .ant-tabs-tab {
+            margin: 0;
+            padding-block: 12.5px;
+            width: 100%;
+            text-align: center;
+
+            & > div:nth-of-type(1) {
+                display: unset;
+                width: 100%;
+            }
+
+            & .ant-tabs-tab-btn {
+                width: 100%;
+                font-size: 16px;
+
+                @mixin media $sm {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
